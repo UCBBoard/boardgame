@@ -5,7 +5,7 @@ import Gamelist from "./components/Gamelist";
 import Friendslist from "./components/Friendslist";
 import Newsfeed from "./components/Newsfeed";
 
-const App = () => 
+const App = () =>
     <Router>
     <div>
       <Nav />
