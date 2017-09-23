@@ -17,11 +17,6 @@ var ArticleSchema = new Schema({
     required: true
   }
 
-  // date: {
-  //   type: Date,
-  //   required: true
-  // }
-
 });
 
 // Create the Article model with the ArticleSchema

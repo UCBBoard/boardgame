@@ -9,14 +9,20 @@ class Newsfeed extends Component {
 	componentDidMount() {
 		Axios.get("/api/news/scrape")
 			.then(res => {
+				this.setState({news: res.data})
 		}).catch(function(error) {
                 console.error(error);
             });
-
 	}
 
 	render () {
-		return <div className="col s3 center card-panel">Newsfeed</div>
+		return (
+			<div className="col s3 center card-panel">
+				<h4>Newsfeed</h4>
+				{this.state.news.map(headline => 
+					<p>{headline.title}</p>)}
+			</div>
+		)
 	}
 }
 

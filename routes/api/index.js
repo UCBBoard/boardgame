@@ -8,10 +8,14 @@ router.get("/news/scrape", function(req, res){
 		let $ = cheerio.load(html);
 		$("p.title").each(function(i, element) {
 			let article = new Article({
-								title: $(element).children("a").text(),
-								link: $(element).children("a").attr("data-href-url"),
-							})
+					title: $(element).children("a").text(),
+					link: $(element).children("a").attr("data-href-url"),
+				})
 			article.save();
+		})
+
+		Article.find().exec(function(error, result){
+			res.json(result.slice(0,5))
 		})
 	})
 })
