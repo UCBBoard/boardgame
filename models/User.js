@@ -3,29 +3,29 @@ var mongoose = require("mongoose");
 // Create Schema class
 var Schema = mongoose.Schema;
 
-// Create article schema
-var ArticleSchema = new Schema({
-  // title is a required string
-	title: {
+// Create User schema
+var UserSchema = new Schema({
+  // name is a required string
+	name: {
 		type: String,
 		required: true,
 		unique: true,
 	},
   // link is a required string
-  link: {
+  email: {
     type: String,
     required: true
-  }
-
-  // date: {
-  //   type: Date,
-  //   required: true
-  // }
+  },
+  // List of Games - may populate from another model
+  gamelist: [
+    type: Schema.Types.ObjectId,
+    ref: "GameList"
+  ]
 
 });
 
 // Create the Article model with the ArticleSchema
-var Article = mongoose.model("Article", ArticleSchema);
+var User = mongoose.model("User", UserSchema);
 
 // Export the model
-module.exports = Article;
+module.exports = UserDB;

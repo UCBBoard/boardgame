@@ -13,7 +13,6 @@ const App = () =>
         <Route exact path="/games" component={Gamelist} />
         <Route exact path="/news" component={Newsfeed} />
         <Route exact path="/friends" component={Friendslist} />
-
       </Switch>
     </div>
   </Router>;
