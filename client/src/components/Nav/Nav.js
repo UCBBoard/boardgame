@@ -1,10 +1,11 @@
 import React from "react";
+import {NavLink} from "react-router-dom";
 import {Navbar, NavItem} from "react-materialize"
 
 const Nav = () =>
 	<Navbar brand='Board Game' right>
-		<NavItem href='get-started.html'>Your Games</NavItem>
-		<NavItem href='components.html'>Add New Game</NavItem>
-		<NavItem href='components.html'>Play game</NavItem>
+		<li><NavLink to="/games">Your Games</NavLink></li>
+		<li><NavLink to="/friends">Friends List</NavLink></li>
+		<li><NavLink to="/news">News Feed</NavLink></li>
 	</Navbar>
 export default Nav;

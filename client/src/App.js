@@ -1,21 +1,21 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Nav from "./components/Nav";
 import Gamelist from "./components/Gamelist";
 import Friendslist from "./components/Friendslist";
 import Newsfeed from "./components/Newsfeed";
 
 const App = () => 
-  <div>
-    <Nav />
+    <Router>
+    <div>
+      <Nav />
+      <Switch>
+        <Route exact path="/games" component={Gamelist} />
+        <Route exact path="/news" component={Newsfeed} />
+        <Route exact path="/friends" component={Friendslist} />
 
-    <div className="container">
-    	<div className="row">
-    		<Gamelist />
-    		<Friendslist />
-    		<Newsfeed />
-    	</div>
+      </Switch>
     </div>
-    
-  </div>;
+  </Router>;
 
 export default App;
