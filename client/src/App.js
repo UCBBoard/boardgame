@@ -6,15 +6,20 @@ import Friendslist from "./components/Friendslist";
 import Newsfeed from "./components/Newsfeed";
 
 const App = () => 
-    <Router>
+  <Router>
+    <Switch>
+      <Route exact path="dash" component={Dashboard} />
+      <Route path="/" component={Splash} />
     <div>
       <Nav />
-      <Switch>
-        <Route exact path="/games" component={Gamelist} />
-        <Route exact path="/news" component={Newsfeed} />
-        <Route exact path="/friends" component={Friendslist} />
-      </Switch>
+      <div className="container">
+        <div className="row">
+          <Gamelist />
+          <Newsfeed />
+        </div>
+      </div>
     </div>
-  </Router>;
+    </Switch>
+  </Router>
 
 export default App;
