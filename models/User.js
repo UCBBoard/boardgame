@@ -1,3 +1,5 @@
+//User Model for storing our users information.
+
 // Require mongoose
 var mongoose = require("mongoose");
 // Create Schema class
@@ -16,7 +18,7 @@ var UserSchema = new Schema({
     type: String,
     required: true
   },
-  // List of Games - may populate from another model
+  // List of Games - populated from GameList
   gamelist: [
     type: Schema.Types.ObjectId,
     ref: "GameList"
@@ -28,4 +30,4 @@ var UserSchema = new Schema({
 var User = mongoose.model("User", UserSchema);
 
 // Export the model
-module.exports = UserDB;
+module.exports = User;
