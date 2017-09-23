@@ -6,7 +6,7 @@ import Friendslist from "./components/Friendslist";
 import Newsfeed from "./components/Newsfeed";
 import Dashboard from "./components/Dashboard";
 
-const App = () => 
+const App = () =>
   <Router>
     <Switch>
       <Route exact path="dash" component={Dashboard} />
