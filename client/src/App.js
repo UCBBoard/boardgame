@@ -4,17 +4,15 @@ import Nav from "./components/Nav";
 import Gamelist from "./components/Gamelist";
 import Friendslist from "./components/Friendslist";
 import Newsfeed from "./components/Newsfeed";
+import Dashboard from "./components/Dashboard";
+import Splash from "./components/Splash";
 
-const App = () => 
-    <Router>
-    <div>
-      <Nav />
-      <Switch>
-        <Route exact path="/games" component={Gamelist} />
-        <Route exact path="/news" component={Newsfeed} />
-        <Route exact path="/friends" component={Friendslist} />
-      </Switch>
-    </div>
-  </Router>;
+const App = () =>
+  <Router>
+    <Switch>
+      <Route exact path="/dash" component={Dashboard} />
+      <Route path="/" component={Splash} />
+    </Switch>
+  </Router>
 
 export default App;
