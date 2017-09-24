@@ -12,13 +12,13 @@ class Splash extends Component {
   render () {
     return(
       <div className="splash-background">
-        <h1>GameVault</h1>
-        <h2>Your digital board game shelf</h2><br/>
-        <h3>Share</h3>
-        <h3>Record</h3>
-        <h3>Something Else...</h3>
-        <ModalForm />
-        <ModalLogin />
+        <h1 className="center-align">GameVault</h1><br/>
+        <h2 className="center-align">Your digital board game shelf</h2><br/>
+        <h3 className="center-align">Share | Store | Record</h3>
+        <div className="center-align">
+          <ModalForm />
+          <ModalLogin />
+        </div>
       </div>
     );
   }
