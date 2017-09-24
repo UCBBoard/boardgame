@@ -8,7 +8,11 @@ class Splash extends Component {
   render () {
     return(
       <div className="splash-background">
-        <p>Displaying</p>
+        <h1>GameVault</h1>
+        <h2>Your digital board game shelf</h2><br/>
+        <h3>Share</h3>
+        <h3>Record</h3>
+        <h3>Something Else...</h3>
         <ModalForm />
       </div>
     );
