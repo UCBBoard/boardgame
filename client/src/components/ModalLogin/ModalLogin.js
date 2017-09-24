@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import "./ModalForm.css";
+import "./ModalLogin.css";
 import Axios from "axios";
 import {Modal, Button} from "react-materialize";
 
-// Modal form called by Splash.
-// Responsible for new user creation.
+// Displayed on Splash page along with ModalForm
+// This modal is for returning users to sign into their accounts
 
-class ModalForm extends Component {
+class ModalLogin extends Component {
   render () {
     return (
       <Modal
-        header="Sign Up for GameVault"
-        trigger={<Button>Sign Up</Button>}
+        header="Sign In To GameVault"
+        trigger={<Button>Sign In</Button>}
         >
         <form>
           <input
@@ -27,18 +27,12 @@ class ModalForm extends Component {
             id="user-input-pw"
             name="user-input-pw"
           /><br/>
-          <input
-            placeholder="Repeat Password"
-            type="password"
-            id="user-input-pw"
-            name="user-input-pw"
-          /><br/>
           <Button waves='light'>Submit</Button>
-
         </form>
       </Modal>
     )
+
   };
 }
 
-export default ModalForm;
+export default ModalLogin;
