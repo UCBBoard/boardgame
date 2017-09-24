@@ -15,12 +15,12 @@ var ArticleSchema = new Schema({
   link: {
     type: String,
     required: true
-  }
+  },
 
-  // date: {
-  //   type: Date,
-  //   required: true
-  // }
+  date: {
+    type: Date,
+    default: Date.now
+  }
 
 });
 

@@ -1,3 +1,21 @@
+.h4Newsfeed {
+  background: #587a8c;
+  color: white;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid black;
+  margin-top: 0;
+  padding: 10px 0;
+}
+
+.headlineA {
+  color: #484848;
+  font-style: italic;
+}
+
+.headlineA:hover {
+  text-decoration: underline;
+}
+
 .list-overflow-container {
   max-height: 545px;
   border: 1px #DDDDDD solid;
@@ -30,4 +48,16 @@
 
 .list-overflow-container li:last-child {
   border-bottom: none;
+}
+
+.newsfeedBox {
+  border: 1px solid #b9ced9;
+  border-radius: 10px;
+  height: 500px;
+  padding: 0 !important;
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.23);
+}
+
+.newsfeedHeadline {
+  padding: 0 20px;
 }
