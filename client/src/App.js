@@ -10,7 +10,7 @@ import Splash from "./components/Splash";
 const App = () =>
   <Router>
     <Switch>
-      <Route exact path="dash" component={Dashboard} />
+      <Route exact path="/dash" component={Dashboard} />
       <Route path="/" component={Splash} />
     </Switch>
   </Router>
