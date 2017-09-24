@@ -17,10 +17,14 @@ class Newsfeed extends Component {
 
 	render () {
 		return (
-			<div className="col s3 center card-panel">
-				<h4>Newsfeed</h4>
+			<div className="col s3 center card-panel newsfeedBox">
+				<h4 className="h4Newsfeed">Newsfeed</h4>
 				{this.state.news.map(headline => 
-					<p>{headline.title}</p>)}
+					<div>
+						<p className="newsfeedHeadline"><a className="headlineA" href={headline.link}>{headline.title}</a></p>
+						<hr />
+					</div>
+					)}
 			</div>
 		)
 	}
