@@ -19,10 +19,10 @@ var UserSchema = new Schema({
     required: true
   },
   // List of Games - populated from GameList
-  gamelist: [
+  gamelist: [{
     type: Schema.Types.ObjectId,
-    ref: "GameList"
-  ]
+    ref: "Games"
+  }]
 
 });
 

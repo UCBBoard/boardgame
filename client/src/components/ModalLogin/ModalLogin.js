@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import "./ModalLogin.css";
-import Axios from "axios";
+// import Axios from "axios";
 import {Modal, Button} from "react-materialize";
 
 // Displayed on Splash page along with ModalForm
@@ -8,25 +8,7 @@ import {Modal, Button} from "react-materialize";
 
 class ModalLogin extends Component {
 
-  state = {
-    UID : ""
-  }
-
-  tempLogIn = (event) => {
-    event.preventDefault();
-    console.log("loggin in");
-    const userName = document.getElementById("user-input-name").val();
-    console.log(userName);
-    this.setState({UID: userName});
-  }
-
-
-  // dashRedirect = (arg) => {
-  //   console.log("redirecting");
-  //   return Axios.get('/dash/' + arg);
-  // }
-
-  render (props) {
+  render () {
     return (
       <Modal
         header="Sign In To GameVault"
@@ -46,7 +28,7 @@ class ModalLogin extends Component {
             id="user-input-pw"
             name="user-input-pw"
           /><br/>
-          <Button waves='light' onClick={(event) => {this.tempLogIn}}>Submit</Button>
+          <Button waves='light' onClick={}>Submit</Button>
         </form>
       </Modal>
     )

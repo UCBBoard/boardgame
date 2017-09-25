@@ -6,13 +6,14 @@ class Newsfeed extends Component {
 	state = {
 		news: []
 	}
+
 	componentDidMount() {
 		Axios.get("/api/news/scrape")
 			.then(res => {
 				this.setState({news: res.data})
 		}).catch(function(error) {
-                console.error(error);
-            });
+				console.error(error);
+		});
 	}
 
 	render () {
