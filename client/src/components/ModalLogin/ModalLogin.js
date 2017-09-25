@@ -7,11 +7,30 @@ import {Modal, Button} from "react-materialize";
 // This modal is for returning users to sign into their accounts
 
 class ModalLogin extends Component {
-  render () {
+
+  state = {
+    UID : ""
+  }
+
+  tempLogIn = (event) => {
+    event.preventDefault();
+    console.log("loggin in");
+    const userName = document.getElementById("user-input-name").val();
+    console.log(userName);
+    this.setState({UID: userName});
+  }
+
+
+  // dashRedirect = (arg) => {
+  //   console.log("redirecting");
+  //   return Axios.get('/dash/' + arg);
+  // }
+
+  render (props) {
     return (
       <Modal
         header="Sign In To GameVault"
-        trigger={<Button>Sign In</Button>}
+        trigger={<Button className="modal-btn">Sign In</Button>}
         >
         <form>
           <input
@@ -27,7 +46,7 @@ class ModalLogin extends Component {
             id="user-input-pw"
             name="user-input-pw"
           /><br/>
-          <Button waves='light'>Submit</Button>
+          <Button waves='light' onClick={(event) => {this.tempLogIn}}>Submit</Button>
         </form>
       </Modal>
     )

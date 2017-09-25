@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import "./Dashboard.css";
-import Axios from "axios";
+// import Axios from "axios";
 import Gamelist from "../Gamelist";
-import Friendslist from "../Friendslist";
+// import Friendslist from "../Friendslist";
 import Newsfeed from "../Newsfeed";
 import Nav from "../Nav";
 
