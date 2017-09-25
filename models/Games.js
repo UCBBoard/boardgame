@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const GameList = new Schema({
+const GameSchema = new Schema({
   title: {
    type: String,
    required: true
@@ -17,9 +17,13 @@ const GameList = new Schema({
   },
   playtime: {
     type: String
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
   }
 });
 
-const GameList = mongoose.model("GameList", GameListSchema);
+const Game = mongoose.model("Game", GameSchema);
 
-module.exports = GameList;
+module.exports = Game;
