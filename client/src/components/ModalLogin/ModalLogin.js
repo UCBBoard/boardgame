@@ -28,7 +28,7 @@ class ModalLogin extends Component {
             id="user-input-pw"
             name="user-input-pw"
           /><br/>
-          <Button waves='light' onClick={}>Submit</Button>
+          <Button waves='light'>Submit</Button>
         </form>
       </Modal>
     )

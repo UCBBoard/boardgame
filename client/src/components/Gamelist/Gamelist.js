@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import "./Gamelist.css";
 import Axios from "axios";
 
@@ -8,11 +8,13 @@ class Gamelist extends Component {
   }
 
   compondedDidMount() {
-    Axios.get("api/games/" + )
+    // Axios.get("api/games/" + )
   }
 
   render () {
-    <div className="col s9 center card-panel">Gamelist</div>
+    return (
+      <div className="col s9 center card-panel">Gamelist</div>
+    )
   }
 }
 
