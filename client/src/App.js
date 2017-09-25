@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import firebase from './firebase.js'; 
 import Nav from "./components/Nav";
 import Gamelist from "./components/Gamelist";
 import Friendslist from "./components/Friendslist";
