@@ -11,6 +11,5 @@ firebase.initializeApp(config);
 
 export const provider = new firebase.auth.GoogleAuthProvider();
 export const auth = firebase.auth();
-export const storageKey = 'KEY_FOR_LOCAL_STORAGE';
 
 export default firebase;

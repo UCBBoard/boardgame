@@ -5,31 +5,32 @@ import firebase from "firebase"
 
 class GoogleLogin extends Component {
 	componentDidMount(){
-
 		firebase.auth().onAuthStateChanged(function(user) {
-			if (user) {
-			console.log("logged in as " + user.displayName + ' ' + user.uid);
-    	} else {
-    	console.log("not logged in");
-    	}
-  	});
+	    if (user) {
+	    	console.log(firebase.auth().currentUser.uid)
+	    	localStorage.setItem("currentUser", firebase.auth().currentUser.uid)
+	      console.log("logged in as " + user.displayName + ' ' + user.uid);
+	    } else {
+	      console.log("not logged in");
+	    }
+ 		});
 	}
 	userLogin = () => {
-	let provider = new firebase.auth.GoogleAuthProvider();
-	firebase.auth().signInWithPopup(provider).then(function(result) {
+		var provider = new firebase.auth.GoogleAuthProvider();
+		firebase.auth().signInWithPopup(provider).then(function(result) {
   // This gives you a Google Access Token. You can use it to access the Google API.
-  let token = result.credential.accessToken;
+  var token = result.credential.accessToken;
   // The signed-in user info.
-  let user = result.user;
+  var user = result.user;
   // ...
 }).catch(function(error) {
   // Handle Errors here.
-  let errorCode = error.code;
-  let errorMessage = error.message;
+  var errorCode = error.code;
+  var errorMessage = error.message;
   // The email of the user's account used.
-  let email = error.email;
+  var email = error.email;
   // The firebase.auth.AuthCredential type that was used.
-  let credential = error.credential;
+  var credential = error.credential;
   // ...
 });
 }
