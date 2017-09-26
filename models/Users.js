@@ -18,6 +18,11 @@ var UserSchema = new Schema({
     type: String,
     required: true
   },
+  // Firebase uid
+  firebaseUid: {
+    type: String,
+    required: true
+  },
   // List of Games - populated from GameList
   gamelist: [{
     type: Schema.Types.ObjectId,

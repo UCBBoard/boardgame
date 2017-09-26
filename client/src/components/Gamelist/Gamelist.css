@@ -31,3 +31,10 @@
 .list-overflow-container li:last-child {
   border-bottom: none;
 }
+
+#add-games-btn {
+  position: fixed;
+  float: right;
+  margin-top: 76vh;
+  margin-left: 50vh;
+}
