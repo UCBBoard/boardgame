@@ -4,6 +4,7 @@ const Game = require("../../models/Games.js");
 const User = require("../../models/Users.js")
 const request = require("request");
 const cheerio = require("cheerio");
+const Nightmare = require("nightmare")
 
 
 // Newsfeed scraper - searches top links in r/boardgames for the users.
@@ -32,22 +33,41 @@ router.get("/news/scrape", function(req, res){
 
 // For scraping from BGG to get boardgame info
 router.get("/games/:name", function(req, res){
-	request("https://boardgamegeek.com/geeksearch.php?action=search&objecttype=boardgame&B1=Go&q=" + req.params.name, function(error, response, html) {
-		let $ = cheerio.load(html);
-		$("#results_objectname1").each(function(i, element) {
-			let link = "https://boardgamegeek.com" + $(element).children("a").attr("href");
-			request(link, function(error1, response1, html1) {
-				let $1 = cheerio.load(html1);
-				$1(".game-header-body").each(function(i1, element1){
-					// let result = {
-					// 	name: element1.children(".game-header-title-container").children(".game-header-title").children(".game-header-title-info").children("h1").text()
-					// }
-					res.json("element1")
-				})
-			})
+	let nightmare = Nightmare ({ show: false });
+	nightmare
+		.goto ("https://boardgamegeek.com/geeksearch.php?action=search&objecttype=boardgame&B1=Go&q=" + req.params.name)
+		.click('div#results_objectname1 > a:nth-child(1)')
+		.wait(".game-header-body")
+		.evaluate(function(){
+			return {
+				name: document.getElementsByClassName("game-header-title-info")[1].children[0].children[0].innerText.trim(),
+				minPlayers: document.getElementsByClassName("gameplay-item-primary")[0].children[0].children[0].innerText,
+				maxPlayers: document.getElementsByClassName("gameplay-item-primary")[0].children[0].children[1].innerText[1],
+				playtime: document.getElementsByClassName("gameplay-item-primary")[1].children[0].children[0].innerText
+			}
+		})
+		.end()
+		.then(function(returnObj){
+			res.json(returnObj)
+
 		})
 
-	})
+	// request("https://boardgamegeek.com/geeksearch.php?action=search&objecttype=boardgame&B1=Go&q=" + req.params.name, function(error, response, html) {
+	// 	let $ = cheerio.load(html);
+	// 	$("#results_objectname1").each(function(i, element) {
+	// 		let link = "https://boardgamegeek.com" + $(element).children("a").attr("href");
+	// 		request(link, function(error1, response1, html1) {
+	// 			let $1 = cheerio.load(html1);
+	// 			$1(".game-header-body").each(function(i1, element1){
+	// 				// let result = {
+	// 				// 	name: element1.children(".game-header-title-container").children(".game-header-title").children(".game-header-title-info").children("h1").text()
+	// 				// }
+	// 				res.json("element1")
+	// 			})
+	// 		})
+	// 	})
+
+	// })
 })
 
 
