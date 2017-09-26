@@ -71,4 +71,8 @@ router.post("/newgame/:name/:uid", (req, res) => {
 	game.save();
 })
 
+//For saving a new user
+router.post("/user/:uid", (req, res) => {
+	console.log("adding" + req.params.uid)
+})
 module.exports = router;
