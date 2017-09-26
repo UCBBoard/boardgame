@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import "./ModalForm.css";
-import Axios from "axios";
+// import Axios from "axios";
 import {Modal, Button} from "react-materialize";
 
 // Modal form called by Splash.
@@ -11,7 +11,7 @@ class ModalForm extends Component {
     return (
       <Modal
         header="Sign Up for GameVault"
-        trigger={<Button>Sign Up</Button>}
+        trigger={<Button className="modal-btn">Sign Up</Button>}
         >
         <form>
           <input

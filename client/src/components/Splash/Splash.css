@@ -1,8 +1,9 @@
-.btn {
+.modal-btn {
   margin: 77px 30px 5px 30px;
 }
 
 .splash-background {
+  font-family: "above";
   color: white;
   margin-top: -35px;
   width: 100%;
@@ -12,8 +13,9 @@
 }
 
 h1 {
+  padding-top: 50px;
   text-decoration: underline;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 
 h2 {
@@ -22,4 +24,9 @@ h2 {
 
 h3 {
   font-size: 3em;
+}
+
+@font-face {
+    font-family: above;
+    src: url("above.ttf");
 }
