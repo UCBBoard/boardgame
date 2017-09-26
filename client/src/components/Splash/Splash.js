@@ -3,6 +3,7 @@ import "./Splash.css";
 // import Axios from "axios";
 import ModalForm from "../ModalForm";
 import ModalLogin from "../ModalLogin";
+import GoogleLogin from "../GoogleLogin";
 
 // First page visitors encounter. Splash gives users the option to
 // log in or sign up, available via the Modalform and ModalLogin components.
@@ -18,6 +19,7 @@ class Splash extends Component {
         <div className="center-align">
           <ModalForm />
           <ModalLogin />
+          <GoogleLogin />
         </div>
       </div>
     );
