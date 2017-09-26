@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import "./Splash.css";
-import Axios from "axios";
+// import Axios from "axios";
 import ModalForm from "../ModalForm";
 import ModalLogin from "../ModalLogin";
 import GoogleLogin from "../GoogleLogin";

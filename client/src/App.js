@@ -6,12 +6,12 @@ import Nav from "./components/Nav";
 import Gamelist from "./components/Gamelist";
 import Friendslist from "./components/Friendslist";
 import Newsfeed from "./components/Newsfeed";
+// import Nav from "./components/Nav";
+// import Gamelist from "./components/Gamelist";
+// import Friendslist from "./components/Friendslist";
+// import Newsfeed from "./components/Newsfeed";
 import Dashboard from "./components/Dashboard";
 import Splash from "./components/Splash";
-const localToken = localStorage.getItem('userId')
-
-
-
 
 class App  extends Component {
 
