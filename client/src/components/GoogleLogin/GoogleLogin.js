@@ -4,6 +4,7 @@ import {Button} from "react-materialize";
 import firebase from "firebase"
 
 class GoogleLogin extends Component {
+
 	componentDidMount(){
 		firebase.auth().onAuthStateChanged(function(user) {
 	    if (user) {

@@ -23,9 +23,9 @@ class App  extends Component {
 	userLogin = () => {
 		let currentUser = localStorage.getItem("currentUser")
 		if(currentUser){
-			this.setState({currentUser:currentUser})
+			return this.setState({currentUser:currentUser})
 		} else {
-			this.setState({currentUser:''})
+			return this.setState({currentUser:''})
 		}
 	}
 	componentDidMount(){
