@@ -10,7 +10,7 @@ class GoogleLogin extends Component {
 		firebase.auth().onAuthStateChanged(function(user) {
 	    if (user) {
 	    	console.log(firebase.auth().currentUser.uid)
-	    	localStorage.setItem("currentUser", firebase.auth().currentUser.uid)
+	    	let uid = firebase.auth().currentUser.uid
 	      console.log("logged in as " + user.displayName + ' ' + user.uid);
 	    } else {
 	      console.log("not logged in");

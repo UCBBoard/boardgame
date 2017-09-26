@@ -71,4 +71,7 @@ router.post("/newgame/:name/:uid", (req, res) => {
 	game.save();
 })
 
+
+
+
 module.exports = router;
