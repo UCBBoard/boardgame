@@ -20,10 +20,12 @@ class GoogleLogin extends Component {
 
 render(){
 	return(
+		<div>
 		<Button waves='light'
 		onClick={googleLogin}>
 		Login With Google
 		</Button>
+		</div>
 		)
 };
 }

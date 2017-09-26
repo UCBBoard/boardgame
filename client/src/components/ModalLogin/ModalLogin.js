@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import "./ModalLogin.css";
 // import Axios from "axios";
 import {Modal, Button} from "react-materialize";
+import GoogleLogin from "../GoogleLogin";
 
 // Displayed on Splash page along with ModalForm
 // This modal is for returning users to sign into their accounts
@@ -30,6 +31,7 @@ class ModalLogin extends Component {
           /><br/>
           <Button waves='light'>Submit</Button>
         </form>
+        <GoogleLogin />
       </Modal>
     )
 
