@@ -1,5 +1,5 @@
 
-.googleLoginBtn {
+.submitButton  {
 	background: white;
 	color: black;
 	width: 250px;
@@ -10,12 +10,7 @@
     font-size: 20px;
 }
 
-.googleLoginBtn:hover {
+.submitButton:hover, .submitButton:active {
 	background: #1e222e;
 	color: white;
-}
-
-.gSignIn{
-	width:40px;
-	height:50px;
 }

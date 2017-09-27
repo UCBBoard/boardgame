@@ -1,0 +1,14 @@
+.modal {
+	background-image: URL("../../assets/img/cheap_diagonal_fabric.jpg");
+	color: white;
+	border-radius: 15px;
+}
+
+.modal .modal-footer {
+	background-image: URL("../../assets/img/cheap_diagonal_fabric.jpg");
+	color: white;
+}
+
+.modal-close {
+	color: white;
+}

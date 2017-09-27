@@ -29,7 +29,7 @@ class GoogleLogin extends Component {
 	render(){
 		return(
 			<div>
-				<Button waves='light'
+				<Button className="googleLoginBtn" waves='light'
 				onClick={googleLogin}>
 					Login With Google
 				</Button>
