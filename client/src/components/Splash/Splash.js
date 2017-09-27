@@ -12,9 +12,12 @@ class Splash extends Component {
   render () {
     return(
       <div className="splash-background">
-        <h1 className="center-align">GameVault</h1><br/>
-        <h2 className="center-align">Your digital board game shelf</h2><br/>
-        <h3 className="center-align">Share | Store | Record</h3>
+        <div className="splashHolder">
+          <h1 className="center-align">GameVault</h1><br/>
+          <h2 className="center-align">Your digital board game shelf</h2><br/>
+          <h3 className="center-align">Share | Store | Record</h3>
+        </div>
+        
         <div className="center-align">
           <ModalForm />
           <ModalLogin />
