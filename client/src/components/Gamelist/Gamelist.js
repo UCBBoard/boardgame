@@ -13,11 +13,6 @@ class Gamelist extends Component {
   // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
   componentDidMount() {
     let myId = localStorage.getItem("myId");
-    this.setState({
-      firebaseUid: myId
-    })
-
-    //Maybe put this in an onStateChange after componentDidMount changes states/re-renders.
     console.log("Searching for user games");
     Axios.get("/api/games/" + myId + "/mylist")
       .then(response => {
@@ -29,17 +24,17 @@ class Gamelist extends Component {
   }
 
   //Just for testing
-  checkDB() {
-    let myId = localStorage.getItem("myId");
-    console.log("here we go with this id:" + myId);
-    Axios.get("/api/user/" + myId)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  }
+  // checkDB() {
+  //   let myId = localStorage.getItem("myId");
+  //   console.log("here we go with this id:" + myId);
+  //   Axios.get("/api/user/" + myId)
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
+  // }
 
   handleNewGameSubmit = () => {
     console.log("trying to submit new game");
@@ -49,11 +44,10 @@ class Gamelist extends Component {
     console.log(postRoute);
     Axios.post(postRoute, {
       title: gameName,
-      user: "xyz"
+      users: userId,
     })
-      .then(
-        // console.log()
-      )
+    .then((response) => { console.log(response) })
+    .catch((error) => { console.log(error) })
   }
 
   render () {

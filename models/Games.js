@@ -18,10 +18,11 @@ const GameSchema = new Schema({
   playtime: {
     type: String
   },
-  user: {
+  users: [{
     type: Schema.Types.ObjectId,
-    ref: "User"
-  }
+    ref: "User",
+    required: true
+  }]
 });
 
 const Game = mongoose.model("Game", GameSchema);

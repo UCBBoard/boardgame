@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import "./Dashboard.css";
-// import Axios from "axios";
+import Axios from "axios";
 import Gamelist from "../Gamelist";
+import firebase from "firebase";
 // import Friendslist from "../Friendslist";
 import Newsfeed from "../Newsfeed";
 import Nav from "../Nav";
@@ -10,6 +11,19 @@ import Nav from "../Nav";
 class Dashboard extends Component {
 
 	state = {}
+
+	componentDidMount() {
+		firebase.auth().onAuthStateChanged((user) => {
+			let uid = firebase.auth().currentUser.uid;
+			Axios.post("/api/user/" + uid)
+				.then((response) => {
+    			console.log("searching database for user:" + response);
+    	})
+      .catch((error) => {
+      	console.log(error);
+    })
+		})
+	};
 
 	render () {
 		return (

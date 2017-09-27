@@ -15,8 +15,7 @@ class GoogleLogin extends Component {
 	componentDidMount(){
 		firebase.auth().onAuthStateChanged((user) => {
 	    if (user) {
-					// console.log(firebase.auth().currentUser.uid)
-					let uid = firebase.auth().currentUser.uid
+					let uid = firebase.auth().currentUser.uid;
 					console.log("logged in as " + user.displayName + ' ' + user.uid);
 					this.setState({
 						uid: user.uid

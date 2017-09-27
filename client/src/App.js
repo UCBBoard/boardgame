@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Route, BrowserRouter, Link, Redirect, Switch } from 'react-router-dom'
-import firebase from "firebase";
-import Nav from "./components/Nav";
-import Gamelist from "./components/Gamelist";
-import Friendslist from "./components/Friendslist";
-import Newsfeed from "./components/Newsfeed";
-import { logout } from './helpers/auth.js';
+// import firebase from "firebase";
+// import Nav from "./components/Nav";
+// import Gamelist from "./components/Gamelist";
+// import Friendslist from "./components/Friendslist";
+// import Newsfeed from "./components/Newsfeed";
+// import { logout } from './helpers/auth.js';
 import { firebaseAuth } from './config/constants';
 // import Nav from "./components/Nav";
 // import Gamelist from "./components/Gamelist";
