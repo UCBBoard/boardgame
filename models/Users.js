@@ -7,25 +7,23 @@ var Schema = mongoose.Schema;
 
 // Create User schema
 var UserSchema = new Schema({
+  _id: {
+    type: String
+  },
   // name is a required string
 	name: {
 		type: String,
-		required: true,
-		unique: true,
+		// required: true,
+		// unique: true,
 	},
   // link is a required string
   email: {
     type: String,
-    required: true
-  },
-  // Firebase uid
-  firebaseUid: {
-    type: String,
-    required: true
+    // required: true
   },
   // List of Games - populated from GameList
-  gamelist: [{
-    type: Schema.Types.ObjectId,
+  mygameslist: [{
+    type: Schema.Types.String,
     ref: "Games"
   }]
 

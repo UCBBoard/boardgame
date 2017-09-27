@@ -4,7 +4,8 @@ const Game = require("../../models/Games.js");
 const User = require("../../models/Users.js")
 const request = require("request");
 const cheerio = require("cheerio");
-const Nightmare = require("nightmare")
+const Nightmare = require("nightmare");
+const mongoose = require("mongoose");
 
 
 // Newsfeed scraper - searches top links in r/boardgames for the users.
@@ -79,29 +80,35 @@ router.get("/games/:name", function(req, res){
 // This is the route that the Gamelist Module calls when it mounts - searches the database, finds the user (passed in through params), and returns a populated list of games.
 router.get("/games/:uid/mylist", (req, res) => {
 	console.log("Getting user gamelist.");
-	User.findOne({firebaseUid: req.params.uid}).exec((error, result) => {
+	User.findOne({ _id : req.params.uid}).exec((error, result) => {
 		res.json(result);
 	})
 })
 
 // For posting a new game linked to a users account. Called from the submit button on the add game modal in Dashboard component.
 router.post("/newgame/:name/:uid", (req, res) => {
-	console.log("Postin");
 	let gameName = req.params.name;
 	let userID = req.params.uid;
-	let game = new Game ({
-		title: gameName,
-		user: userID
-	});
-	game.save();
+	console.log("Postin a god damned game, " + gameName);
+	//Add the game to the Users mygameslist.
+	User.findOneAndUpdate({ _id : userID }, {$push:  {mygameslist : gameName}}).exec((error, result) => {
+		console.log(error);
+		Game.findOneAndUpdate({ title : gameName }, {$push: { users : userID}}).exec((error, result) => {
+			console.log(error);
+			res.json(result);
+		})
+	})
+	//Add the user to the games user thing. Depending on which we want to use.
+
 })
 
 // Route for checking user status and getting mongoUID.
-router.get("/user/:uid", (req, res) => {
-	console.log("querying DB for ID. Userid is " + req.params.uid);
-	User.findOne({firebaseUid: req.params.uid}).exec((error, result) => {
-		if(!error) return result;
-		else return error;
+router.post("/user/:uid", (req, res) => {
+	console.log("Trying to create new account.");
+	let user = new User({ _id : req.params.uid })
+	user.save((err) => {
+		if (err) return console.log(err)
+		else res.json(res);
 	})
 })
 
