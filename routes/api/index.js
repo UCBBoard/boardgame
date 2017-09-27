@@ -30,7 +30,6 @@ router.get("/news/scrape", function(req, res){
 	})
 })
 
-
 // For scraping from BGG to get boardgame info
 router.get("/games/:name", function(req, res){
 	let nightmare = Nightmare ({ show: false });
@@ -70,11 +69,10 @@ router.get("/games/:name", function(req, res){
 	// })
 })
 
-
 // This is the route that the Gamelist Module calls when it mounts - searches the database, finds the user (passed in through params), and returns a populated list of games.
 router.get("/games/:uid/mylist", (req, res) => {
 	console.log("Getting user gamelist.");
-	User.findOne({_id: req.params.uid}).sort({title: 1}).exec((error, result) => {
+	User.findOne({firebaseUid: req.params.uid}).exec((error, result) => {
 		res.json(result);
 	})
 })
@@ -91,7 +89,13 @@ router.post("/newgame/:name/:uid", (req, res) => {
 	game.save();
 })
 
-
-
+// Route for checking user status and getting mongoUID.
+router.get("/user/:uid", (req, res) => {
+	console.log("querying DB for ID. Userid is " + req.params.uid);
+	User.findOne({firebaseUid: req.params.uid}).exec((error, result) => {
+		if(!error) return result;
+		else return error;
+	})
+})
 
 module.exports = router;
