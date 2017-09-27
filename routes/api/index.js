@@ -38,12 +38,19 @@ router.get("/games/:name", function(req, res){
 		.click('div#results_objectname1 > a:nth-child(1)')
 		.wait(".game-header-body")
 		.evaluate(function(){
-			return {
-				name: document.getElementsByClassName("game-header-title-info")[1].children[0].children[0].innerText.trim(),
-				minPlayers: document.getElementsByClassName("gameplay-item-primary")[0].children[0].children[0].innerText,
-				maxPlayers: document.getElementsByClassName("gameplay-item-primary")[0].children[0].children[1].innerText[1],
-				playtime: document.getElementsByClassName("gameplay-item-primary")[1].children[0].children[0].innerText
+			let obj = {}
+			obj.name = document.getElementsByClassName("game-header-title-info")[1].children[0].children[0].innerText.trim();
+			obj.minPlayers = document.getElementsByClassName("gameplay-item-primary")[0].children[0].children[0].innerText;
+			obj.playtime = document.getElementsByClassName("gameplay-item-primary")[1].children[0].children[0].innerText;
+			if (document.getElementsByClassName("gameplay-item-primary")[0].children[0].children[1]){
+				obj.maxPlayers = document.getElementsByClassName("gameplay-item-primary")[0].children[0].children[1].innerText[1]
 			}
+
+			else {
+				obj.maxPlayers = document.getElementsByClassName("gameplay-item-primary")[0].children[0].children[0].innerText;
+			}
+
+			return obj;
 		})
 		.end()
 		.then(function(returnObj){
