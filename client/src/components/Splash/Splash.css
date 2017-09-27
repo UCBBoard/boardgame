@@ -26,18 +26,64 @@ h3 {
   font-size: 3em;
 }
 
+.logoH1 {
+    font-family: 'Wendy One', sans-serif;
+    text-decoration: none;
+    padding: 0;
+    margin: -15px 0 0;
+    font-size: 80px;
+    text-shadow: 2px 5px 8px rgba(0, 0, 0, 0.56);
+}
+
+.siteLogo {
+  width: 200px;
+  margin-top: 40px;
+  animation: float 6s ease-in-out infinite;
+}
+
 .splashHolder {
-    background: white;
+    background-image: URL("cheap_diagonal_fabric.jpg");
     width: 500px;
-    color: black;
-    margin: 15px auto 0;
+    color: white;
+    width: 40%;
+    height: 100%;
     padding: 10px;
-    border-radius: 15px;
-    border: 3px solid rgba(115, 115, 115, 0.28);
+    -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.39);
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.39);
+    text-align: center;
+}
+
+.splashh4 {
+  font-size: 25px;
+  margin-top: -10px;
+}
+
+.splashHs {
+  font-family: 'Fjalla One', sans-serif;
+  font-style: italic;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.56);
+}
+
+.splashLowerH {
+  margin-top: 300px;
 }
 
 @font-face {
     font-family: above;
     src: url("above.ttf");
+}
+
+@keyframes float {
+  0% {
+    /*box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);*/
+    transform: translatey(0px);
+  }
+  50% {
+    /*box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);*/
+    transform: translatey(-10px);
+  }
+  100% {
+    /*box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);*/
+    transform: translatey(0px);
+  }
 }
