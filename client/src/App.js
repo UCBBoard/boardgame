@@ -12,7 +12,7 @@ import { firebaseAuth } from './config/constants';
 // import Friendslist from "./components/Friendslist";
 // import Newsfeed from "./components/Newsfeed";
 import Dashboard from "./components/Dashboard";
-import Splash from "./components/Splash";
+import Splash from "./components/SplashTemp";
 
 class App extends Component {
 
