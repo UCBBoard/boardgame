@@ -86,13 +86,13 @@ router.post("/newgame/:name/:uid", (req, res) => {
 	//Add the game to the Users mygameslist.
 	User.findOneAndUpdate({ _id : userID }, {$push:  {mygameslist : gameName}}).exec((error, result) => {
 		console.log(error);
-		res.json(result);
+		Game.findOneAndUpdate({ title : gameName }, {$push: { users : userID}}).exec((error, result) => {
+			console.log(error);
+			res.json(result);
+		})
 	})
 	//Add the user to the games user thing. Depending on which we want to use.
-	// Game.findOneAndUpdate({ title : gameName }, { users : userID}).exec((error, result) => {
-	// 	console.log(error);
-	// 	res.json(result);
-	// })
+
 })
 
 // Route for checking user status and getting mongoUID.
