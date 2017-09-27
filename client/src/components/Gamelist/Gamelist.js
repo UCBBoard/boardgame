@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import "./Gamelist.css";
 import Axios from "axios";
+import ListItem from "../ListItem"
 // import {firebase} from "firebase";
 import {Modal, Button} from "react-materialize";
 
 class Gamelist extends Component {
   state = {
     myGames: [],
-    firebaseUid: ""
   }
 
   // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
@@ -16,25 +16,13 @@ class Gamelist extends Component {
     console.log("Searching for user games");
     Axios.get("/api/games/" + myId + "/mylist")
       .then(response => {
-        console.log(response);
+        console.log(response.data.mygameslist);
+        this.setState({myGames : response.data.mygameslist});
       })
       .catch(error => {
         console.log(error)
       })
   }
-
-  //Just for testing
-  // checkDB() {
-  //   let myId = localStorage.getItem("myId");
-  //   console.log("here we go with this id:" + myId);
-  //   Axios.get("/api/user/" + myId)
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     })
-  // }
 
   handleNewGameSubmit = () => {
     console.log("trying to submit new game");
@@ -53,6 +41,13 @@ class Gamelist extends Component {
   render () {
     return (
       <div className="col s9 center card-panel">Gamelist
+        <ul>
+          {this.state.myGames.map((gameName, i) => {
+              console.log("making a list item");
+              return <ListItem game={gameName} key={i} iteration={i}/>
+            })
+          }
+        </ul>
         <Modal
           header="Add a game to your collection:"
           trigger={<Button floating large className='red' id="add-games-btn" waves='light' icon='add' />}
@@ -63,7 +58,6 @@ class Gamelist extends Component {
           />
           <Button waves='light' onClick={() => {this.handleNewGameSubmit()}}>Submit</Button>
         </Modal>
-        <Button waves='light' onClick={() => {this.checkDB()}}>checkDB</Button>
       </div>
 
     )
