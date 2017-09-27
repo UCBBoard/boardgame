@@ -13,15 +13,19 @@ class Splash extends Component {
     return(
       <div className="splash-background">
         <div className="splashHolder">
-          <h1 className="center-align">GameVault</h1><br/>
-          <h2 className="center-align">Your digital board game shelf</h2><br/>
-          <h3 className="center-align">Share | Store | Record</h3>
+          <img src="logo.png" className="siteLogo"/>
+          <h1 className="center-align logoH1">GameVault</h1><br/>
+          <h4 className="center-align splashHs splashh4">Your digital board game shelf</h4><br/>
+          <div className="center-align">
+            <ModalForm />
+            <ModalLogin />
+          </div>
+          <h2 className="center-align splashHs splashLowerH">Share | Store | Record</h2>
+
+           
         </div>
         
-        <div className="center-align">
-          <ModalForm />
-          <ModalLogin />
-        </div>
+       
       </div>
     );
   }
