@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import "./Splash.css";
 // import Axios from "axios";
-import ModalForm from "../ModalForm";
-import ModalLogin from "../ModalLogin";
+import ModalForm from "../ModalFormTemp";
+import Modals from "../Modals"
+import ModalLogin from "../ModalLoginTemp";
 import logo from "../../assets/img/logo.png"
 
 // First page visitors encounter. Splash gives users the option to
@@ -18,8 +19,13 @@ class Splash extends Component {
           <h1 className="center-align logoH1">GameVault</h1><br/>
           <h4 className="center-align splashHs splashh4">Your digital board game shelf</h4><br/>
           <div className="center-align">
-            <ModalForm />
-            <ModalLogin />
+            <Modals buttonText="Sign Up" header="Sign Up for GameVault">
+              <ModalForm />
+            </Modals>
+            
+            <Modals buttonText="Sign In" header="Sign In to GameVault">
+              <ModalLogin />
+            </Modals>
           </div>
           <h2 className="center-align splashHs splashLowerH">Share | Store | Record</h2>
         </div>
