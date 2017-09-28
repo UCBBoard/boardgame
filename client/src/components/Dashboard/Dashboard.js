@@ -3,7 +3,7 @@ import "./Dashboard.css";
 import Axios from "axios";
 import Gamelist from "../Gamelist";
 import firebase from "firebase";
-// import Friendslist from "../Friendslist";
+import Friendslist from "../Friendslist";
 import Newsfeed from "../Newsfeed";
 import HoverButtons from "../HoverButtons";
 import Background from "../Background"
@@ -33,6 +33,7 @@ class Dashboard extends Component {
 			  </div>
 		      <div className="container dashContainer">
 		        <div className="row dashRow">
+		          <Friendslist />
 		          <Gamelist />
 		          <Newsfeed />
 		        </div>

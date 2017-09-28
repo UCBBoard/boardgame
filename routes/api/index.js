@@ -115,4 +115,19 @@ router.post("/user/:uid", (req, res) => {
 	})
 })
 
+
+//Route for adding a user as a friend
+router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
+	let userID = req.params.uid;
+	let secondUserID = req.params.seconduid
+	console.log(`We be addin friends ${userID} ${secondUserID}`);
+	User.findOneAndUpdate({ _id: userID}, {$push: {friends: secondUserID}}).exec((error, result) => {
+		console.log(error);
+		User.findOneAndUpdate({ _id: secondUserID}, {$push: {friends: userID}}).exec((error, result) => {
+			console.log(error);
+			res.json(result);
+		})
+	})
+})
+
 module.exports = router;

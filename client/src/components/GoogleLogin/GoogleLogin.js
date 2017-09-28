@@ -7,11 +7,6 @@ import {googleLogin} from "../../helpers/auth.js";
 // import mongoose from "mongoose";
 
 class GoogleLogin extends Component {
-
-	state = {
-		uid: ""
-	}
-
 	componentDidMount(){
 		firebase.auth().onAuthStateChanged((user) => {
 	    if (user) {

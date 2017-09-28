@@ -25,6 +25,11 @@ var UserSchema = new Schema({
   mygameslist: [{
     type: Schema.Types.String,
     ref: "Games"
+  }],
+  // List of friends IDS
+  friends: [{
+    type: String,
+    ref: "User"
   }]
 
 });
