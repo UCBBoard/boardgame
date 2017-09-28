@@ -1,3 +1,14 @@
 .gamelist-item {
   color: black;
 }
+
+.list-item-name {
+  /*float: left;*/
+  font-size: 15px;
+  /*display: block;*/
+}
+
+.game-list-icon {
+  float: right;
+  margin-top: 15px;
+}

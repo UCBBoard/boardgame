@@ -39,7 +39,7 @@ class Gamelist extends Component {
       console.log(response);
       this.setState({
         myGames: [...this.state.myGames, gameName]
-      })
+      });
     })
     .catch((error) => { console.log(error) })
   }
