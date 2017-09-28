@@ -35,6 +35,10 @@
 #add-games-btn {
   position: fixed;
   float: right;
-  margin-top: 76vh;
-  margin-left: 50vh;
+  /*margin-top: 76vh;*/
+  /*margin-left: 50vh;*/
+}
+
+h2 {
+  color: black;
 }

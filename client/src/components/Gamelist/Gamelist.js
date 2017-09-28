@@ -26,9 +26,10 @@ class Gamelist extends Component {
 
   handleNewGameSubmit = () => {
     console.log("trying to submit new game");
-    let gameName = document.getElementById("newGame").value;
-    let userId = localStorage.getItem("myId");
-    let postRoute = "/api/newgame/" + gameName + "/" + userId;
+    const gameName = document.getElementById("newGame").value;
+    const userId = localStorage.getItem("myId");
+    Document.getElementById("new-game-modal").close
+    const postRoute = "/api/newgame/" + gameName + "/" + userId;
     console.log(postRoute);
     Axios.post(postRoute, {
       title: gameName,
@@ -40,7 +41,8 @@ class Gamelist extends Component {
 
   render () {
     return (
-      <div className="col s9 center card-panel">Gamelist
+      <div className="col s9 center card-panel">
+        <h2>Gamelist</h2>
         <ul>
           {this.state.myGames.map((gameName, i) => {
               console.log("making a list item");
@@ -50,12 +52,14 @@ class Gamelist extends Component {
         </ul>
         <Modal
           header="Add a game to your collection:"
+          id="new-game-modal"
           trigger={<Button floating large className='red' id="add-games-btn" waves='light' icon='add' />}
         >
           <input
             placeholder="Game Name"
             id="newGame"
           />
+          <br/>
           <Button waves='light' onClick={() => {this.handleNewGameSubmit()}}>Submit</Button>
         </Modal>
       </div>

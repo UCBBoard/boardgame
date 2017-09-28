@@ -6,7 +6,7 @@ import {Modal, Button} from "react-materialize";
 // Modal form called by Splash.
 // Responsible for new user creation.
 
-const Modals = props => 
+const Modals = props =>
       <Modal
         header={props.header}
         trigger={<Button className="modal-btn">{props.buttonText}</Button>}
