@@ -28,14 +28,19 @@ class Gamelist extends Component {
     console.log("trying to submit new game");
     const gameName = document.getElementById("newGame").value;
     const userId = localStorage.getItem("myId");
-    Document.getElementById("new-game-modal").close
     const postRoute = "/api/newgame/" + gameName + "/" + userId;
     console.log(postRoute);
     Axios.post(postRoute, {
       title: gameName,
       users: userId,
     })
-    .then((response) => { console.log(response) })
+    .then((response) => {
+      console.log(">>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<")
+      console.log(response);
+      this.setState({
+        myGames: [...this.state.myGames, gameName]
+      })
+    })
     .catch((error) => { console.log(error) })
   }
 
