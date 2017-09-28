@@ -20,12 +20,14 @@ class Newsfeed extends Component {
 		return (
 			<div className="col s3 center card-panel newsfeedBox">
 				<h4 className="h4Newsfeed">Newsfeed</h4>
+				<div className="headlineBox">
 				{this.state.news.map((headline, i) =>
 					<div key={i}>
 						<p className="newsfeedHeadline"><a className="headlineA" href={headline.link} key>{headline.title}</a></p>
 						<hr />
 					</div>
 					)}
+				</div>
 			</div>
 		)
 	}

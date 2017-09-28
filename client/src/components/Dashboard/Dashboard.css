@@ -6,6 +6,7 @@
   background: #cfcfcf;
   box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4);
   border-radius: 10px;
+  padding: 0 5px;
 }
 
 .list-overflow-container {
