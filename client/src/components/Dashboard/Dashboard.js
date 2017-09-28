@@ -7,6 +7,7 @@ import firebase from "firebase";
 import Newsfeed from "../Newsfeed";
 import HoverButtons from "../HoverButtons";
 import Background from "../Background"
+import logo from "../../assets/img/logo.png"
 
 
 class Dashboard extends Component {
@@ -27,8 +28,11 @@ class Dashboard extends Component {
 	render () {
 		return (
 			 <Background backgroundName="dash-background">
-		      <div className="container">
-		        <div className="row">
+			  <div className="center">
+			  	<img src={logo} className="siteLogoDash" alt="logo" /><h1 className="logoH1Dash">GameVault</h1>
+			  </div>
+		      <div className="container dashContainer">
+		        <div className="row dashRow">
 		          <Gamelist />
 		          <Newsfeed />
 		        </div>

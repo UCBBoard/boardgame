@@ -5,7 +5,8 @@
 }
 
 .dash-background {
-  background-image: URL("../../assets/img/cheap_diagonal_fabric.jpg");
+    background-image: URL("../../assets/img/cheap_diagonal_fabric.jpg");
+/*    background: #9c6a42;*/
 }
 
 .splash-background, .dash-background {

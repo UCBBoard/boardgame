@@ -1,3 +1,13 @@
+.dashContainer {
+  margin-top: 50px;
+}
+
+.dashRow {
+  background: #cfcfcf;
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+
 .list-overflow-container {
   max-height: 545px;
   border: 1px #DDDDDD solid;
@@ -30,4 +40,20 @@
 
 .list-overflow-container li:last-child {
   border-bottom: none;
+}
+
+.logoH1Dash {
+    font-family: 'Wendy One', sans-serif;
+    text-decoration: none;
+    padding: 0;
+    margin: -15px 0 0;
+    font-size: 80px;
+    text-shadow: 2px 5px 8px rgba(0, 0, 0, 0.56);
+    display: inline-block;
+}
+
+.siteLogoDash {
+    width: 100px;
+    margin-top: 40px;
+    vertical-align: bottom;
 }
