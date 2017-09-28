@@ -5,13 +5,13 @@ import Gamelist from "../Gamelist";
 import firebase from "firebase";
 // import Friendslist from "../Friendslist";
 import Newsfeed from "../Newsfeed";
-import Nav from "../Nav";
+import HoverButtons from "../HoverButtons";
+import Background from "../Background"
+import logo from "../../assets/img/logo.png"
 
 
 class Dashboard extends Component {
-
 	state = {}
-
 	componentDidMount() {
 		firebase.auth().onAuthStateChanged((user) => {
 			let uid = firebase.auth().currentUser.uid;
@@ -27,15 +27,18 @@ class Dashboard extends Component {
 
 	render () {
 		return (
-			 <div>
-		      <Nav />
-		      <div className="container">
-		        <div className="row">
+			 <Background backgroundName="dash-background">
+			  <div className="center">
+			  	<img src={logo} className="siteLogoDash" alt="logo" /><h1 className="logoH1Dash">GameVault</h1>
+			  </div>
+		      <div className="container dashContainer">
+		        <div className="row dashRow">
 		          <Gamelist />
 		          <Newsfeed />
 		        </div>
 		      </div>
-		    </div>
+		      <HoverButtons />
+		    </Background>
 		)
 	}
 }

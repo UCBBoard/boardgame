@@ -1,0 +1,19 @@
+
+.splash-background {
+  background-image: URL("../../assets/img/splash-background1.jpg");
+  background-size: cover;
+}
+
+.dash-background {
+    background-image: URL("../../assets/img/cheap_diagonal_fabric.jpg");
+/*    background: #9c6a42;*/
+}
+
+.splash-background, .dash-background {
+  font-family: "above";
+  color: white;
+  width: 100%;
+  height: 100vh;
+
+  position: fixed;
+}

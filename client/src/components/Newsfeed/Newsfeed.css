@@ -1,5 +1,5 @@
 .h4Newsfeed {
-  background: #587a8c;
+  background: #262b3e;
   color: white;
   border-radius: 8px 8px 0 0;
   border-bottom: 1px solid black;
@@ -51,7 +51,6 @@
 }
 
 .newsfeedBox {
-  border: 1px solid #b9ced9;
   border-radius: 10px;
   height: 500px;
   padding: 0 !important;

@@ -3,6 +3,7 @@ import "./Splash.css";
 // import Axios from "axios";
 import ModalForm from "../ModalFormTemp";
 import Modals from "../Modals"
+import Background from "../Background"
 import ModalLogin from "../ModalLoginTemp";
 import logo from "../../assets/img/logo.png"
 
@@ -13,7 +14,7 @@ import logo from "../../assets/img/logo.png"
 class Splash extends Component {
   render () {
     return(
-      <div className="splash-background">
+      <Background backgroundName="splash-background">
         <div className="splashHolder">
           <img src={logo} className="siteLogo" alt="logo" />
           <h1 className="center-align logoH1">GameVault</h1><br/>
@@ -28,10 +29,8 @@ class Splash extends Component {
             </Modals>
           </div>
           <h2 className="center-align splashHs splashLowerH">Share | Store | Record</h2>
-        </div>
-        
-       
-      </div>
+        </div>   
+      </Background >
     );
   }
 
