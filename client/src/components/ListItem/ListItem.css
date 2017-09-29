@@ -8,7 +8,10 @@
   /*display: block;*/
 }
 
-.game-list-icon {
+.material-icons {
+  float: right;
+}
+/*.game-list-icon {
   float: right;
   margin-top: 15px;
-}
+}*/

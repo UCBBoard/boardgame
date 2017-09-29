@@ -7,16 +7,10 @@ const ListItem = props =>
       header={props.game}
       className="gamelist-item"
       id={props.game}
+      icon="delete"
+      iconClassName={props.game}
   >
     <div className="list-item-box">
-      <Icon
-          className="game-list-icon"
-      >delete
-      </Icon>
-      <Icon
-          className="game-list-icon"
-      >keyboard_arrow_down
-      </Icon>
     </div>
   </CollapsibleItem>;
 
