@@ -13,9 +13,9 @@ import { firebaseAuth } from './config/constants';
 // import Newsfeed from "./components/Newsfeed";
 import Dashboard from "./components/Dashboard";
 import Splash from "./components/Splash";
+import LoadingScreen from "./components/LoadingScreen";
 
 class App extends Component {
-
 	state = {
 		authed: false,
 		loading: true,
@@ -42,7 +42,7 @@ class App extends Component {
 	}
 
 	render() {
-		return this.state.loading === true ? <h1>Loading</h1> : (
+		return this.state.loading === true ? <LoadingScreen /> : (
 			<BrowserRouter>
 				<div>
 					{this.state.authed? <Dashboard/> : <Splash/>}

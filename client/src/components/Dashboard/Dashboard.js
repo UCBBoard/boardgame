@@ -3,7 +3,6 @@ import "./Dashboard.css";
 import Axios from "axios";
 import Gamelist from "../Gamelist";
 import firebase from "firebase";
-// import Friendslist from "../Friendslist";
 import Newsfeed from "../Newsfeed";
 import HoverButtons from "../HoverButtons";
 import Background from "../Background"

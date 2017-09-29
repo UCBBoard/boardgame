@@ -7,14 +7,8 @@ import GoogleLogin from "../GoogleLogin";
 // Displayed on Splash page along with ModalForm
 // This modal is for returning users to sign into their accounts
 
-class ModalLogin extends Component {
-
-  render () {
-    return (
-      <Modal
-        header="Sign In To GameVault"
-        trigger={<Button className="modal-btn">Sign In</Button>}
-        >
+const ModalLogin = props =>
+      <div>
         <form>
           <input
             placeholder="Enter your Email"
@@ -29,13 +23,9 @@ class ModalLogin extends Component {
             id="user-input-pw"
             name="user-input-pw"
           /><br/>
-          <Button waves='light'>Submit</Button>
+          <Button waves='light' className="modalButton" modal="close">Submit</Button>
         </form>
         <GoogleLogin />
-      </Modal>
-    )
-
-  };
-}
+    </div>
 
 export default ModalLogin;

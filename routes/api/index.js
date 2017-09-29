@@ -48,6 +48,15 @@ router.get("/games/:name", function(req, res){
 	})
 })
 
+router.get("/games/search/:name", function(req, res){
+	axios.get("https://www.boardgamegeek.com/xmlapi/search?search=" + req.params.name)
+	.then(function(response){
+		parseString(response.data, function (err, result) {
+			res.json(result.boardgames.boardgame.slice(0, 5))
+		});
+	})
+})
+
 // This is the route that the Gamelist Module calls when it mounts - searches the database, finds the user (passed in through params), and returns a populated list of games.
 router.get("/games/:uid/mylist", (req, res) => {
 	console.log("Getting user gamelist.");
@@ -83,6 +92,29 @@ router.post("/user/:uid", (req, res) => {
 		} else {
 			return console.log(error);
 		}
+	})
+})
+
+
+//Route for adding a user as a friend
+router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
+	let userID = req.params.uid;
+	let secondUserID = req.params.seconduid
+	console.log(`We be addin friends ${userID} ${secondUserID}`);
+	User.findOneAndUpdate({ _id: userID}, {$push: {friends: secondUserID} }).exec((error, result) => {
+		console.log(error);
+		User.findOneAndUpdate({ _id: secondUserID}, {$push: {friends: userID} }).exec((error, result) => {
+			console.log(error);
+			res.json(result);
+		})
+	})
+})
+
+//Route for gettting all friends 
+router.get("/user/:uid/friends", (req, res) => {
+	console.log("These are the users friends.");
+	User.findOne({ _id : req.params.uid}).populate("friends").exec((error, result) => {
+		res.json(result);
 	})
 })
 
