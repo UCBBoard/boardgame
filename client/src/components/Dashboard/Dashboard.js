@@ -10,7 +10,10 @@ import logo from "../../assets/img/logo.png"
 
 
 class Dashboard extends Component {
-	state = {}
+	state = {
+		// state will be passed into hoverbuttons component as prop to render correct material-icon based on if user has notifications
+		notifications:[]
+	}
 	componentDidMount() {
 		firebase.auth().onAuthStateChanged((user) => {
 			let uid = firebase.auth().currentUser.uid;

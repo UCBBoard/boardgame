@@ -4,6 +4,7 @@ import Axios from "axios";
 import ListItem from "../ListItem"
 // import {firebase} from "firebase";
 import {Modal, Button} from "react-materialize";
+import ReactTooltip from 'react-tooltip'
 
 class Gamelist extends Component {
   state = {
@@ -58,7 +59,7 @@ class Gamelist extends Component {
         <Modal
           header="Add a game to your collection:"
           id="new-game-modal"
-          trigger={<Button floating large className='red' id="add-games-btn" waves='light' icon='add' />}
+          trigger={<Button floating large className='red' id="add-games-btn" waves='light' icon='add' p data-tip="Add Game" data-place="right"/>}
         >
           <input
             placeholder="Game Name"
