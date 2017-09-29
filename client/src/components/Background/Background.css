@@ -6,7 +6,7 @@
 
 .dash-background {
     background-image: URL("../../assets/img/cheap_diagonal_fabric.jpg");
-/*    background: #9c6a42;*/
+    overflow-y: -webkit-paged-y;
 }
 
 .splash-background, .dash-background {
