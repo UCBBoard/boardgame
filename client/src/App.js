@@ -42,7 +42,7 @@ class App extends Component {
 	}
 
 	render() {
-		return this.state.loading === true ? <h1>Loading</h1> : (
+		return this.state.loading === true ? <LoadingScreen /> : (
 			<BrowserRouter>
 				<div>
 					{this.state.authed? <Dashboard/> : <Splash/>}
