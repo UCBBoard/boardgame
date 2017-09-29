@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import "./Modals.css";
 // import Axios from "axios";
 import {Modal, Button} from "react-materialize";

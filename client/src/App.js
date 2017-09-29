@@ -1,16 +1,6 @@
 import React, { Component } from "react";
-import { Route, BrowserRouter, Link, Redirect, Switch } from 'react-router-dom'
-// import Nav from "./components/Nav";
-// import Gamelist from "./components/Gamelist";
-// import Friendslist from "./components/Friendslist";
-// import Newsfeed from "./components/Newsfeed";
-// import { logout } from './helpers/auth.js';
+import { BrowserRouter, Switch } from 'react-router-dom'
 import { firebaseAuth } from './config/constants';
-
-// import Nav from "./components/Nav";
-// import Gamelist from "./components/Gamelist";
-// import Friendslist from "./components/Friendslist";
-// import Newsfeed from "./components/Newsfeed";
 import Dashboard from "./components/Dashboard";
 import Splash from "./components/Splash";
 import LoadingScreen from "./components/LoadingScreen";
