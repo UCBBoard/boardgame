@@ -101,7 +101,7 @@ router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
 	})
 })
 
-//Route for gettting all friends
+//Route for gettting all friends 
 router.get("/user/:uid/friends", (req, res) => {
 	console.log("These are the users friends.");
 	User.findOne({ _id : req.params.uid}).populate("friends").exec((error, result) => {
