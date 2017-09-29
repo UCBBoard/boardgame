@@ -10,13 +10,19 @@ import logo from "../../assets/img/logo.png"
 
 
 class Dashboard extends Component {
-	state = {}
+
+	state = {
+		uid: ""
+	}
+
 	componentDidMount() {
 		firebase.auth().onAuthStateChanged((user) => {
 			let uid = firebase.auth().currentUser.uid;
 			Axios.post("/api/user/" + uid)
 				.then((response) => {
     			console.log("searching database for user:" + response);
+    			// this.setState({uid: uid});
+    			// console.log(this.state);
     	})
       .catch((error) => {
       	console.log(error);

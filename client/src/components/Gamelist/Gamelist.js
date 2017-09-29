@@ -14,9 +14,12 @@ class Gamelist extends Component {
   }
 
   // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
-  componentDidMount() {
-    let myId = localStorage.getItem("myId");
+  componentDidMount = () => {
+    // let myId = this.props.user;
+    let myId = localStorage.getItem("myid");
+    console.log(myId);
     console.log("Searching for user games");
+    // console.log(this.props);
     Axios.get("/api/games/" + myId + "/mylist")
       .then(response => {
         console.log(response.data.mygameslist);
@@ -32,7 +35,7 @@ class Gamelist extends Component {
     console.log("trying to submit new game");
     const gameName = document.getElementById("newGame").value;
     document.getElementById("newGame").value = "";
-    const userId = localStorage.getItem("myId");
+    const userId = this.state.uid;
     const postRoute = "/api/newgame/" + gameName + "/" + userId;
     console.log(postRoute);
     Axios.post(postRoute, {

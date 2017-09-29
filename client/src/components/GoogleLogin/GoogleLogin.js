@@ -7,6 +7,7 @@ import {googleLogin} from "../../helpers/auth.js";
 // import mongoose from "mongoose";
 
 class GoogleLogin extends Component {
+
 	componentDidMount(){
 		firebase.auth().onAuthStateChanged((user) => {
 	    if (user) {
@@ -15,6 +16,7 @@ class GoogleLogin extends Component {
 					this.setState({
 						uid: user.uid
 					})
+					localStorage.setItem("myid", user.uid);
 	    } else {
 	      console.log("not logged in");
 	    }
