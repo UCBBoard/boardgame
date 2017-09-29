@@ -13,9 +13,9 @@ import { firebaseAuth } from './config/constants';
 // import Newsfeed from "./components/Newsfeed";
 import Dashboard from "./components/Dashboard";
 import Splash from "./components/Splash";
+import LoadingScreen from "./components/LoadingScreen";
 
 class App extends Component {
-
 	state = {
 		authed: false,
 		loading: true,
