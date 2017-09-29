@@ -121,12 +121,20 @@ router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
 	let userID = req.params.uid;
 	let secondUserID = req.params.seconduid
 	console.log(`We be addin friends ${userID} ${secondUserID}`);
-	User.findOneAndUpdate({ _id: userID}, {$push: {friends: secondUserID}}).exec((error, result) => {
+	User.findOneAndUpdate({ _id: userID}, {$push: {friends: secondUserID} }).exec((error, result) => {
 		console.log(error);
-		User.findOneAndUpdate({ _id: secondUserID}, {$push: {friends: userID}}).exec((error, result) => {
+		User.findOneAndUpdate({ _id: secondUserID}, {$push: {friends: userID} }).exec((error, result) => {
 			console.log(error);
 			res.json(result);
 		})
+	})
+})
+
+//Route for gettting all friends
+router.get("/user/:uid/friends", (req, res) => {
+	console.log("These are the users friends.");
+	User.findOne({ _id : req.params.uid}).populate("friends").exec((error, result) => {
+		res.json(result);
 	})
 })
 
