@@ -8,7 +8,9 @@ import {Modal, Button, Collapsible} from "react-materialize";
 class Gamelist extends Component {
   state = {
     myGames: [],
-    buttonDisabled: false
+    buttonDisabled: false,
+    autocompleteRes: [],
+    gameInfo: []
   }
 
   // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
@@ -23,6 +25,7 @@ class Gamelist extends Component {
       .catch(error => {
         console.log(error)
       })
+    // Axios.get("api/games" + )
   }
 
   handleNewGameSubmit = () => {
@@ -44,6 +47,7 @@ class Gamelist extends Component {
       });
     })
     .catch((error) => { console.log(error) })
+    // Axios.get("api/games/" + gameName)
   }
 
   handleChange = (e) => {
