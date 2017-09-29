@@ -6,13 +6,7 @@ import {Modal, Button} from "react-materialize";
 // Modal form called by Splash.
 // Responsible for new user creation.
 
-class ModalForm extends Component {
-  render () {
-    return (
-      <Modal
-        header="Sign Up for GameVault"
-        trigger={<Button className="modal-btn">Sign Up</Button>}
-        >
+const ModalForm = props =>
         <form>
           <input
             placeholder="Enter your Email"
@@ -33,12 +27,7 @@ class ModalForm extends Component {
             id="user-input-pw"
             name="user-input-pw"
           /><br/>
-          <Button waves='light'>Submit</Button>
-
+          <Button waves='light' className="submitButton">Submit</Button>
         </form>
-      </Modal>
-    )
-  };
-}
 
 export default ModalForm;

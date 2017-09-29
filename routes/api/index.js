@@ -6,7 +6,8 @@ const request = require("request");
 const cheerio = require("cheerio");
 const Nightmare = require("nightmare");
 const mongoose = require("mongoose");
-
+const axios = require("axios");
+var parseString = require('xml2js').parseString;
 
 // Newsfeed scraper - searches top links in r/boardgames for the users.
 router.get("/news/scrape", function(req, res){
@@ -33,48 +34,18 @@ router.get("/news/scrape", function(req, res){
 
 // For scraping from BGG to get boardgame info
 router.get("/games/:name", function(req, res){
-	let nightmare = Nightmare ({ show: false });
-	nightmare
-		.goto ("https://boardgamegeek.com/geeksearch.php?action=search&objecttype=boardgame&B1=Go&q=" + req.params.name)
-		.click('div#results_objectname1 > a:nth-child(1)')
-		.wait(".game-header-body")
-		.evaluate(function(){
-			let obj = {}
-			obj.name = document.getElementsByClassName("game-header-title-info")[1].children[0].children[0].innerText.trim();
-			obj.minPlayers = document.getElementsByClassName("gameplay-item-primary")[0].children[0].children[0].innerText;
-			obj.playtime = document.getElementsByClassName("gameplay-item-primary")[1].children[0].children[0].innerText;
-			if (document.getElementsByClassName("gameplay-item-primary")[0].children[0].children[1]){
-				obj.maxPlayers = document.getElementsByClassName("gameplay-item-primary")[0].children[0].children[1].innerText[1]
-			}
-
-			else {
-				obj.maxPlayers = document.getElementsByClassName("gameplay-item-primary")[0].children[0].children[0].innerText;
-			}
-
-			return obj;
-		})
-		.end()
-		.then(function(returnObj){
-			res.json(returnObj)
-
-		})
-
-	// request("https://boardgamegeek.com/geeksearch.php?action=search&objecttype=boardgame&B1=Go&q=" + req.params.name, function(error, response, html) {
-	// 	let $ = cheerio.load(html);
-	// 	$("#results_objectname1").each(function(i, element) {
-	// 		let link = "https://boardgamegeek.com" + $(element).children("a").attr("href");
-	// 		request(link, function(error1, response1, html1) {
-	// 			let $1 = cheerio.load(html1);
-	// 			$1(".game-header-body").each(function(i1, element1){
-	// 				// let result = {
-	// 				// 	name: element1.children(".game-header-title-container").children(".game-header-title").children(".game-header-title-info").children("h1").text()
-	// 				// }
-	// 				res.json("element1")
-	// 			})
-	// 		})
-	// 	})
-
-	// })
+	axios.get("https://www.boardgamegeek.com/xmlapi/search?search=" + req.params.name)
+	.then(function(response){
+		parseString(response.data, function (err, result) {
+			let id = result.boardgames.boardgame[0]["$"]["objectid"];
+			axios.get("https://boardgamegeek.com/xmlapi/boardgame/" + id)
+			.then(function(response1){
+				parseString(response1.data, function (err, result1) {
+					res.json(result1);
+				})
+		    })
+		});
+	})
 })
 
 // This is the route that the Gamelist Module calls when it mounts - searches the database, finds the user (passed in through params), and returns a populated list of games.

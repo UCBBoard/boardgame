@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import "./Splash.css";
 // import Axios from "axios";
-import ModalForm from "../ModalFormTemp";
+import ModalForm from "../ModalForm";
 import Modals from "../Modals"
 import Background from "../Background"
-import ModalLogin from "../ModalLoginTemp";
+import ModalLogin from "../ModalLogin";
 import logo from "../../assets/img/logo.png"
 
 // First page visitors encounter. Splash gives users the option to
@@ -23,7 +23,6 @@ class Splash extends Component {
             <Modals buttonText="Sign Up" header="Sign Up for GameVault">
               <ModalForm />
             </Modals>
-            
             <Modals buttonText="Sign In" header="Sign In to GameVault">
               <ModalLogin />
             </Modals>
