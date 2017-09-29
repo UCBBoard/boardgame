@@ -2,7 +2,7 @@ import React from "react";
 import {logout} from "../../helpers/auth"
 import Friendslist from "../Friendslist";
 import {Modal} from "react-materialize";
-import ReactTooltip from 'react-tooltip'
+import ReactTooltip from 'react-tooltip';
 
 
 const HoverButtons = () =>
