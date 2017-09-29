@@ -11,11 +11,11 @@ const ListItem = props =>
     <div className="list-item-box">
       <Icon
           className="game-list-icon"
-          onClick={() => this.removeGame()}>delete
+      >delete
       </Icon>
       <Icon
           className="game-list-icon"
-          onClick="">keyboard_arrow_down
+      >keyboard_arrow_down
       </Icon>
     </div>
   </CollapsibleItem>;
