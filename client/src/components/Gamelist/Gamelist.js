@@ -4,7 +4,7 @@ import Axios from "axios";
 import ListItem from "../ListItem"
 // import {firebase} from "firebase";
 import ReactTooltip from 'react-tooltip'
-import {Modal, Button, Collapsible} from "react-materialize";
+import {Modal, Button} from "react-materialize";
 
 class Gamelist extends Component {
   state = {
