@@ -11,6 +11,10 @@ li:nth-of-type(2) .collapsible-header  {
   background: #838ca6;
 }
 
+.collapsible-header {
+  color: black;
+}
+
 .list-overflow-container {
   max-height: 545px;
   border: 1px #DDDDDD solid;
@@ -46,9 +50,11 @@ li:nth-of-type(2) .collapsible-header  {
 }
 
 #add-games-btn {
-  position: fixed;
+  /*position: fixed;*/
   float: right;
-  /*margin-top: 76vh;*/
+  width: 60px;
+  height: 60px;
+  margin-top: -3vh;
   /*margin-left: 50vh;*/
 }
 
