@@ -1,0 +1,17 @@
+.collapseP {
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.list-item-name {
+  /*float: left;*/
+  font-size: 15px;
+  /*display: block;*/
+}
+
+.material-icons {
+  float: right;
+}
+/*.game-list-icon {
+  float: right;
+  margin-top: 15px;
+}*/
