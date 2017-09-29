@@ -3,7 +3,7 @@ import "./Gamelist.css";
 import Axios from "axios";
 import ListItem from "../ListItem"
 // import {firebase} from "firebase";
-import {Modal, Button} from "react-materialize";
+import {Modal, Button, Collapsible} from "react-materialize";
 
 class Gamelist extends Component {
   state = {
@@ -48,24 +48,31 @@ class Gamelist extends Component {
     return (
       <div className="col s9 center card-panel">
         <h2>Gamelist</h2>
-        <ul>
+        <Collapsible accordion>
           {this.state.myGames.map((gameName, i) => {
               console.log("making a list item");
-              return <ListItem game={gameName} key={i} iteration={i}/>
+              return <ListItem
+                      game={gameName}
+                      key={i}
+                      iteration={i}
+                    />
             })
           }
-        </ul>
+        </Collapsible>
         <Modal
           header="Add a game to your collection:"
           id="new-game-modal"
-          trigger={<Button floating large className='red' id="add-games-btn" waves='light' icon='add' />}
-        >
+          trigger={<Button floating large className='red' id="add-games-btn" waves='light' icon='add' />}>
           <input
             placeholder="Game Name"
-            id="newGame"
-          />
+            id="newGame"/>
           <br/>
-          <Button waves='light' onClick={() => {this.handleNewGameSubmit()}}>Submit</Button>
+          <Button
+            waves='light'
+            modal='close'
+            onClick={this.handleNewGameSubmit}>
+              Submit
+          </Button>
         </Modal>
       </div>
 
