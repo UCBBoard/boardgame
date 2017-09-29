@@ -48,6 +48,15 @@ router.get("/games/:name", function(req, res){
 	})
 })
 
+router.get("/games/search/:name", function(req, res){
+	axios.get("https://www.boardgamegeek.com/xmlapi/search?search=" + req.params.name)
+	.then(function(response){
+		parseString(response.data, function (err, result) {
+			res.json(result.boardgames.boardgame.slice(0, 5))
+		});
+	})
+})
+
 // This is the route that the Gamelist Module calls when it mounts - searches the database, finds the user (passed in through params), and returns a populated list of games.
 router.get("/games/:uid/mylist", (req, res) => {
 	console.log("Getting user gamelist.");
