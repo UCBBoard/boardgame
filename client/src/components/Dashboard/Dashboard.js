@@ -17,7 +17,6 @@ class Dashboard extends Component {
 	componentDidMount() {
 		firebase.auth().onAuthStateChanged((user) => {
 			let uid = firebase.auth().currentUser.uid;
-			console.log(uid)
 			Axios.post("/api/user/" + uid)
 				.then((response) => {
     			console.log("searching database for user:" + response);
