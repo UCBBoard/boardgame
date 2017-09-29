@@ -32,7 +32,7 @@ router.get("/news/scrape", function(req, res){
 	})
 })
 
-// For scraping from BGG to get boardgame info
+// For using BGG API to get boardgame info
 router.get("/games/:name", function(req, res){
 	axios.get("https://www.boardgamegeek.com/xmlapi/search?search=" + req.params.name)
 	.then(function(response){
@@ -43,7 +43,16 @@ router.get("/games/:name", function(req, res){
 				parseString(response1.data, function (err, result1) {
 					res.json(result1);
 				})
-		    })
+		  })
+		});
+	})
+})
+
+router.get("/games/search/:name", function(req, res){
+	axios.get("https://www.boardgamegeek.com/xmlapi/search?search=" + req.params.name)
+	.then(function(response){
+		parseString(response.data, function (err, result) {
+			res.json(result.boardgames.boardgame.slice(0, 5))
 		});
 	})
 })
