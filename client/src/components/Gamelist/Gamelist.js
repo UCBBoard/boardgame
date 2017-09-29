@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Gamelist.css";
 import Axios from "axios";
 import ListItem from "../ListItemTemp"
-// import {firebase} from "firebase";
+import firebase from "firebase";
 import ReactTooltip from 'react-tooltip'
 import {Modal, Button, Collapsible, CollapsibleItem} from "react-materialize";
 
@@ -11,25 +11,23 @@ class Gamelist extends Component {
     myGames: [],
     buttonDisabled: false,
     autocompleteRes: [],
-    gameInfo: []
+    gameInfo: [],
   }
 
   // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
   componentDidMount = () => {
-    // let myId = this.props.user;
-    let myId = localStorage.getItem("myid");
-    console.log(myId);
-    console.log("Searching for user games");
-    // console.log(this.props);
-    Axios.get("/api/games/" + myId + "/mylist")
-      .then(response => {
-        console.log(response.data.mygameslist);
-        this.setState({myGames : response.data.mygameslist});
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    // Axios.get("api/games" + )
+    firebase.auth().onAuthStateChanged((user) => {
+      let uid = firebase.auth().currentUser.uid;
+      // this.setState({uid: uid});
+      Axios.get("/api/games/" + uid + "/mylist")
+        .then(response => {
+          console.log(response.data.mygameslist);
+          this.setState({myGames : response.data.mygameslist});
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    })
   }
 
   handleNewGameSubmit = () => {
@@ -63,7 +61,7 @@ class Gamelist extends Component {
     }
   }
 
-  render () {
+  render (props) {
     return (
       <div className="col s9 center card-panel">
         <h2>Gamelist
