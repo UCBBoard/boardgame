@@ -3,6 +3,7 @@ import "./Gamelist.css";
 import Axios from "axios";
 import ListItem from "../ListItem"
 // import {firebase} from "firebase";
+import ReactTooltip from 'react-tooltip
 import {Modal, Button, Collapsible} from "react-materialize";
 
 class Gamelist extends Component {
@@ -92,6 +93,19 @@ class Gamelist extends Component {
                     />
             })
           }
+        </ul>
+        <Modal
+          header="Add a game to your collection:"
+          id="new-game-modal"
+          trigger={<Button floating large className='red' id="add-games-btn" waves='light' icon='add' p data-tip="Add Game" data-place="right"/>}
+        >
+          <input
+            placeholder="Game Name"
+            id="newGame"
+          />
+          <br/>
+          <Button waves='light' onClick={() => {this.handleNewGameSubmit()}}>Submit</Button>
+        </Modal>
         </Collapsible>
       </div>
 
