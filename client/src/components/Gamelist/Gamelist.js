@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "./Gamelist.css";
 import Axios from "axios";
-import ListItem from "../ListItem"
+import ListItem from "../ListItemTemp"
 // import {firebase} from "firebase";
 import ReactTooltip from 'react-tooltip'
-import {Modal, Button} from "react-materialize";
+import {Modal, Button, Collapsible, CollapsibleItem} from "react-materialize";
 
 class Gamelist extends Component {
   state = {
@@ -86,16 +86,14 @@ class Gamelist extends Component {
             </Button>
           </Modal>
         </h2>
- 
-        {this.state.myGames.map((gameName, i) => {
-            console.log("making a list item");
-            return <ListItem
-                    game={gameName}
-                    key={i}
-                    iteration={i}
-                  />
-          })
-        }
+        <Collapsible>
+          {this.state.myGames.map((gameName, i) => {
+              return <CollapsibleItem header={gameName} icon='filter_drama'>
+                      <ListItem name={gameName} minPlayers={2} maxPlayers={4} playtime={360} />
+                    </CollapsibleItem>
+            })
+          }
+        </ Collapsible>
       </div>
 
     )
