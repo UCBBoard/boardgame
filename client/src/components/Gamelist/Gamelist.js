@@ -15,26 +15,26 @@ class Gamelist extends Component {
   }
 
   // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
-  componentDidMount = () => {
-    firebase.auth().onAuthStateChanged((user) => {
-      let uid = firebase.auth().currentUser.uid;
-      // this.setState({uid: uid});
-      Axios.get("/api/games/" + uid + "/mylist")
-        .then(response => {
-          console.log(response.data.mygameslist);
-          this.setState({myGames : response.data.mygameslist});
-        })
-        .catch(error => {
-          console.log(error);
-        })
-    })
+  componentDidMount() {
+    let myId = firebase.auth().currentUser.uid
+    console.log(`this is my id ${myId}`)
+    console.log("Searching for user games");
+    Axios.get("/api/games/" + myId + "/mylist")
+      .then(response => {
+        console.log(response.data.mygameslist);
+        this.setState({myGames : response.data.mygameslist});
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    // Axios.get("api/games" + )
   }
 
   handleNewGameSubmit = () => {
     console.log("trying to submit new game");
     const gameName = document.getElementById("newGame").value;
     document.getElementById("newGame").value = "";
-    const userId = this.state.uid;
+    let userId = firebase.auth().currentUser.uid;
     const postRoute = "/api/newgame/" + gameName + "/" + userId;
     console.log(postRoute);
     Axios.post(postRoute, {
