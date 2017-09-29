@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Gamelist.css";
 import Axios from "axios";
 import ListItem from "../ListItemTemp"
-// import {firebase} from "firebase";
+import firebase from "firebase";
 import ReactTooltip from 'react-tooltip'
 import {Modal, Button, Collapsible, CollapsibleItem} from "react-materialize";
 
@@ -16,7 +16,8 @@ class Gamelist extends Component {
 
   // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
   componentDidMount() {
-    let myId = localStorage.getItem("myId");
+    let myId = firebase.auth().currentUser.uid
+    console.log(`this is my id ${myId}`)
     console.log("Searching for user games");
     Axios.get("/api/games/" + myId + "/mylist")
       .then(response => {
@@ -33,7 +34,7 @@ class Gamelist extends Component {
     console.log("trying to submit new game");
     const gameName = document.getElementById("newGame").value;
     document.getElementById("newGame").value = "";
-    const userId = localStorage.getItem("myId");
+    let userId = firebase.auth().currentUser.uid
     const postRoute = "/api/newgame/" + gameName + "/" + userId;
     console.log(postRoute);
     Axios.post(postRoute, {
