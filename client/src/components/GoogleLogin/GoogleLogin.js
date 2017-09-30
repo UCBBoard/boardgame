@@ -7,14 +7,13 @@ import {googleLogin} from "../../helpers/auth.js";
 // import mongoose from "mongoose";
 
 class GoogleLogin extends Component {
+
 	componentDidMount(){
 		firebase.auth().onAuthStateChanged((user) => {
 	    if (user) {
 					let uid = firebase.auth().currentUser.uid;
 					console.log("logged in as " + user.displayName + ' ' + user.uid);
-					this.setState({
-						uid: user.uid
-					})
+					// localStorage.setItem("myid", user.uid);
 	    } else {
 	      console.log("not logged in");
 	    }

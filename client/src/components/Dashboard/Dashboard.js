@@ -10,16 +10,24 @@ import logo from "../../assets/img/logo.png"
 
 
 class Dashboard extends Component {
+
 	state = {
+		// uid: "",
 		// state will be passed into hoverbuttons component as prop to render correct material-icon based on if user has notifications
 		notifications:[]
 	}
+
 	componentDidMount() {
 		firebase.auth().onAuthStateChanged((user) => {
-			let uid = firebase.auth().currentUser.uid;
+			console.log(user);
+    	let uid = firebase.auth().currentUser.uid;
+			console.log("Attempting to query /api/user/" + uid);
+			this.setState({uid: uid});
 			Axios.post("/api/user/" + uid)
 				.then((response) => {
     			console.log("searching database for user:" + response);
+    			this.setState({uid: uid});
+    			console.log(this.state);
     	})
       .catch((error) => {
       	console.log(error);

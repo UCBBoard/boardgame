@@ -11,7 +11,7 @@ class Gamelist extends Component {
     myGames: [],
     buttonDisabled: false,
     autocompleteRes: [],
-    gameInfo: []
+    gameInfo: [],
   }
 
   // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
@@ -31,37 +31,51 @@ class Gamelist extends Component {
   }
 
   handleNewGameSubmit = () => {
-    console.log("trying to submit new game");
     const gameName = document.getElementById("newGame").value;
     document.getElementById("newGame").value = "";
-    let userId = firebase.auth().currentUser.uid
+    let userId = firebase.auth().currentUser.uid;
     const postRoute = "/api/newgame/" + gameName + "/" + userId;
-    console.log(postRoute);
     Axios.post(postRoute, {
       title: gameName,
       users: userId,
     })
     .then((response) => {
-      console.log(">>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<")
-      console.log(response);
       this.setState({
         myGames: [...this.state.myGames, gameName]
       });
     })
     .catch((error) => { console.log(error) })
-    // Axios.get("api/games/" + gameName)
   }
 
   handleChange = (e) => {
-    let myGamesVar = this.state.myGames
-    if(!myGamesVar.includes(e.target.value)){
-      this.setState({buttonDisabled: false})
+    let myGamesVar = this.state.myGames;
+    let currentValue = e.target.value;
+    if (currentValue.length > 3) {
+      console.log("currentValue is over 3.");
+      Axios.get("/api/games/search/" + currentValue)
+        .then((response) => {
+          let autocompleteArray = [];
+          console.log(response.data);
+          response.data.map((data) => {
+            autocompleteArray.push(data.name[0]._)
+          })
+          console.log("acarray: " + autocompleteArray);
+          this.setState({
+            autocompleteRes: autocompleteArray
+          })
+        })
+        .catch((error) => {
+          return console.log (error)
+        })
+    }
+    if(!myGamesVar.includes(currentValue)){
+      return this.setState({buttonDisabled: false})
     } else {
-      this.setState({buttonDisabled: true})
+      return this.setState({buttonDisabled: true})
     }
   }
 
-  render () {
+  render (props) {
     return (
       <div className="col s9 center card-panel">
         <h2>Gamelist
@@ -69,25 +83,39 @@ class Gamelist extends Component {
             header="Add a game to your collection:"
             id="new-game-modal"
             trigger={<Button floating large className='red' id="add-games-btn" waves='light' icon='add' />}>
-            <input
-              placeholder="Game Name"
-              onChange={this.handleChange}
-              id="newGame"
+            <form>
+              <input
+                placeholder="Game Name"
+                onChange={this.handleChange}
+                name="newgame"
+                id="newGame"
+                list="newgames"
               />
-            <br/>
-            <Button
-              waves='light'
-              modal='close'
-              disabled={this.state.buttonDisabled}
-              onClick={this.handleNewGameSubmit}>
-                Submit
-            </Button>
+              <datalist id="newgames">
+                {this.state.autocompleteRes.map(result =>
+                  <option value={result} key={result} />
+                )}
+              </datalist>
+              <br/>
+              <Button
+                waves='light'
+                modal='close'
+                disabled={this.state.buttonDisabled}
+                onClick={this.handleNewGameSubmit}>
+                  Submit
+              </Button>
+            </form>
           </Modal>
         </h2>
         <Collapsible>
           {this.state.myGames.map((gameName, i) => {
               return <CollapsibleItem header={gameName} icon='filter_drama'>
-                      <ListItem name={gameName} minPlayers={2} maxPlayers={4} playtime={360} />
+                      <ListItem
+                        name={gameName}
+                        key={i}
+                        minPlayers={2}
+                        maxPlayers={4}
+                        playtime={360} />
                     </CollapsibleItem>
             })
           }
