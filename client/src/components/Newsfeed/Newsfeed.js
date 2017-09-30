@@ -18,7 +18,7 @@ class Newsfeed extends Component {
 
 	render () {
 		return (
-			<div className="col s3 center card-panel newsfeedBox">
+			<div className="col s3 offset-s1 center card-panel newsfeedBox">
 				<h4 className="h4Newsfeed">Newsfeed</h4>
 				<div className="headlineBox">
 				{this.state.news.map((headline, i) =>

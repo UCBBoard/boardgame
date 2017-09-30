@@ -57,6 +57,7 @@ class Gamelist extends Component {
           console.log(response.data);
           response.data.map((data) => {
             autocompleteArray.push(data.name[0]._)
+            return true;
           })
           console.log("acarray: " + autocompleteArray);
           this.setState({
@@ -76,7 +77,7 @@ class Gamelist extends Component {
 
   render (props) {
     return (
-      <div className="col s9 center card-panel">
+      <div className="col s8 center card-panel gamelistBox">
         <h2>Gamelist
           <Modal
             header="Add a game to your collection:"
@@ -107,7 +108,7 @@ class Gamelist extends Component {
               </Button>
           </Modal>
         </h2>
-        <Collapsible>
+        <Collapsible className="gamelistGames">
           {this.state.myGames.map((gameName, i) => {
               return <CollapsibleItem header={gameName} icon='filter_drama' key={i + "gList"}>
                       <ListItem name={gameName} minPlayers={2} maxPlayers={4} playtime={360} />

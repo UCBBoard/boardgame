@@ -22,3 +22,7 @@
 .modal .modal-close:hover {
 	background: #1e222e
 }
+
+.modal-close {
+	color:black;
+}
