@@ -21,8 +21,8 @@ class Gamelist extends Component {
     console.log("Searching for user games");
     Axios.get("/api/games/" + myId + "/mylist")
       .then(response => {
-        console.log(response.data.mygameslist);
-        this.setState({myGames : response.data.mygameslist});
+        // console.log(response.data.mygameslist);
+        this.setState({myGames : response.data});
       })
       .catch(error => {
         console.log(error)
@@ -42,6 +42,18 @@ class Gamelist extends Component {
     .then((response) => {
       this.setState({
         myGames: [...this.state.myGames, gameName]
+      });
+    })
+    .catch((error) => { console.log(error) })
+  }
+
+  handleNewGameSubmit1 = () => {
+    const gameID = 213460;
+    let userId = firebase.auth().currentUser.uid;
+    const postRoute = "/api/newgame/" + gameID + "/" + userId;
+    Axios.post(postRoute)
+    .then((response) => {
+      this.setState({
       });
     })
     .catch((error) => { console.log(error) })
@@ -132,8 +144,8 @@ class Gamelist extends Component {
         </h2>
         <Collapsible className="gamelistGames">
           {this.state.myGames.map((gameName, i) => {
-              return <CollapsibleItem header={gameName} icon='filter_drama' key={i + "gList"}>
-                      <ListItem name={gameName} minPlayers={2} maxPlayers={4} playtime={360} />
+              return <CollapsibleItem header={gameName.title} icon='filter_drama' key={i + "gList"}>
+                      <ListItem name={gameName.title} minPlayers={gameName.minPlayers} maxPlayers={gameName.maxPlayers} playtime={gameName.playtime} />
                     </CollapsibleItem>
             })
           }
