@@ -3,14 +3,15 @@ import "./Gamelist.css";
 import Axios from "axios";
 import ListItem from "../ListItemTemp"
 import firebase from "firebase";
-import {Modal, Button, Collapsible, CollapsibleItem} from "react-materialize";
+import {Modal, Button, Collapsible, CollapsibleItem, Input} from "react-materialize";
 
 class Gamelist extends Component {
   state = {
     myGames: [],
     buttonDisabled: false,
-    autocompleteRes: [],
+    query: "",
     gameInfo: [],
+    searchArray: []
   }
 
   // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
@@ -59,35 +60,51 @@ class Gamelist extends Component {
   }
 
   handleChange = (e) => {
-    let myGamesVar = this.state.myGames;
-    let currentValue = e.target.value;
-    if (currentValue.length > 3) {
-      console.log("currentValue is over 3.");
-      Axios.get("/api/games/search/" + currentValue)
-        .then((response) => {
-          let autocompleteArray = [];
-          console.log(response.data);
-          response.data.map((data) => {
-            autocompleteArray.push(data.name[0]._)
-            return true;
-          })
-          console.log("acarray: " + autocompleteArray);
-          this.setState({
-            autocompleteRes: autocompleteArray
-          })
-        })
-        .catch((error) => {
-          return console.log (error)
-        })
-    }
-    if(!myGamesVar.includes(currentValue)){
-      return this.setState({buttonDisabled: false})
-    } else {
-      return this.setState({buttonDisabled: true})
-    }
+    let searchQuery = e.target.value;
+    console.log(searchQuery);
+    this.setState({
+      query: e.target.value
+    })
+    // let myGamesVar = this.state.myGames;
+    // if (currentValue.length > 3) {
+    //   console.log("currentValue is over 3.");
+
+    // }
+    // if(!myGamesVar.includes(currentValue)){
+    //   return this.setState({buttonDisabled: false})
+    // } else {
+    //   return this.setState({buttonDisabled: true})
+    // }
   }
 
-  render (props) {
+  searchGames = (event) => {
+    event.preventDefault();
+    this.setState({
+      searchArray: []
+    })
+    let currentValue = document.getElementById("newGame").value;
+    // let searchObj = {};
+    Axios.get("/api/games/search/" + currentValue)
+      .then((response) => {
+        // console.log(response.data);
+        response.data.map((data) => {
+          let dataName = data.name[0]._;
+          let dataDate = data.yearpublished[0];
+          let dataId = data.$.objectid;
+          let resultObj = {};
+          resultObj[dataName] = [dataDate, dataId];
+          // console.log(resultObj);
+          this.setState({
+            searchArray: [...this.state.searchArray, resultObj]
+          })
+        })
+      })
+      .catch((error) => {
+        return console.log (error)
+      })
+  }
+
+  render () {
     return (
       <div className="col s8 center card-panel gamelistBox">
         <h2>Gamelist
@@ -95,28 +112,34 @@ class Gamelist extends Component {
             header="Add a game to your collection:"
             id="new-game-modal"
             trigger={<Button floating large className='red' id="add-games-btn" waves='light' icon='add' />}>
-            <form>
-              <input
-                placeholder="Game Name"
-                onChange={this.handleChange}
+              <Input
+                placeholder="Search for your game"
                 name="newgame"
                 id="newGame"
-                list="newgames"
+                onChange={this.handleChange}
               />
-              <datalist id="newgames">
-                {this.state.autocompleteRes.map(result =>
-                  <option value={result} key={result} />
-                )}
-              </datalist>
               <br/>
+              <Collapsible>
+                <CollapsibleItem header={this.state.query}>
+                  {this.state.searchArray.map(
+                    (data, i) => {
+                      // console.log("mapping array")
+                      console.log("test");
+                      <div className="new-game-select">
+                          {Object.keys(data)}
+                      </div>
+                    })
+                  }
+                </CollapsibleItem>
+              </Collapsible>
+
               <Button
                 waves='light'
-                modal='close'
+                // modal='close'
                 disabled={this.state.buttonDisabled}
-                onClick={this.handleNewGameSubmit}>
-                  Submit
+                onClick={(event) => this.searchGames(event)}>
+                  Search
               </Button>
-            </form>
           </Modal>
         </h2>
         <Collapsible className="gamelistGames">
@@ -126,7 +149,7 @@ class Gamelist extends Component {
                     </CollapsibleItem>
             })
           }
-        </ Collapsible>
+        </Collapsible>
       </div>
 
     )

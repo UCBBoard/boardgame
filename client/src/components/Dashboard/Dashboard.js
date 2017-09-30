@@ -27,7 +27,7 @@ class Dashboard extends Component {
 		    			console.log("searching database for user:" + response);
 		    	})
 		      .catch((error) => {
-		      	console.log(error);
+		      	// console.log(error);
 		    })
 			}
 		})

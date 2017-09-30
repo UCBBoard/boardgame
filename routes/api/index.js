@@ -50,10 +50,11 @@ router.get("/games/:name", function(req, res){
 
 //Route to get 5 results back from a given word search to the BGG API. Used in the autofill input suggestions.
 router.get("/games/search/:name", function(req, res){
+	console.log("Searching: " + req.params.name);
 	axios.get("https://www.boardgamegeek.com/xmlapi/search?search=" + req.params.name)
 	.then(function(response){
 		parseString(response.data, function (err, result) {
-			res.json(result.boardgames.boardgame.slice(0, 5))
+			res.json(result.boardgames.boardgame.slice(0, 10))
 		});
 	})
 })
