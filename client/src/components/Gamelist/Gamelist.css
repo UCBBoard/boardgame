@@ -3,12 +3,26 @@
   padding: 0;
 }
 
+.gamelistBox {
+  border-radius: 10px;
+  height: 500px;
+  padding: 0 !important;
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.23);
+}
+
+.gamelistGames {
+  overflow-y: auto;
+  height: 410px;
+}
+
 li:nth-of-type(odd) .collapsible-header {
   background: #515664;
+  color: white;
 }
 
 li:nth-of-type(even) .collapsible-header  {
   background: #838ca6;
+  color: white;
 }
 
 .collapsible-header {

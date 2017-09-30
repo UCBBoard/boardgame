@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import "./ModalForm.css";
 import {Button} from "react-materialize";
 import firebase from 'firebase';
-import ReactTooltip from 'react-tooltip';
 
 // Modal form called by Splash.
 // Responsible for new user creation.
-
-
 
 
 class ModalForm extends Component {
