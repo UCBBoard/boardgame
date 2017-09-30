@@ -50,10 +50,11 @@ router.get("/games/:name", function(req, res){
 
 //Route to get 5 results back from a given word search to the BGG API. Used in the autofill input suggestions.
 router.get("/games/search/:name", function(req, res){
+	console.log("Searching: " + req.params.name);
 	axios.get("https://www.boardgamegeek.com/xmlapi/search?search=" + req.params.name)
 	.then(function(response){
 		parseString(response.data, function (err, result) {
-			res.json(result.boardgames.boardgame.slice(0, 5))
+			res.json(result.boardgames.boardgame.slice(0, 10))
 		});
 	})
 })
@@ -72,7 +73,7 @@ router.post("/newgame/:name/:uid", (req, res) => {
 	let userID = req.params.uid;
 	console.log("Postin a god damned game, " + gameName);
 	//Add the game to the Users mygameslist.
-	User.findOneAndUpdate({ _id : userID }, {$push:  {mygameslist : gameName}}).exec((error, result) => {
+	User.findOneAndUpdate({ _id : userID }, {$push:  {mygameslist : gameName}}).exec((error, result) => {	
 		console.log(error);
 		Game.findOneAndUpdate({ title : gameName }, {$push: { users : userID}}).exec((error, result) => {
 			console.log(error);
