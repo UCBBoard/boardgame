@@ -5,20 +5,29 @@ const GameSchema = new Schema({
   title: {
    type: String,
    required: true,
-   // unique: true
+   unique: true
   },
+
   author: {
     type: String,
   },
-  players: {
-    type: String,
+
+  minPlayers: {
+    type: Number
   },
+
+  maxPlayers: {
+    type: Number
+  },
+  
   genre: {
     type: String,
   },
+
   playtime: {
     type: String
   },
+
   users: [{
     type: Schema.Types.String,
     ref: "User",
