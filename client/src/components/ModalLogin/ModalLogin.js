@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import "./ModalLogin.css";
 // import Axios from "axios";
-import {Modal, Button} from "react-materialize";
+import { Button} from "react-materialize";
 import GoogleLogin from "../GoogleLogin";
 
 // Displayed on Splash page along with ModalForm

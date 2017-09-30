@@ -19,19 +19,16 @@ class Dashboard extends Component {
 
 	componentDidMount() {
 		firebase.auth().onAuthStateChanged((user) => {
-			console.log(user);
-    	let uid = firebase.auth().currentUser.uid;
-			console.log("Attempting to query /api/user/" + uid);
-			this.setState({uid: uid});
-			Axios.post("/api/user/" + uid)
-				.then((response) => {
-    			console.log("searching database for user:" + response);
-    			this.setState({uid: uid});
-    			console.log(this.state);
-    	})
-      .catch((error) => {
-      	console.log(error);
-    })
+			if (firebase.auth().currentUser.uid){
+				let uid = firebase.auth().currentUser.uid;
+					Axios.post("/api/user/" + uid)
+						.then((response) => {
+		    			console.log("searching database for user:" + response);
+		    	})
+		      .catch((error) => {
+		      	console.log(error);
+		    })
+			}
 		})
 	};
 

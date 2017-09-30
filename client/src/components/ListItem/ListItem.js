@@ -1,6 +1,5 @@
 import React from "react";
 import "./ListItem.css";
-import Collapsible from 'react-collapsible';
 
 const ListItem = props =>
   <Collapsible trigger={props.game} className="collapsibleItem">

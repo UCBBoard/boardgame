@@ -1,7 +1,6 @@
 import React from "react";
 import "./ListItem.css";
-// import Collapsible from 'react-collapsible';
-import {CollapsibleItem} from "react-materialize";
+
 
 const ListItem = props =>
 	<div className="collapsibleContent">

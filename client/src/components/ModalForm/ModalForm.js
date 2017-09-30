@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import "./ModalForm.css";
-// import Axios from "axios";
-import {Modal, Button} from "react-materialize";
+import {Button} from "react-materialize";
 
 // Modal form called by Splash.
 // Responsible for new user creation.
