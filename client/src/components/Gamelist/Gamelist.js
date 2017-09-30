@@ -3,7 +3,7 @@ import "./Gamelist.css";
 import Axios from "axios";
 import ListItem from "../ListItemTemp"
 import firebase from "firebase";
-import {Modal, Button, Collapsible, CollapsibleItem} from "react-materialize";
+import {Modal, Button, Collapsible, CollapsibleItem, Input, Autocomplete} from "react-materialize";
 
 class Gamelist extends Component {
   state = {
@@ -82,19 +82,21 @@ class Gamelist extends Component {
             header="Add a game to your collection:"
             id="new-game-modal"
             trigger={<Button floating large className='red' id="add-games-btn" waves='light' icon='add' />}>
-            <form>
-              <input
+              <Input
+                // type="select"
                 placeholder="Game Name"
                 onChange={this.handleChange}
                 name="newgame"
                 id="newGame"
                 list="newgames"
               />
+
               <datalist id="newgames">
                 {this.state.autocompleteRes.map(result =>
-                  <option value={result} key={result} />
+                  <option value={result} key={result} onClick={this.handleNewGameSubmit}/>
                 )}
               </datalist>
+
               <br/>
               <Button
                 waves='light'
@@ -103,7 +105,6 @@ class Gamelist extends Component {
                 onClick={this.handleNewGameSubmit}>
                   Submit
               </Button>
-            </form>
           </Modal>
         </h2>
         <Collapsible>
