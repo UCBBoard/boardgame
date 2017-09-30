@@ -32,7 +32,7 @@ router.get("/news/scrape", function(req, res){
 	})
 })
 
-// For using BGG API to get boardgame info
+// For using BGG API to get boardgame info, currently returns the top game info for a given search
 router.get("/games/:name", function(req, res){
 	axios.get("https://www.boardgamegeek.com/xmlapi/search?search=" + req.params.name)
 	.then(function(response){
@@ -48,6 +48,7 @@ router.get("/games/:name", function(req, res){
 	})
 })
 
+//Route to get 5 results back from a given word search to the BGG API. Used in the autofill input suggestions.
 router.get("/games/search/:name", function(req, res){
 	axios.get("https://www.boardgamegeek.com/xmlapi/search?search=" + req.params.name)
 	.then(function(response){
