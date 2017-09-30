@@ -8,15 +8,18 @@ import LoadingScreen from "./components/LoadingScreen";
 class App extends Component {
 	state = {
 		authed: false,
-		loading: true,
+		loading: true
 	}
 
 	componentDidMount () {
 		this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
+			// let uid = firebase.auth().user.uid;
+			// console.log(user);
 			if (user) {
 				this.setState({
 					authed: true,
-					loading: false,
+					loading: false
+					// uid: uid
 				})
 			} else {
 				this.setState({

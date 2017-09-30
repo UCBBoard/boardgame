@@ -84,7 +84,6 @@ router.post("/newgame/:name/:uid", (req, res) => {
 
 // Route for checking user status and getting mongoUID.
 router.post("/user/:uid", (req, res) => {
-	console.log("<<<<<<<<<<<<<<<Trying to create new account.>>>>>>>>>>>>>>>>");
 	let user = new User({ _id : req.params.uid })
 	user.save((error, result) => {
 		if(!error) {

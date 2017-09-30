@@ -10,10 +10,13 @@ import logo from "../../assets/img/logo.png"
 
 
 class Dashboard extends Component {
+
 	state = {
+		// uid: "",
 		// state will be passed into hoverbuttons component as prop to render correct material-icon based on if user has notifications
 		notifications:[]
 	}
+
 	componentDidMount() {
 		firebase.auth().onAuthStateChanged((user) => {
 			if (firebase.auth().currentUser.uid){
@@ -26,7 +29,6 @@ class Dashboard extends Component {
 		      	console.log(error);
 		    })
 			}
-			
 		})
 	};
 
