@@ -7,6 +7,7 @@ import Newsfeed from "../Newsfeed";
 import HoverButtons from "../HoverButtons";
 import Background from "../Background"
 import logo from "../../assets/img/logo.png"
+import LevelBar from "../LevelBar";
 
 
 class Dashboard extends Component {
@@ -28,7 +29,7 @@ class Dashboard extends Component {
 		    			console.log("searching database for user:" + response);
 		    	})
 		      .catch((error) => {
-		      	console.log(error);
+		      	// console.log(error);
 		    })
 			}
 		})
@@ -47,6 +48,7 @@ class Dashboard extends Component {
 		        </div>
 		      </div>
 		      <HoverButtons />
+		      <LevelBar />
 		    </Background>
 		)
 	}

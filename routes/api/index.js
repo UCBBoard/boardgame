@@ -50,10 +50,11 @@ router.get("/games/:name", function(req, res){
 
 //Route to get 5 results back from a given word search to the BGG API. Used in the autofill input suggestions.
 router.get("/games/search/:name", function(req, res){
+	console.log("Searching: " + req.params.name);
 	axios.get("https://www.boardgamegeek.com/xmlapi/search?search=" + req.params.name)
 	.then(function(response){
 		parseString(response.data, function (err, result) {
-			res.json(result.boardgames.boardgame.slice(0, 5))
+			res.json(result.boardgames.boardgame.slice(0, 10))
 		});
 	})
 })
@@ -61,27 +62,50 @@ router.get("/games/search/:name", function(req, res){
 // This is the route that the Gamelist Module calls when it mounts - searches the database, finds the user (passed in through params), and returns a populated list of games.
 router.get("/games/:uid/mylist", (req, res) => {
 	console.log("Getting user gamelist.");
-	User.findOne({ _id : req.params.uid}).exec((error, result) => {
-		res.json(result);
+	User.findOne({ _id : req.params.uid}).populate("games").exec((error, result) => {
+		res.json(result.games);
 	})
 })
 
 // For posting a new game linked to a users account. Called from the submit button on the add game modal in Dashboard component.
-router.post("/newgame/:name/:uid", (req, res) => {
-	let gameName = req.params.name;
+router.post("/newgame/:gameid/:uid", (req, res) => {
+	let gameID = req.params.gameid;
 	let userID = req.params.uid;
-	console.log("Postin a god damned game, " + gameName);
-	//Add the game to the Users mygameslist.
-	User.findOneAndUpdate({ _id : userID }, {$push:  {mygameslist : gameName}}).exec((error, result) => {
-		console.log(error);
-		Game.findOneAndUpdate({ title : gameName }, {$push: { users : userID}}).exec((error, result) => {
-			console.log(error);
-			res.json(result);
-		})
-	})
-	//Add the user to the games user thing. Depending on which we want to use.
+	// console.log("Postin a god damned game, " + gameName);
+	axios.get("https://boardgamegeek.com/xmlapi/boardgame/" + gameID)
+			.then(function(response1){
+				parseString(response1.data, function (err, result1) {
+					let game = {
+						title: result1.boardgames.boardgame[0].name[0]["_"],
+						minPlayers: parseInt(result1.boardgames.boardgame[0].minplayers),
+						maxPlayers: parseInt(result1.boardgames.boardgame[0].maxplayers),
+						playtime: parseInt(result1.boardgames.boardgame[0].maxplaytime)
+					}
 
-})
+					let gameToAdd = new Game (game)
+					gameToAdd.save(function(error, gameID){
+						console.log(gameID.id)
+						User.findOneAndUpdate({ _id : userID }, {$push:  {games: gameID.id}}).exec((error, result) => {
+							res.json(result)
+						})
+					});
+			})
+
+			})
+
+		})
+
+	// //Add the game to the Users mygameslist.
+	// User.findOneAndUpdate({ _id : userID }, {$push:  {mygameslist : gameName}}).exec((error, result) => {
+	// 	console.log(error);
+	// 	Game.findOneAndUpdate({ title : gameName }, {$push: { users : userID}}).exec((error, result) => {
+	// 		console.log(error);
+	// 		res.json(result);
+	// 	})
+	// })
+
+
+	//Add the user to the games user thing. Depending on which we want to use.
 
 // Route for checking user status and getting mongoUID.
 router.post("/user/:uid", (req, res) => {
