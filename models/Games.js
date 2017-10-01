@@ -4,20 +4,30 @@ const Schema = mongoose.Schema;
 const GameSchema = new Schema({
   title: {
    type: String,
-   required: true
+   required: true,
+   unique: true
   },
+
   author: {
     type: String,
   },
-  players: {
-    type: String,
+
+  minPlayers: {
+    type: Number
   },
+
+  maxPlayers: {
+    type: Number
+  },
+  
   genre: {
     type: String,
   },
+
   playtime: {
     type: String
   },
+
   users: [{
     type: Schema.Types.String,
     ref: "User",

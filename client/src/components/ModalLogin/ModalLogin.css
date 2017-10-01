@@ -1,0 +1,32 @@
+
+.modal-btn, .modalButton  {
+	background: white;
+	color: black;
+	width: 250px;
+    margin: 20px auto;
+    display: block;
+    font-family: 'Fjalla One', sans-serif;
+    font-style: italic;
+    font-size: 20px;
+}
+
+.modalButton {
+	margin: 10px 0;
+}
+
+.modal-btn:hover, .modalButton:hover, .modal-btn:focus, .modalButton:focus {
+	background: #1e222e;
+	color: white;
+}
+
+.modal .modal-close:hover {
+	background: #1e222e
+}
+
+.modal-close {
+	color:black;
+}
+
+.errorMsg{
+	color:red;
+}

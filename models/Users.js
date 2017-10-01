@@ -21,10 +21,30 @@ var UserSchema = new Schema({
     type: String,
     // required: true
   },
+
+  exp: {
+    type: Number,
+    default: 1
+  },
+
+  level: {
+    type: Number,
+    default: 1
+  },
+
+  toNextLevel: {
+    type: Number,
+    default: 1
+  },
   // List of Games - populated from GameList
-  mygameslist: [{
-    type: Schema.Types.String,
-    ref: "Games"
+  games: [{
+    type: Schema.Types.ObjectId,
+    ref: "Game"
+  }],
+  // List of friends IDS
+  friends: [{
+    type: String,
+    ref: "User"
   }]
 
 });

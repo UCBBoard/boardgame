@@ -1,8 +1,39 @@
+.collapsible-body {
+  color: black;
+  padding: 0;
+}
+
+.gamelistBox {
+  border-radius: 10px;
+  height: 500px;
+  padding: 0 !important;
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.23);
+}
+
+/*.gamelistGames {
+  overflow-y: auto;
+  height: 410px;
+}*/
+
+li:nth-of-type(odd) .collapsible-header {
+  background: #515664;
+  color: white;
+}
+
+li:nth-of-type(even) .collapsible-header  {
+  background: #838ca6;
+  color: white;
+}
+
+.collapsible-header {
+  color: black;
+}
+
 .list-overflow-container {
   max-height: 545px;
   border: 1px #DDDDDD solid;
   border-radius: 4px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
@@ -33,8 +64,23 @@
 }
 
 #add-games-btn {
-  position: fixed;
+  /*position: fixed;*/
   float: right;
-  margin-top: 76vh;
-  margin-left: 50vh;
+  width: 60px;
+  height: 60px;
+  margin-top: -3vh;
+  /*margin-left: 50vh;*/
+}
+
+h2 {
+  color: black;
+}
+
+.new-game-select {
+  background: #515664;
+  width: 100%;
+}
+
+p {
+  margin-top: 0px;
 }

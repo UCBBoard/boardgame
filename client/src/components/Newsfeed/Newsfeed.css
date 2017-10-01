@@ -4,16 +4,23 @@
   border-radius: 8px 8px 0 0;
   border-bottom: 1px solid black;
   margin-top: 0;
+  margin-bottom: 0px;
   padding: 10px 0;
 }
 
 .headlineA {
   color: #484848;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-style: italic;
 }
 
 .headlineA:hover {
   text-decoration: underline;
+}
+
+.headlineBox {
+  overflow-y: scroll;
+  height: 435px;
 }
 
 .list-overflow-container {

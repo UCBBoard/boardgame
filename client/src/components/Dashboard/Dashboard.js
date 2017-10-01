@@ -3,25 +3,35 @@ import "./Dashboard.css";
 import Axios from "axios";
 import Gamelist from "../Gamelist";
 import firebase from "firebase";
-// import Friendslist from "../Friendslist";
 import Newsfeed from "../Newsfeed";
 import HoverButtons from "../HoverButtons";
 import Background from "../Background"
 import logo from "../../assets/img/logo.png"
+import LevelBar from "../LevelBar";
 
 
 class Dashboard extends Component {
-	state = {}
+
+	state = {
+		// uid: "",
+		// state will be passed into hoverbuttons component as prop to render correct material-icon based on if user has notifications
+		notifications:[]
+	}
+
 	componentDidMount() {
+		const elem = document.querySelector(".modal-overlay")
+		if(elem) elem.remove()
 		firebase.auth().onAuthStateChanged((user) => {
-			let uid = firebase.auth().currentUser.uid;
-			Axios.post("/api/user/" + uid)
-				.then((response) => {
-    			console.log("searching database for user:" + response);
-    	})
-      .catch((error) => {
-      	console.log(error);
-    })
+			if (firebase.auth().currentUser.uid){
+				let uid = firebase.auth().currentUser.uid;
+					Axios.post("/api/user/" + uid)
+						.then((response) => {
+		    			console.log("searching database for user:" + response);
+		    	})
+		      .catch((error) => {
+		      	// console.log(error);
+		    })
+			}
 		})
 	};
 
@@ -38,6 +48,7 @@ class Dashboard extends Component {
 		        </div>
 		      </div>
 		      <HoverButtons />
+		      <LevelBar />
 		    </Background>
 		)
 	}

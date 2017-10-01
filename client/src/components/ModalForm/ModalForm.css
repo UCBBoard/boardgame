@@ -1,0 +1,48 @@
+
+.submitButton  {
+	background: white;
+	color: black;
+	width: 250px;
+    margin: 20px 0;
+    display: block;
+    font-family: 'Fjalla One', sans-serif;
+    font-style: italic;
+    font-size: 20px;
+}
+
+.submitButton:hover, .submitButton:active {
+	background: #1e222e;
+	color: white;
+}
+
+.modal-close {
+	color:black;
+}
+
+.errorMsg{
+	color:red;
+}
+
+
+.container {
+  width: 500px;
+}
+
+.note {
+  color: gray;
+  margin: 8px 0;
+}
+
+input.active:valid {
+  box-shadow: 0 0 5px 1px green;
+}
+
+input.active:invalid {
+  box-shadow: 0 0 5px 1px red;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}

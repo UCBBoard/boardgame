@@ -1,0 +1,13 @@
+.gamelist-item {
+  color: black;
+}
+
+.list-item-name {
+  /*float: left;*/
+  font-size: 15px;
+  /*display: block;*/
+}
+
+.material-icons {
+  float: right;
+}
