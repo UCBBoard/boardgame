@@ -26,3 +26,7 @@
 .modal-close {
 	color:black;
 }
+
+.errorMsg{
+	color:red;
+}
