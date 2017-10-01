@@ -10,7 +10,8 @@ import firebase from 'firebase';
 class ModalLogin extends Component {
   state = {
     email:'',
-    password:''
+    password:'',
+    errors: '',
   };
 
   login = (event, email, password) => {
@@ -18,7 +19,7 @@ class ModalLogin extends Component {
     password = this.state.password
     event.preventDefault();
     firebase.auth().signInWithEmailAndPassword(email, password).catch(error => {
-      if(error) console.log(error)
+      if(error) this.setState({errors:error.message})
     });
   }
 
@@ -34,6 +35,9 @@ class ModalLogin extends Component {
   render(){
     return(
       <div>
+        <div className="errorMsg">
+          {this.state.errors}
+        </div>
         <form>
           <input
           placeholder="Enter your Email"
@@ -42,7 +46,7 @@ class ModalLogin extends Component {
           name="email"
           label="Enter Your Email Address"
           onChange={this.handleInputChange}
-          /><br/>
+          required={true} /><br/>
           <input
           placeholder="Password"
           type="password"
@@ -50,7 +54,7 @@ class ModalLogin extends Component {
           name="password"
           onChange={this.handleInputChange}
           /><br/>
-          <Button waves='light' className="modalButton" modal="close" onClick={this.login}>Submit</Button>
+          <Button waves='light' className="modalButton" onClick={this.login}>Submit</Button>
         </form>
       <GoogleLogin />
     </div>
@@ -59,3 +63,5 @@ class ModalLogin extends Component {
 }
 
   export default ModalLogin;
+
+
