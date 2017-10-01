@@ -8,6 +8,11 @@
   height: 500px;
   padding: 0 !important;
   box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.23);
+  margin-bottom: 75px;
+}
+
+.gamelistHeader {
+  font-family: 'Wendy One', sans-serif;
 }
 
 /*.gamelistGames {
