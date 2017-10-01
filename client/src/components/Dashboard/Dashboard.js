@@ -19,6 +19,8 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
+		const elem = document.querySelector(".modal-overlay")
+		elem.remove()
 		firebase.auth().onAuthStateChanged((user) => {
 			if (firebase.auth().currentUser.uid){
 				let uid = firebase.auth().currentUser.uid;
