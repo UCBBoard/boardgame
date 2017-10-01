@@ -29,7 +29,7 @@ class ModalLogin extends Component {
     const name = event.target.name;
     // Updating the input's state
     this.setState({
-      [name]: value,
+      [name]: value
     });
   }
   render(){
