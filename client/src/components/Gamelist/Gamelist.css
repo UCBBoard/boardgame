@@ -10,10 +10,10 @@
   box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.23);
 }
 
-.gamelistGames {
+/*.gamelistGames {
   overflow-y: auto;
   height: 410px;
-}
+}*/
 
 li:nth-of-type(odd) .collapsible-header {
   background: #515664;
@@ -33,7 +33,7 @@ li:nth-of-type(even) .collapsible-header  {
   max-height: 545px;
   border: 1px #DDDDDD solid;
   border-radius: 4px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
@@ -74,4 +74,13 @@ li:nth-of-type(even) .collapsible-header  {
 
 h2 {
   color: black;
+}
+
+.new-game-select {
+  background: #515664;
+  width: 100%;
+}
+
+p {
+  margin-top: 0px;
 }
