@@ -48,13 +48,13 @@ router.get("/games/:name", function(req, res){
 	})
 })
 
-//Route to get 5 results back from a given word search to the BGG API. Used in the autofill input suggestions.
+//Route to get 7 results back from a given word search to the BGG API. Used in the autofill input suggestions.
 router.get("/games/search/:name", function(req, res){
 	console.log("Searching: " + req.params.name);
 	axios.get("https://www.boardgamegeek.com/xmlapi/search?search=" + req.params.name)
 	.then(function(response){
 		parseString(response.data, function (err, result) {
-			res.json(result.boardgames.boardgame.slice(0, 10))
+			res.json(result.boardgames.boardgame.slice(0, 7))
 		});
 	})
 })
@@ -84,7 +84,7 @@ router.post("/newgame/:gameid/:uid", (req, res) => {
 
 					let gameToAdd = new Game (game)
 					gameToAdd.save(function(error, gameID){
-						console.log(gameID.id)
+						// console.log(gameID.id)
 						User.findOneAndUpdate({ _id : userID }, {$push:  {games: gameID.id}}).exec((error, result) => {
 							res.json(result)
 						})
@@ -134,7 +134,7 @@ router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
 	})
 })
 
-//Route for gettting all friends 
+//Route for gettting all friends
 router.get("/user/:uid/friends", (req, res) => {
 	console.log("These are the users friends.");
 	User.findOne({ _id : req.params.uid}).populate("friends").exec((error, result) => {

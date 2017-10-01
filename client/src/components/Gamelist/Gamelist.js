@@ -11,7 +11,10 @@ class Gamelist extends Component {
     buttonDisabled: false,
     query: "",
     gameInfo: [],
-    searchArray: []
+    searchArray: [],
+    nameArray: [],
+    dateArray: [],
+    idArray: []
   }
 
   // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
@@ -30,22 +33,23 @@ class Gamelist extends Component {
     // Axios.get("api/games" + )
   }
 
-  handleNewGameSubmit = () => {
-    const gameName = document.getElementById("newGame").value;
-    document.getElementById("newGame").value = "";
-    let userId = firebase.auth().currentUser.uid;
-    const postRoute = "/api/newgame/" + gameName + "/" + userId;
-    Axios.post(postRoute, {
-      title: gameName,
-      users: userId,
-    })
-    .then((response) => {
-      this.setState({
-        myGames: [...this.state.myGames, gameName]
-      });
-    })
-    .catch((error) => { console.log(error) })
-  }
+  // handleNewGameSubmit = () => {
+  //   console.log("submitting");
+  //   const gameName = document.getElementById("newGame").value;
+  //   // document.getElementById("newGame").value = "";
+  //   let userId = firebase.auth().currentUser.uid;
+  //   const postRoute = "/api/newgame/" + gameName + "/" + userId;
+  //   Axios.post(postRoute, {
+  //     title: gameName,
+  //     users: userId,
+  //   })
+  //   .then((response) => {
+  //     this.setState({
+  //       myGames: [...this.state.myGames, gameName]
+  //     });
+  //   })
+  //   .catch((error) => { console.log(error) })
+  // }
 
   handleNewGameSubmit1 = () => {
     const gameID = 213460;
@@ -53,8 +57,8 @@ class Gamelist extends Component {
     const postRoute = "/api/newgame/" + gameID + "/" + userId;
     Axios.post(postRoute)
     .then((response) => {
-      this.setState({
-      });
+      // this.setState({
+      // });
     })
     .catch((error) => { console.log(error) })
   }
@@ -83,7 +87,6 @@ class Gamelist extends Component {
       searchArray: []
     })
     let currentValue = document.getElementById("newGame").value;
-    // let searchObj = {};
     Axios.get("/api/games/search/" + currentValue)
       .then((response) => {
         // console.log(response.data);
@@ -91,11 +94,18 @@ class Gamelist extends Component {
           let dataName = data.name[0]._;
           let dataDate = data.yearpublished[0];
           let dataId = data.$.objectid;
-          let resultObj = {};
-          resultObj[dataName] = [dataDate, dataId];
+          let resultObj = {
+            name: dataName,
+            date: dataDate,
+            id: dataId
+          };
+          // resultObj[dataName] = [dataDate, dataId];
           // console.log(resultObj);
-          this.setState({
-            searchArray: [...this.state.searchArray, resultObj]
+          return this.setState({
+              searchArray: [...this.state.searchArray, resultObj]
+            // nameArray: [...this.state.nameArray, data.name[0]._],
+            // dateArray: [...this.state.dateArray, data.yearpublished[0]],
+            // idArray: [...this.state.idArray, data.$.objectid]
           })
         })
       })
@@ -118,16 +128,20 @@ class Gamelist extends Component {
                 id="newGame"
                 onChange={this.handleChange}
               />
-              <br/>
-              <Collapsible>
+              <Collapsible className="gamelistGames" defaultActiveKey={0}>
                 <CollapsibleItem header={this.state.query}>
                   {this.state.searchArray.map(
                     (data, i) => {
-                      // console.log("mapping array")
-                      console.log("test");
-                      <div className="new-game-select">
-                          {Object.keys(data)}
-                      </div>
+                      console.log("mapping array");
+                      console.log(data);
+                      // debugger;
+                      return <Button
+                              className="new-game-select"
+                              key={i}
+                              data-id={data.id}
+                              onClick={this.newGameSubmit1}>
+                          <p>{data.name}  <span classname="search-date">{data.date}</span></p>
+                      </Button>
                     })
                   }
                 </CollapsibleItem>
