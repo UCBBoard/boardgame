@@ -18,9 +18,10 @@ class LevelBar extends Component {
 
 	render(){
 		return(
-			<div className="levelDiv">
-				<h3 className="levelHeader">Level: {this.state.level}</h3>
+			<div className="col s12 levelDiv">
+				<h3 className="levelHeader">Your Level: {this.state.level}</h3>
 				<ProgressBar progress={Math.floor(this.state.exp / this.state.expToLevel * 100)}/>
+				<h5 className="levelText">Add games, add friends, or unlock secrets to increase your level!</h5>
 			</div>
 			
 			)

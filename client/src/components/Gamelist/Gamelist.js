@@ -118,8 +118,8 @@ class Gamelist extends Component {
 
   render () {
     return (
-      <div className="col s8 center card-panel gamelistBox">
-        <h2>Gamelist
+      <div className="col s12 center card-panel gamelistBox">
+        <h2 className="gamelistHeader">Gamelist
           <Modal
             header="Add a game to your collection:"
             id="new-game-modal"
@@ -137,7 +137,7 @@ class Gamelist extends Component {
                   expanded={true}
                   header={this.state.query}
                   dataResults={this.state.searchArray}
-                  saveGame={() => this.handleNewGameSubmit1()}
+                  saveGame={this.handleNewGameSubmit1}
                 />
 
               </Collapsible>
