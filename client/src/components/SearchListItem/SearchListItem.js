@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import "./SearchListItem.css";
 import {Button, CollapsibleItem} from "react-materialize";
 
