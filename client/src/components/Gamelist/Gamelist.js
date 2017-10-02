@@ -118,8 +118,8 @@ class Gamelist extends Component {
 
   render () {
     return (
-      <div className="col s12 center card-panel gamelistBox">
-        <h2 className="gamelistHeader">Gamelist
+      <div className="col s8 center card-panel gamelistBox">
+        <h2>Gamelist
           <Modal
             header="Add a game to your collection:"
             id="new-game-modal"
