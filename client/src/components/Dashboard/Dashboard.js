@@ -6,7 +6,6 @@ import firebase from "firebase";
 import Newsfeed from "../Newsfeed";
 import HoverButtons from "../HoverButtons";
 import Background from "../Background"
-import Discord from "../Discord"
 import logo from "../../assets/img/logo.png"
 import LevelBar from "../LevelBar";
 
@@ -50,7 +49,6 @@ class Dashboard extends Component {
 		      </div>
 		      <HoverButtons />
 		      <LevelBar />
-		      <Discord />
 		    </Background>
 		)
 	}
