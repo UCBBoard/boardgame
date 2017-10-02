@@ -1,21 +1,25 @@
 import React from "react";
-import "./SearchLisItem.css";
+import "./SearchListItem.css";
+import {Button, CollapsibleItem} from "react-materialize";
 
 
 const SearchListItem = props =>
-
-<CollapsibleItem header={props.header}>
+<CollapsibleItem
+  header={props.header}
+  onSelect={props.onSelect}
+  >
   {props.dataResults.map(
     (data, i) => {
-      console.log("mapping array");
-      console.log(data);
-      // debugger;
       return <Button
-              className="new-game-select"
-              key={i}
-              data-id={data.id}
-              onClick={this.newGameSubmit1}>
-          <p>{data.name}  <span classname="search-date">{data.date}</span></p>
+        className="new-game-select"
+        key={i}
+        data-id={data.id}
+        onClick={() => {
+          props.saveGame(data.id);
+        }}
+        // onClick={this.handleNewGameSubmit1(data.id)}
+        >
+          <p>{data.name}  <span className="search-date">{data.date}</span></p>
       </Button>
     })
   }

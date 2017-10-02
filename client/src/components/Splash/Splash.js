@@ -20,9 +20,11 @@ class Splash extends Component {
           <h1 className="center-align logoH1">GameVault</h1><br/>
           <h4 className="center-align splashHs splashh4">Your digital board game shelf</h4><br/>
           <div className="center-align">
-            <Modals buttonText="Sign Up" header="Sign Up for GameVault">
+            {
+              <Modals buttonText="Sign Up" header="Sign Up for GameVault">
               <ModalForm />
             </Modals>
+          }
             <Modals buttonText="Sign In" header="Sign In to GameVault">
               <ModalLogin />
             </Modals>

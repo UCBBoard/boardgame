@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Gamelist.css";
 import Axios from "axios";
+import SearchListItem from "../SearchListItem";
 import ListItem from "../ListItemTemp"
 import firebase from "firebase";
 import {Modal, Button, Collapsible, CollapsibleItem, Input} from "react-materialize";
@@ -51,10 +52,11 @@ class Gamelist extends Component {
   //   .catch((error) => { console.log(error) })
   // }
 
-  handleNewGameSubmit1 = () => {
-    const gameID = 213460;
+  handleNewGameSubmit1 = (gameId) => {
+    // const gameID = 213460;
+    console.log("subbing new game");
     let userId = firebase.auth().currentUser.uid;
-    const postRoute = "/api/newgame/" + gameID + "/" + userId;
+    const postRoute = "/api/newgame/" + gameId + "/" + userId;
     Axios.post(postRoute)
     .then((response) => {
       // this.setState({
@@ -129,22 +131,15 @@ class Gamelist extends Component {
                 onChange={this.handleChange}
               />
               <Collapsible className="gamelistGames" defaultActiveKey={0}>
-                <CollapsibleItem header={this.state.query}>
-                  {this.state.searchArray.map(
-                    (data, i) => {
-                      console.log("mapping array");
-                      console.log(data);
-                      // debugger;
-                      return <Button
-                              className="new-game-select"
-                              key={i}
-                              data-id={data.id}
-                              onClick={this.newGameSubmit1}>
-                          <p>{data.name}  <span classname="search-date">{data.date}</span></p>
-                      </Button>
-                    })
-                  }
-                </CollapsibleItem>
+
+                <SearchListItem
+                  // onSelect={null}
+                  expanded={true}
+                  header={this.state.query}
+                  dataResults={this.state.searchArray}
+                  saveGame={this.handleNewGameSubmit1}
+                />
+
               </Collapsible>
 
               <Button

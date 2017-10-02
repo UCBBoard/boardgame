@@ -71,7 +71,7 @@ router.get("/games/search/:name", function(req, res){
 router.post("/newgame/:gameid/:uid", (req, res) => {
 	let gameID = req.params.gameid;
 	let userID = req.params.uid;
-	// console.log("Postin a god damned game, " + gameName);
+	console.log("Postin a god damned game, " + gameName);
 	axios.get("https://boardgamegeek.com/xmlapi/boardgame/" + gameID)
 			.then(function(response1){
 				parseString(response1.data, function (err, result1) {
