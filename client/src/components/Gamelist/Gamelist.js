@@ -137,7 +137,7 @@ class Gamelist extends Component {
                   expanded={true}
                   header={this.state.query}
                   dataResults={this.state.searchArray}
-                  saveGame={() => this.handleNewGameSubmit1()}
+                  saveGame={this.handleNewGameSubmit1}
                 />
 
               </Collapsible>
