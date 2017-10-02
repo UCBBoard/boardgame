@@ -4,7 +4,6 @@ import {Button, CollapsibleItem} from "react-materialize";
 
 
 const SearchListItem = props =>
-
 <CollapsibleItem
   header={props.header}
   onSelect={props.onSelect}
@@ -16,7 +15,7 @@ const SearchListItem = props =>
         key={i}
         data-id={data.id}
         onClick={() => {
-          console.log(props.saveGame);
+          props.saveGame(data.id);
         }}
         // onClick={this.handleNewGameSubmit1(data.id)}
         >
