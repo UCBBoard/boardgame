@@ -28,7 +28,7 @@ class Splash extends Component {
             </Modals>
           </div>
           <h2 className="center-align splashHs splashLowerH">Share | Store | Record</h2>
-        </div>   
+        </div>
       </Background >
     );
   }
