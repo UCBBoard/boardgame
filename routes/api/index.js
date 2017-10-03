@@ -60,12 +60,12 @@ router.get("/games/search/:name", function(req, res){
 })
 
 // This is the route that the Gamelist Module calls when it mounts - searches the database, finds the user (passed in through params), and returns a populated list of games.
-router.get("/games/:uid/mylist", (req, res) => {
-	console.log("Getting user gamelist.");
-	User.findOne({ _id : req.params.uid}).populate("games").exec((error, result) => {
-		res.json(result.games);
-	})
-})
+// router.get("/games/:uid/mylist", (req, res) => {
+// 	console.log("Getting user gamelist.");
+// 	User.findOne({ _id : req.params.uid}).populate("games").exec((error, result) => {
+// 		res.json(result.games);
+// 	})
+// })
 
 // For posting a new game linked to a users account. Called from the submit button on the add game modal in Dashboard component.
 router.post("/newgame/:gameid/:uid", (req, res) => {
@@ -143,10 +143,28 @@ router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
 	})
 })
 
-//Route for gettting all friends
+//Route for deleting a user
+router.delete("/user/deletefriend/:uid/:userToDelete", (req, res) => {
+	let userID = req.params.uid;
+	let secondUserID = req.params.userToDelete
+	console.log(`Deleting user ${secondUserID}`);
+	User.findOneAndUpdate({ _id: userID}, {$pull: {friends: secondUserID}}).exec((error, result) => {
+		res.json(result)
+	})
+})
+
+//Route for gettting active user's friends
 router.get("/user/:uid/friends", (req, res) => {
 	console.log("These are the users friends.");
 	User.findOne({ _id : req.params.uid}).populate("friends").exec((error, result) => {
+		res.json(result.friends);
+	})
+})
+
+//Route for getting all users
+router.get("/user/all", (req, res) => {
+	console.log("These are all users signed up with Gamevault.");
+	User.find({}).exec((error, result) => {
 		res.json(result);
 	})
 })
