@@ -134,11 +134,21 @@ router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
 	})
 })
 
-//Route for gettting all friends
+//Route for deleting a user
+router.delete("/user/deletefriend/:uid/:userToDelete", (req, res) => {
+	let userID = req.params.uid;
+	let secondUserID = req.params.userToDelete
+	console.log(`Deleting user ${secondUserID}`);
+	User.findOneAndUpdate({ _id: userID}, {$pull: {friends: secondUserID}}).exec((error, result) => {
+		res.json(result)
+	})
+})
+
+//Route for gettting active user's friends
 router.get("/user/:uid/friends", (req, res) => {
 	console.log("These are the users friends.");
 	User.findOne({ _id : req.params.uid}).populate("friends").exec((error, result) => {
-		res.json(result);
+		res.json(result.friends);
 	})
 })
 
