@@ -31,3 +31,11 @@
 .list-overflow-container li:last-child {
   border-bottom: none;
 }
+
+.delete{
+  background-color:red;
+}
+
+.add{
+  background-color:green;
+}

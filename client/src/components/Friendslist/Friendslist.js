@@ -4,28 +4,41 @@ import firebase from "firebase";
 import Axios from "axios";
 import {Button} from "react-materialize";
 
+
+
 class Friendslist extends Component {
 
 	state ={
-		friends:[]
+		friends:[],
+		friendsView: ''
 	}
 
 
 	componentDidMount() {
-	let activeUser = firebase.auth().currentUser.uid
+		this.showMyFriends();
+	}
 
-		Axios.get(`/api/user/${activeUser}/friends`)
+	showMyFriends = () => {
+		let activeUser = firebase.auth().currentUser.uid
+		Axios.get(`api/user/${activeUser}/friends`)
 			.then(res => {
-				this.setState({friends: res.data})
+				this.setState({friends: res.data, friendsView: 'mine'})
+			}).catch(function(error) {
+				console.error(error)
+			})
+	}
+	showAllFriends = () => {
+		Axios.get(`/api/user/all`)
+			.then(res => {
+				this.setState({friends: res.data, friendsView: 'all'})
 		}).catch(function(error) {
 				console.error(error);
 		});
-		console.log(this.state)
 	}
 
  	addFriend = (event) => {
 		let activeUser = firebase.auth().currentUser.uid
-		let secondUser = event.target
+		let secondUser = event.target.dataset.id
 		let route = `/api/user/addfriend/${activeUser}/${secondUser}`
 		Axios.post(route, {
 			activeUser: activeUser,
@@ -33,11 +46,28 @@ class Friendslist extends Component {
 		})
 	}
 
+	removeFriend = (event) => {
+		let activeUser = firebase.auth().currentUser.uid
+		let secondUser = event.target.dataset.id
+		let route = `/api/user/deletefriend/${activeUser}/${secondUser}`
+		Axios.delete(route)
+		this.showMyFriends()
+	}
+
 	render(){
 	  return (
-	    <div className="col s3 center card-panel">Friendslist
-	    	<Button onClick={this.addFriend} data-id="33">Add a friend</Button>
-	    </div>
+	  	<div>
+	  		<Button onClick={this.showMyFriends}>My Friends</Button>
+	  		<Button onClick={this.showAllFriends}>All users</Button>
+				{this.state.friends.map((element, i) =>
+					<div key={i}> {element._id}
+						{this.state.friendsView === 'all' ?
+						<Button data-id={element._id} onClick={this.addFriend} className="add"> Add friend </Button> :
+						<Button data-id={element._id} onClick={this.removeFriend} className ="delete"> Delete friend </Button>
+						}
+					</div>
+				)}
+			</div>
 	  );
 	};
 };

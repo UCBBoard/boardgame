@@ -39,8 +39,6 @@ class App extends Component {
 			<BrowserRouter>
 				<div>
 					{this.state.authed? <Dashboard/> : <Splash/>}
-						<Switch>
-						</Switch>
 				</div>
 			</BrowserRouter>
 		);
