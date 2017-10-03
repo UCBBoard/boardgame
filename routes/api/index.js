@@ -71,7 +71,6 @@ router.get("/games/:uid/mylist", (req, res) => {
 router.post("/newgame/:gameid/:uid", (req, res) => {
 	let gameID = req.params.gameid;
 	let userID = req.params.uid;
-	console.log("Postin a god damned game, " + gameName);
 	axios.get("https://boardgamegeek.com/xmlapi/boardgame/" + gameID)
 			.then(function(response1){
 				parseString(response1.data, function (err, result1) {
@@ -83,11 +82,21 @@ router.post("/newgame/:gameid/:uid", (req, res) => {
 					}
 
 					let gameToAdd = new Game (game)
-					gameToAdd.save(function(error, gameID){
-						// console.log(gameID.id)
-						User.findOneAndUpdate({ _id : userID }, {$push:  {games: gameID.id}}).exec((error, result) => {
-							res.json(result)
-						})
+					gameToAdd.save(function(error, result){
+						console.log(gameID)
+						if(!err) {
+							User.findOneAndUpdate({ _id : userID }, {$push:  {games: gameID}}).exec((error, result) => {
+								if(!err) {
+									console.log("updating gamelist in User Profile")
+									return res.json(result)
+								} else {
+									return console.log(error);
+								}
+							})
+						} else {
+							console.log(err);
+						}
+
 					});
 			})
 

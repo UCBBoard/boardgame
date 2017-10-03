@@ -59,7 +59,9 @@ class Gamelist extends Component {
     const postRoute = "/api/newgame/" + gameId + "/" + userId;
     Axios.post(postRoute)
     .then((response) => {
+      console.log(response);
       // this.setState({
+      //   query: ""
       // });
     })
     .catch((error) => { console.log(error) })
@@ -93,6 +95,7 @@ class Gamelist extends Component {
       .then((response) => {
         // console.log(response.data);
         response.data.map((data) => {
+          console.log(data);
           let dataName = data.name[0]._;
           let dataDate = data.yearpublished[0];
           let dataId = data.$.objectid;
