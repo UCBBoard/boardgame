@@ -6,6 +6,7 @@ import ListItem from "../ListItemTemp"
 import firebase from "firebase";
 import {Modal, Button, Collapsible, CollapsibleItem, Input} from "react-materialize";
 
+
 class Gamelist extends Component {
   state = {
     myGames: [],
@@ -18,12 +19,12 @@ class Gamelist extends Component {
     idArray: []
   }
 
-  // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
-  componentDidMount() {
-    let myId = firebase.auth().currentUser.uid
-    console.log(`this is my id ${myId}`)
-    console.log("Searching for user games");
-    Axios.get("/api/games/" + myId + "/mylist")
+// For loading a users list of games when the Dashboard >>> Gamelist is rendered.
+fetchGames = () => {
+  let myId = firebase.auth().currentUser.uid
+  console.log(`this is my id ${myId}`)
+  console.log("Searching for user games");
+  Axios.get("/api/games/" + myId + "/mylist")
       .then(response => {
         // console.log(response.data.mygameslist);
         this.setState({myGames : response.data});
@@ -31,6 +32,10 @@ class Gamelist extends Component {
       .catch(error => {
         console.log(error)
       })
+  }
+
+  componentDidMount() {
+    this.fetchGames();
     // Axios.get("api/games" + )
   }
 
@@ -63,6 +68,9 @@ class Gamelist extends Component {
       this.setState({
         query: ""
       });
+      document.getElementById('new-game-modal').remove();
+      document.querySelector(".modal-overlay").remove();
+      this.fetchGames();
     })
     .catch((error) => { console.log(error) })
   }
@@ -119,6 +127,13 @@ class Gamelist extends Component {
       })
   }
 
+  deleteGame = (e) => {
+    let userId = firebase.auth().currentUser.uid;
+    let game = e.target.dataset.id;
+    let route = `/api/games/deletegame/${userId}/${game}`;
+    Axios.delete(route);
+    this.fetchGames();
+  }
   render () {
     return (
       <div className="col s12 center card-panel gamelistBox">
@@ -142,7 +157,6 @@ class Gamelist extends Component {
                   dataResults={this.state.searchArray}
                   saveGame={this.handleNewGameSubmit1}
                 />
-
               </Collapsible>
 
               <Button
@@ -158,6 +172,7 @@ class Gamelist extends Component {
           {this.state.myGames.map((gameName, i) => {
               return <CollapsibleItem header={gameName.title} icon='filter_drama' key={i + "gList"}>
                       <ListItem name={gameName.title} minPlayers={gameName.minPlayers} maxPlayers={gameName.maxPlayers} playtime={gameName.playtime} />
+                    <Button data-id={gameName._id} onClick={this.deleteGame}> Delete game </Button>
                     </CollapsibleItem>
             })
           }

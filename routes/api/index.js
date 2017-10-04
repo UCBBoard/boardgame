@@ -105,6 +105,17 @@ router.get("/cheese", (req, res) => {
 	})
 })
 
+// Route for deleting a game
+
+router.delete("/games/deletegame/:uid/:game", (req, res) => {
+	let userID = req.params.uid;
+	let game = req.params.game
+	console.log(`Deleting game ${game}`);
+	User.findOneAndUpdate({ _id: userID}, {$pull: {games: game}}).exec((error, result) => {
+		res.json(result)
+	})
+})
+
 	// //Add the game to the Users mygameslist.
 	// User.findOneAndUpdate({ _id : userID }, {$push:  {mygameslist : gameName}}).exec((error, result) => {
 	// 	console.log(error);
@@ -119,16 +130,15 @@ router.get("/cheese", (req, res) => {
 
 // Route for checking user status and getting mongoUID.
 router.post("/user/:uid", (req, res) => {
-	let user = new User({ _id : req.params.uid})
-	user.save((error, result) => {
-		if(!error) {
-			return res.json(result);
-		} else {
-			return console.log(error);
-		}
-	})
-})
-
+			let user = new User({ _id : req.params.uid})
+			user.save((error, result) => {
+				if(!error) {
+					return res.json(result);
+				} else {
+					return console.log(error);
+				};
+			});
+	});
 
 //Route for adding a user as a friend
 router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
