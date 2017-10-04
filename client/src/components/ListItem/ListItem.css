@@ -9,5 +9,6 @@
 }
 
 .material-icons {
-  float: right;
+  float: left !important;
 }
+

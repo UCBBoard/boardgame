@@ -9,9 +9,13 @@
 }
 
 .material-icons {
-  float: right;
+  float: left;
 }
 /*.game-list-icon {
   float: right;
   margin-top: 15px;
 }*/
+
+.row {
+  margin-bottom: 0px;
+}
