@@ -17,9 +17,11 @@ app.use(routes);
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
 mongoose.connect(
-'mongodb://heroku_6ftxqjz7:begnvtgplfhq2bij765641mp6o@ds161164.mlab.com:61164/heroku_6ftxqjz7'
+  process.env.MONGOLAB_MAUVE_URI || "mongodb://localhost/boardgame",
+  {
+    useMongoClient: true
+  }
 );
-
 // Start the API server
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
