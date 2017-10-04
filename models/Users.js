@@ -11,14 +11,16 @@ var UserSchema = new Schema({
     type: String
   },
   // name is a required string
-	name: {
-		type: String,
-		// required: true,
-		// unique: true,
-	},
+	// name: {
+	// 	type: String,
+ //    sparse: true
+	// 	// required: true,
+	// 	// unique: true,
+	// },
   // link is a required string
   email: {
     type: String,
+    sparse: true
     // required: true
   },
 

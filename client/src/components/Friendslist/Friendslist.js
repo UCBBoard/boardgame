@@ -15,7 +15,7 @@ class Friendslist extends Component {
 
 
 	componentDidMount() {
-		this.showMyFriends();
+		// this.showMyFriends();
 	}
 
 	showMyFriends = () => {
