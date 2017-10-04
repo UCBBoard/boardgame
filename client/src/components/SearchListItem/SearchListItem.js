@@ -1,10 +1,10 @@
 import React from "react";
 import "./SearchListItem.css";
-import {Button, CollapsibleItem} from "react-materialize";
+import {Button, CollapsibleItem, CollectionItem} from "react-materialize";
 
 
 const SearchListItem = props =>
-<CollapsibleItem
+<CollectionItem
   header={props.header}
   onSelect={props.onSelect}
   >
@@ -22,6 +22,6 @@ const SearchListItem = props =>
       </Button>
     })
   }
-</CollapsibleItem>
+</CollectionItem>
 
 export default SearchListItem;

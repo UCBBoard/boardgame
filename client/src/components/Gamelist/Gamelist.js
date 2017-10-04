@@ -4,7 +4,7 @@ import Axios from "axios";
 import SearchListItem from "../SearchListItem";
 import ListItem from "../ListItemTemp"
 import firebase from "firebase";
-import {Modal, Button, Collapsible, CollapsibleItem, Input} from "react-materialize";
+import {Modal, Button, Collapsible, CollapsibleItem, Input, Collection, Icons} from "react-materialize";
 
 
 class Gamelist extends Component {
@@ -82,16 +82,6 @@ fetchGames = () => {
     this.setState({
       query: e.target.value
     })
-    // let myGamesVar = this.state.myGames;
-    // if (currentValue.length > 3) {
-    //   console.log("currentValue is over 3.");
-
-    // }
-    // if(!myGamesVar.includes(currentValue)){
-    //   return this.setState({buttonDisabled: false})
-    // } else {
-    //   return this.setState({buttonDisabled: true})
-    // }
   }
 
   searchGames = (event) => {
@@ -113,13 +103,8 @@ fetchGames = () => {
             date: dataDate,
             id: dataId
           };
-          // resultObj[dataName] = [dataDate, dataId];
-          // console.log(resultObj);
           return this.setState({
               searchArray: [...this.state.searchArray, resultObj]
-            // nameArray: [...this.state.nameArray, data.name[0]._],
-            // dateArray: [...this.state.dateArray, data.yearpublished[0]],
-            // idArray: [...this.state.idArray, data.$.objectid]
           })
         })
       })
@@ -143,38 +128,43 @@ fetchGames = () => {
           <Modal
             header="Add a game to your collection:"
             id="new-game-modal"
+            actions=" "
             trigger={<Button floating large className='red' id="add-games-btn" waves='light' icon='add' />}>
+            <form>
               <Input
+                s={10}
                 placeholder="Search for your game"
                 name="newgame"
                 id="newGame"
                 onChange={this.handleChange}
               />
-              <Collapsible className="gamelistGames" defaultActiveKey={0}>
-
-                <SearchListItem
-                  // onSelect={null}
-                  expanded={true}
-                  header={this.state.query}
-                  dataResults={this.state.searchArray}
-                  saveGame={this.handleNewGameSubmit1}
-                />
-              </Collapsible>
-
               <Button
                 waves='light'
+                id="search-games-btn"
                 // modal='close'
                 disabled={this.state.buttonDisabled}
                 onClick={(event) => this.searchGames(event)}>
                   Search
               </Button>
+            </form>
+              <Collection className="gamelistGames" id="gamelist-games" defaultActiveKey={0}>
+
+                <SearchListItem
+                  // onSelect={null}
+                  expanded={true}
+                  // header={this.state.query}
+                  dataResults={this.state.searchArray}
+                  saveGame={this.handleNewGameSubmit1}
+                />
+              </Collection>
+
           </Modal>
         </h2>
         <Collapsible className="gamelistGames">
           {this.state.myGames.map((gameName, i) => {
               return <CollapsibleItem header={gameName.title} icon='filter_drama' key={i + "gList"}>
                       <ListItem name={gameName.title} minPlayers={gameName.minPlayers} maxPlayers={gameName.maxPlayers} playtime={gameName.playtime} />
-                    <Button data-id={gameName._id} onClick={this.deleteGame}> Delete game </Button>
+                    <Button data-id={gameName._id} onClick={this.deleteGame} icon="delete"> </Button>
                     </CollapsibleItem>
             })
           }
