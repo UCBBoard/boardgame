@@ -60,6 +60,7 @@ fetchGames = () => {
   handleNewGameSubmit1 = (gameId) => {
     // const gameID = 213460;
     console.log("subbing new game");
+    this.props.notification("New game added!");
     let userId = firebase.auth().currentUser.uid;
     const postRoute = "/api/newgame/" + gameId + "/" + userId;
     Axios.post(postRoute)
@@ -128,6 +129,7 @@ fetchGames = () => {
   }
 
   deleteGame = (e) => {
+    this.props.notification("Game deleted!");
     let userId = firebase.auth().currentUser.uid;
     let game = e.target.dataset.id;
     let route = `/api/games/deletegame/${userId}/${game}`;
