@@ -60,9 +60,9 @@ class Gamelist extends Component {
     Axios.post(postRoute)
     .then((response) => {
       console.log(response);
-      // this.setState({
-      //   query: ""
-      // });
+      this.setState({
+        query: ""
+      });
     })
     .catch((error) => { console.log(error) })
   }

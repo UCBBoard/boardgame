@@ -89,3 +89,7 @@ h2 {
 p {
   margin-top: 0px;
 }
+
+#new-game-modal {
+  height: 80%;
+}
