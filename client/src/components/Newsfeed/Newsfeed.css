@@ -72,3 +72,15 @@
 .newsfeedHeadline {
   padding: 0 20px;
 }
+
+@media screen and (max-width: 750px){
+  .newsfeedBox {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .newsfeedBox {
+    width: 100%;
+  }
+}
