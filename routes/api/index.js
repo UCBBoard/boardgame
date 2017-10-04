@@ -105,6 +105,17 @@ router.get("/cheese", (req, res) => {
 	})
 })
 
+// Route for deleting a game
+
+router.delete("/games/deletegame/:uid/:game", (req, res) => {
+	let userID = req.params.uid;
+	let game = req.params.game
+	console.log(`Deleting game ${game}`);
+	User.findOneAndUpdate({ _id: userID}, {$pull: {games: game}}).exec((error, result) => {
+		res.json(result)
+	})
+})
+
 	// //Add the game to the Users mygameslist.
 	// User.findOneAndUpdate({ _id : userID }, {$push:  {mygameslist : gameName}}).exec((error, result) => {
 	// 	console.log(error);
