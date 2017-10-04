@@ -38,6 +38,12 @@ var UserSchema = new Schema({
     type: Number,
     default: 1
   },
+
+  cardNum: {
+    type: Number,
+    default: 0
+  },
+  
   // List of Games - populated from GameList
   games: [{
     type: Schema.Types.ObjectId,
