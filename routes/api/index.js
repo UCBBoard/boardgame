@@ -20,7 +20,12 @@ router.get("/news/scrape", function(req, res){
 					title: $(element).children("a").text(),
 					link: $(element).children("a").attr("data-href-url"),
 				})
-				article.save();
+				Article.findOne({title: article.title}, function(error, result){
+					if (!result){
+						article.save();
+					}
+				})
+				
 			}
 
 		})
@@ -86,14 +91,28 @@ router.post("/newgame/:gameid/:uid", (req, res) => {
 					}
 
 					let gameToAdd = new Game (game)
-					gameToAdd.save(function(error, result2){
-						console.log(result2);
-						User.findOneAndUpdate({ _id : userID }, {$push:  {games: result2._id}}).exec((error, result) => {
-							console.log("updating gamelist in User Profile")
-							console.log(result);
-							return res.json(result)
-						})
-					});
+					Game.findOne({title: game.title}, function(error, result3){
+						console.log("when adding new game, the result is " + result3);
+						if (result3){
+							User.findOneAndUpdate({ _id : userID }, {$push:  {games: result3._id}}).exec((error, result4) => {
+								console.log("updating gamelist in User Profile")
+								console.log(result4);
+								return res.json(result4)
+							})
+						}
+
+						else {
+							gameToAdd.save(function(error, result2){
+							console.log(result2);
+							User.findOneAndUpdate({ _id : userID }, {$push:  {games: result2._id}}).exec((error, result) => {
+								console.log("updating gamelist in User Profile")
+								console.log(result);
+								return res.json(result)
+							})
+						});
+						}
+					})
+					
 			})
 		})
 })
@@ -131,13 +150,22 @@ router.delete("/games/deletegame/:uid/:game", (req, res) => {
 // Route for checking user status and getting mongoUID.
 router.post("/user/:uid", (req, res) => {
 			let user = new User({ _id : req.params.uid})
-			user.save((error, result) => {
-				if(!error) {
-					return res.json(result);
-				} else {
-					return console.log(error);
-				};
-			});
+			User.findOne({_id: req.params.uid}, function(error, resultUser){
+				if (!resultUser){
+					user.save((error, result) => {
+						if(!error) {
+							return res.json(result);
+						} else {
+							return console.log(error);
+						};
+					});
+				}
+
+				else {
+					res.json("");
+				}
+			})
+			
 	});
 
 //Route for adding a user as a friend
