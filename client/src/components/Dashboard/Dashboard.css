@@ -59,3 +59,20 @@
     margin-top: 40px;
     vertical-align: bottom;
 }
+
+@media screen and (max-width: 600px){
+  .logoH1Dash {
+    font-size: 60px;
+  }
+}
+
+@media screen and (max-width: 500px){
+  .logoH1Dash {
+    font-size: 40px;
+  }
+
+  .siteLogoDash {
+    display: block;
+    margin: 10px auto;
+  }
+}

@@ -26,7 +26,7 @@ router.get("/news/scrape", function(req, res){
 		})
 		setTimeout(function(){
 			Article.find().sort({date: -1}).exec(function(error, result){
-			res.json(result.slice(0,5))
+			res.json(result.slice(0,10))
 		}), 1000
 		})
 	})
