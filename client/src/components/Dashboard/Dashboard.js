@@ -9,6 +9,7 @@ import Background from "../Background"
 import Discord from "../Discord"
 import logo from "../../assets/img/logo.png"
 import LevelBar from "../LevelBar";
+import UserProfile from "../UserProfile";
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -18,7 +19,9 @@ class Dashboard extends Component {
 	state = {
 		// uid: "",
 		// state will be passed into hoverbuttons component as prop to render correct material-icon based on if user has notifications
-		notifications:[]
+		notifications:[],
+		level: 1,
+		cardNum: 0
 	}
 
 	componentDidMount() {
@@ -29,6 +32,7 @@ class Dashboard extends Component {
 				let uid = firebase.auth().currentUser.uid;
 					Axios.post("/api/user/" + uid)
 						.then((response) => {
+							this.setState({level: response.data.level})
 		    			console.log("searching database for user:" + response);
 		    	})
 		      .catch((error) => {
@@ -53,6 +57,7 @@ class Dashboard extends Component {
 		        </div>
 		      </div>
 		      <HoverButtons />
+		      <UserProfile level={this.state.level}/>
 		      <LevelBar />
 		      <Discord />
 		      <ToastContainer 
