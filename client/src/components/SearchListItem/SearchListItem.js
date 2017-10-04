@@ -17,7 +17,6 @@ const SearchListItem = props =>
         onClick={() => {
           props.saveGame(data.id);
         }}
-        // onClick={this.handleNewGameSubmit1(data.id)}
         >
           <p>{data.name}  <span className="search-date">{data.date}</span></p>
       </Button>
