@@ -6,6 +6,7 @@ import ListItem from "../ListItemTemp"
 import firebase from "firebase";
 import {Modal, Button, Collapsible, CollapsibleItem, Input} from "react-materialize";
 
+
 class Gamelist extends Component {
   state = {
     myGames: [],
@@ -18,12 +19,12 @@ class Gamelist extends Component {
     idArray: []
   }
 
-  // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
-  componentDidMount() {
-    let myId = firebase.auth().currentUser.uid
-    console.log(`this is my id ${myId}`)
-    console.log("Searching for user games");
-    Axios.get("/api/games/" + myId + "/mylist")
+// For loading a users list of games when the Dashboard >>> Gamelist is rendered.
+fetchGames = () => {
+  let myId = firebase.auth().currentUser.uid
+  console.log(`this is my id ${myId}`)
+  console.log("Searching for user games");
+  Axios.get("/api/games/" + myId + "/mylist")
       .then(response => {
         // console.log(response.data.mygameslist);
         this.setState({myGames : response.data});
@@ -31,6 +32,10 @@ class Gamelist extends Component {
       .catch(error => {
         console.log(error)
       })
+  }
+
+  componentDidMount() {
+    this.fetchGames();
     // Axios.get("api/games" + )
   }
 
@@ -63,6 +68,9 @@ class Gamelist extends Component {
       this.setState({
         query: ""
       });
+      document.getElementById('new-game-modal').remove();
+      document.querySelector(".modal-overlay").remove();
+      this.fetchGames();
     })
     .catch((error) => { console.log(error) })
   }
