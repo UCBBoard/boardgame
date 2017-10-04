@@ -1,11 +1,11 @@
 import React from "react";
 import "./SearchListItem.css";
-import {Button, CollapsibleItem, CollectionItem} from "react-materialize";
+import {Button, CollectionItem} from "react-materialize";
 
 
 const SearchListItem = props =>
 <CollectionItem
-  header={props.header}
+  // header={props.header}
   onSelect={props.onSelect}
   >
   {props.dataResults.map(

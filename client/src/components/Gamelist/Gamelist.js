@@ -4,7 +4,8 @@ import Axios from "axios";
 import SearchListItem from "../SearchListItem";
 import ListItem from "../ListItemTemp"
 import firebase from "firebase";
-import {Modal, Button, Collapsible, CollapsibleItem, Input, Collection, Icons} from "react-materialize";
+import ReactTooltip from 'react-tooltip';
+import {Modal, Button, Collapsible, CollapsibleItem, Input, Collection} from "react-materialize";
 
 
 class Gamelist extends Component {
@@ -26,7 +27,6 @@ fetchGames = () => {
   console.log("Searching for user games");
   Axios.get("/api/games/" + myId + "/mylist")
       .then(response => {
-        // console.log(response.data.mygameslist);
         this.setState({myGames : response.data});
       })
       .catch(error => {
@@ -36,7 +36,6 @@ fetchGames = () => {
 
   componentDidMount() {
     this.fetchGames();
-    // Axios.get("api/games" + )
   }
 
   // handleNewGameSubmit = () => {
@@ -57,6 +56,7 @@ fetchGames = () => {
   //   .catch((error) => { console.log(error) })
   // }
 
+// Handles adding new games to the DB when the user clicks on a search result in Gamelist.
   handleNewGameSubmit1 = (gameId) => {
     // const gameID = 213460;
     console.log("subbing new game");
@@ -76,6 +76,7 @@ fetchGames = () => {
     .catch((error) => { console.log(error) })
   }
 
+//For handling input Change - may no longer be needed.
   handleChange = (e) => {
     let searchQuery = e.target.value;
     console.log(searchQuery);
@@ -84,6 +85,7 @@ fetchGames = () => {
     })
   }
 
+// Searches BGG API for games and returns 6.
   searchGames = (event) => {
     event.preventDefault();
     this.setState({
@@ -113,6 +115,7 @@ fetchGames = () => {
       })
   }
 
+//Method of removing games from a users gamelist.
   deleteGame = (e) => {
     this.props.notification("Game deleted!");
     let userId = firebase.auth().currentUser.uid;
@@ -121,6 +124,7 @@ fetchGames = () => {
     Axios.delete(route);
     this.fetchGames();
   }
+
   render () {
     return (
       <div className="col s12 center card-panel gamelistBox">
@@ -161,6 +165,7 @@ fetchGames = () => {
           </Modal>
         </h2>
         <Collapsible className="gamelistGames">
+        <ReactTooltip type="light" effect="solid"/>
           {this.state.myGames.map((gameName, i) => {
               return <CollapsibleItem header={gameName.title} icon='filter_drama' key={i + "gList"}>
                       <ListItem name={gameName.title} minPlayers={gameName.minPlayers} maxPlayers={gameName.maxPlayers} playtime={gameName.playtime} />
