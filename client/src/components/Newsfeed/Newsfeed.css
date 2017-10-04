@@ -78,9 +78,3 @@
     width: 100%;
   }
 }
-
-@media screen and (max-width: 600px){
-  .newsfeedBox {
-    width: 100%;
-  }
-}
