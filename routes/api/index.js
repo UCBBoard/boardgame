@@ -61,10 +61,14 @@ router.get("/games/search/:name", function(req, res){
 
 // This is the route that the Gamelist Module calls when it mounts - searches the database, finds the user (passed in through params), and returns a populated list of games.
 router.get("/games/:uid/mylist", (req, res) => {
-	console.log("Getting user gamelist.");
-	User.findOne({ _id : req.params.uid}).populate("games").exec((error, result) => {
-		res.json(result.games);
-	})
+	// if(res  null) {
+		console.log("Getting user gamelist.");
+		User.findOne({ _id : req.params.uid}).populate("games").exec((error, result) => {
+			if(result.games != null) {
+				res.json(result.games);
+			}
+		})
+	// }
 })
 
 // For posting a new game linked to a users account. Called from the submit button on the add game modal in Dashboard component.
@@ -82,27 +86,24 @@ router.post("/newgame/:gameid/:uid", (req, res) => {
 					}
 
 					let gameToAdd = new Game (game)
-					gameToAdd.save(function(error, result){
-						console.log(gameID)
-						if(!err) {
-							User.findOneAndUpdate({ _id : userID }, {$push:  {games: gameID}}).exec((error, result) => {
-								if(!err) {
-									console.log("updating gamelist in User Profile")
-									return res.json(result)
-								} else {
-									return console.log(error);
-								}
-							})
-						} else {
-							console.log(err);
-						}
-
+					gameToAdd.save(function(error, result2){
+						console.log(result2);
+						User.findOneAndUpdate({ _id : userID }, {$push:  {games: result2._id}}).exec((error, result) => {
+							console.log("updating gamelist in User Profile")
+							console.log(result);
+							return res.json(result)
+						})
 					});
 			})
-
-			})
-
 		})
+})
+
+router.get("/cheese", (req, res) => {
+	User.findOne({ _id : "lB1zqQNNuUhuVj9KnbMDm3PC0ew1"})
+	.exec((error, result) => {
+		res.json(result);
+	})
+})
 
 	// //Add the game to the Users mygameslist.
 	// User.findOneAndUpdate({ _id : userID }, {$push:  {mygameslist : gameName}}).exec((error, result) => {
