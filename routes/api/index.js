@@ -119,8 +119,6 @@ router.get("/cheese", (req, res) => {
 
 // Route for checking user status and getting mongoUID.
 router.post("/user/:uid", (req, res) => {
-	User.findOne({id:req.params.uid}).exec((error, result) => {
-		if (result !== null) {
 			let user = new User({ _id : req.params.uid})
 			user.save((error, result) => {
 				if(!error) {
@@ -129,10 +127,7 @@ router.post("/user/:uid", (req, res) => {
 					return console.log(error);
 				};
 			});
-		};
 	});
-});
-
 
 //Route for adding a user as a friend
 router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
