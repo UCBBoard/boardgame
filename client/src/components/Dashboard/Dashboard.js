@@ -9,10 +9,12 @@ import Background from "../Background"
 import Discord from "../Discord"
 import logo from "../../assets/img/logo.png"
 import LevelBar from "../LevelBar";
+import 'react-toastify/dist/ReactToastify.min.css';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 
 class Dashboard extends Component {
-
 	state = {
 		// uid: "",
 		// state will be passed into hoverbuttons component as prop to render correct material-icon based on if user has notifications
@@ -36,6 +38,8 @@ class Dashboard extends Component {
 		})
 	};
 
+	notify = text => toast(text);
+
 	render () {
 		return (
 			 <Background backgroundName="dash-background">
@@ -44,13 +48,22 @@ class Dashboard extends Component {
 			  </div>
 		      <div className="container dashContainer">
 		        <div className="row dashRow">
-		          <Gamelist />
+		          <Gamelist notification={this.notify}/>
 		          <Newsfeed />
 		        </div>
 		      </div>
 		      <HoverButtons />
 		      <LevelBar />
 		      <Discord />
+		      <ToastContainer 
+          position="top-right"
+          type="default"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          pauseOnHover
+        />
 		    </Background>
 		)
 	}
