@@ -88,3 +88,37 @@ h3 {
     transform: translatey(0px);
   }
 }
+
+@media screen and (max-width: 1200px) {
+  .logoH1 {
+    font-size: 60px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .splashHolder {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .googleLoginBtn {
+    width: 200px !important;
+  }
+
+  .logoH1 {
+    font-size: 40px;
+  }
+
+  .modal-btn, .modalButton {
+    width: 200px !important;
+  }
+
+  .splashHolder {
+    width: 100%;
+  }
+
+  .splashLowerH {
+    margin-top: 50px;
+  }
+}
