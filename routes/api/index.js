@@ -26,7 +26,6 @@ router.get("/news/scrape", function(req, res){
 						article.save();
 					}
 				})
-				
 			}
 
 		})
@@ -54,13 +53,13 @@ router.get("/games/:name", function(req, res){
 	})
 })
 
-//Route to get 7 results back from a given word search to the BGG API. Used in the autofill input suggestions.
+//Route to get 6 results back from a given word search to the BGG API. Used in the autofill input suggestions.
 router.get("/games/search/:name", function(req, res){
 	console.log("Searching: " + req.params.name);
 	axios.get("https://www.boardgamegeek.com/xmlapi/search?search=" + req.params.name)
 	.then(function(response){
 		parseString(response.data, function (err, result) {
-			res.json(result.boardgames.boardgame.slice(0, 7))
+			res.json(result.boardgames.boardgame.slice(0, 6))
 		});
 	})
 })
@@ -84,8 +83,19 @@ router.post("/newgame/:gameid/:uid", (req, res) => {
 	axios.get("https://boardgamegeek.com/xmlapi/boardgame/" + gameID)
 			.then(function(response1){
 				parseString(response1.data, function (err, result1) {
+					let newGameNames = result1.boardgames.boardgame[0].name;
+					let gameTitle = "";
+					newGameNames.map((gameName, i) => {
+						if(!gameName.$.primary) {
+							console.log("not primary")
+							return
+						} else {
+							console.log("gameTitle is now set to: " + gameName._)
+							gameTitle = gameName._;
+						}
+					})
 					let game = {
-						title: result1.boardgames.boardgame[0].name[0]["_"],
+						title: gameTitle,
 						minPlayers: parseInt(result1.boardgames.boardgame[0].minplayers),
 						maxPlayers: parseInt(result1.boardgames.boardgame[0].maxplayers),
 						playtime: parseInt(result1.boardgames.boardgame[0].maxplaytime)
@@ -104,7 +114,6 @@ router.post("/newgame/:gameid/:uid", (req, res) => {
 										return res.json(result4)
 									})
 								})
-								
 							})
 
 							

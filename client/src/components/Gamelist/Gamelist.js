@@ -4,7 +4,7 @@ import Axios from "axios";
 import SearchListItem from "../SearchListItem";
 import ListItem from "../ListItemTemp"
 import firebase from "firebase";
-import ReactTooltip from 'react-tooltip';
+// import ReactTooltip from 'react-tooltip';
 import {Modal, Button, Collapsible, CollapsibleItem, Input, Collection} from "react-materialize";
 
 
@@ -35,6 +35,9 @@ fetchGames = () => {
   }
 
   componentDidMount() {
+    this.setState({
+      myGames: []
+    })
     this.fetchGames();
   }
 
@@ -161,12 +164,12 @@ fetchGames = () => {
                   dataResults={this.state.searchArray}
                   saveGame={this.handleNewGameSubmit1}
                 />
+
               </Collection>
 
           </Modal>
         </h2>
         <Collapsible className="gamelistGames">
-        <ReactTooltip type="light" effect="solid"/>
           {this.state.myGames.map((gameName, i) => {
               return <CollapsibleItem header={gameName.title} icon='filter_drama' key={i + "gList"}>
                       <ListItem name={gameName.title} minPlayers={gameName.minPlayers} maxPlayers={gameName.maxPlayers} playtime={gameName.playtime} />

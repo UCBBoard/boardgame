@@ -6,21 +6,21 @@ import "./ListItem.css";
 
 const ListItem = props =>
 	<div className="collapsibleContent">
-    <ReactTooltip type="light" effect="solid"/>
+    <ReactTooltip type="light" effect="solid" />
     <Row>
-  		  <Col s={4}>
-          <Icon small data-place="top" data-tip="Minimum Players">person</Icon>
-          <p className="collapseP">Minimum Players: {props.minPlayers}</p>
+  		  <Col s={4} data-place="top" data-tip="Minimum Players" data-offset="{'top': -15}">
+          <Icon small>person</Icon>
+          <p className="collapseP">{props.minPlayers}</p>
       </Col>
 
-  		  <Col s={4}>
-          <Icon small data-place="top" data-tip="Maximim Players">group</Icon>
-          <p className="collapseP">Maximum Players: {props.maxPlayers}</p>
+  		  <Col s={4} data-place="top" data-tip="Maximim Players" data-offset="{'top': -15}">
+          <Icon small>group</Icon>
+          <p className="collapseP">{props.maxPlayers}</p>
       </Col>
 
-  		  <Col s={4}>
-          <Icon small data-place="top" data-tip="Average Playtime">schedule</Icon>
-          <p className="collapseP">Average Playtime: {props.playtime} min</p>
+  		  <Col s={4} data-place="top" data-tip="Average Playtime" data-offset="{'top': -15}">
+          <Icon small>schedule</Icon>
+          <p className="collapseP">{props.playtime} min.</p>
       </Col>
     </Row>
   	</div>

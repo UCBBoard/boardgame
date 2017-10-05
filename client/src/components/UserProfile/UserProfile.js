@@ -15,6 +15,7 @@ class UserProfile extends Component {
 		"The plague rat has been known to bring even the mightiest of civilizations to its knees through the spread of pestilence. Should you see one, erradicate it at once.",
 		"See, there's nutin' quite in this world like tinkerin'. Tinkerin's the best thing a gnome can do, y'see."
 		]
+		let cardAlt = ["Goblin card image", "Cockatrice card image", "Robot card image", "Rat card image", "Gnome card image"]
 		return(
 			<div className="col s12 center cardDiv">
 				<div className="cardTextDiv">
@@ -25,7 +26,7 @@ class UserProfile extends Component {
 					</div>
 					
 				</div>
-				<img src={cardGraphic[cardNum]} className="userCard"/>
+				<img src={cardGraphic[cardNum]} alt={cardAlt[cardNum]} className="userCard"/>
 			</div>
 			)
 	}
