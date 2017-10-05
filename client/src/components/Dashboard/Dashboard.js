@@ -40,14 +40,26 @@ class Dashboard extends Component {
 			  </div>
 		      <div className="container dashContainer">
 		        <div className="row dashRow">
-		          <Gamelist notification={this.notify} increaseExp={this.props.increaseExp}/>
-		          <Newsfeed />
+		          	<Gamelist notification={this.notify} increaseExp={this.props.increaseExp}/>
 		        </div>
+		        <div className="row dashRow">
+		          	<Newsfeed />
+		        </div>
+
+		        <div className="row dashRow">
+		          	<UserProfile level={this.props.level} userName={this.props.userName} cardNum={this.props.cardNum}/>
+		        </div>
+
+		        <div className="row dashRow">
+		          	<Discord />
+		        </div>
+		         
+	      			
 		      </div>
-		      <HoverButtons />
-		      <UserProfile level={this.props.level} userName={this.props.userName} cardNum={this.props.cardNum}/>
+		     
+		      
 		      <LevelBar exp={this.props.exp} toNextLevel={this.props.toNextLevel}/>
-		      <Discord />
+		      <HoverButtons />
 		      <ToastContainer 
           position="top-right"
           type="default"

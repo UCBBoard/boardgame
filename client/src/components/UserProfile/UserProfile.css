@@ -36,11 +36,13 @@
     left: 0;
     right: 0;
     height: 657px;
+    width: 477px;
+    margin: auto;
 }
 
 .cardUsername {
     position: relative;
-    left: 260px;
+    left: 25px;
     top: -15px;
     font-size: 23px;
     z-index: 1;
