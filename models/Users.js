@@ -31,7 +31,7 @@ var UserSchema = new Schema({
 
   toNextLevel: {
     type: Number,
-    default: 1
+    default: 100
   },
 
   cardNum: {

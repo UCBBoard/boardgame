@@ -8,6 +8,7 @@ const Nightmare = require("nightmare");
 const mongoose = require("mongoose");
 const axios = require("axios");
 var parseString = require('xml2js').parseString;
+const levelHelper = require("../helper/levelHelper.js")
 
 // Newsfeed scraper - searches top links in r/boardgames for the users.
 router.get("/news/scrape", function(req, res){
@@ -97,8 +98,16 @@ router.post("/newgame/:gameid/:uid", (req, res) => {
 							User.findOneAndUpdate({ _id : userID }, {$push:  {games: result3._id}}).exec((error, result4) => {
 								console.log("updating gamelist in User Profile")
 								console.log(result4);
-								return res.json(result4)
+								User.findOne({ _id : userID }).exec((error, result5) => {
+									let newExp = result5.exp + 10;
+									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.helper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
+										return res.json(result4)
+									})
+								})
+								
 							})
+
+							
 						}
 
 						else {
@@ -107,7 +116,12 @@ router.post("/newgame/:gameid/:uid", (req, res) => {
 							User.findOneAndUpdate({ _id : userID }, {$push:  {games: result2._id}}).exec((error, result) => {
 								console.log("updating gamelist in User Profile")
 								console.log(result);
-								return res.json(result)
+								User.findOne({ _id : userID }).exec((error, result5) => {
+									let newExp = result5.exp + 10;
+									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.helper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
+										return res.json(result)
+									})
+								})
 							})
 						});
 						}
@@ -124,7 +138,14 @@ router.get("/cheese", (req, res) => {
 	})
 })
 
-// Route for deleting a game
+// // Route for deleting a game
+// router.post("/exp/:uid/:expToAdd", (req, res) => {
+// 	// if(res  null) {
+// 		User.findOne({ _id : req.params.uid}).update({exp: req.params.expToAdd}).exec((error, result) => {
+// 			res.json("");
+// 		})
+// 	// }
+// })
 
 router.delete("/games/deletegame/:uid/:game", (req, res) => {
 	let userID = req.params.uid;

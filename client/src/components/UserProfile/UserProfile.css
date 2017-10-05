@@ -25,7 +25,7 @@
 	font-family: "arial";
 	position: relative;
 	right: -185px;
-    top: -60px;
+    top: -54px;
     font-size: 20px;
     z-index: 1;
     color: black;
@@ -39,12 +39,13 @@
 }
 
 .cardUsername {
-	position: relative;
-    left: -130px;
-    top: -20px;
-    font-size: 30px;
+    position: relative;
+    left: 260px;
+    top: -15px;
+    font-size: 23px;
     z-index: 1;
     color: black;
+    text-align: left;
 }
 
 .userCard {

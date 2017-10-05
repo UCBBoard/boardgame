@@ -13,14 +13,10 @@ import UserProfile from "../UserProfile";
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer, toast } from 'react-toastify';
 
-
-
 class Dashboard extends Component {
 	state = {
-		// uid: "",
 		// state will be passed into hoverbuttons component as prop to render correct material-icon based on if user has notifications
 		notifications:[],
-		level: 1,
 		cardNum: 0
 	}
 
@@ -44,13 +40,13 @@ class Dashboard extends Component {
 			  </div>
 		      <div className="container dashContainer">
 		        <div className="row dashRow">
-		          <Gamelist notification={this.notify}/>
+		          <Gamelist notification={this.notify} increaseExp={this.props.increaseExp}/>
 		          <Newsfeed />
 		        </div>
 		      </div>
 		      <HoverButtons />
-		      <UserProfile level={this.state.level}/>
-		      <LevelBar />
+		      <UserProfile level={this.props.level} userName={this.props.userName} cardNum={this.props.cardNum}/>
+		      <LevelBar exp={this.props.exp} toNextLevel={this.props.toNextLevel}/>
 		      <Discord />
 		      <ToastContainer 
           position="top-right"
