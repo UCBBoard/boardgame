@@ -12,6 +12,7 @@ class UserProfile extends Component {
 		"That's no chicken...",
 		"Reviled by most forest dwellers that come upon them, the Goblin nonetheless has a keen propensity for survival."
 		]
+		let cardAlt = ["Goblin card image", "Cockatrice card image", "Goblin card image", "Cockatrice card image", "Goblin card image"]
 		return(
 			<div className="col s12 center cardDiv">
 				<div className="cardTextDiv">
@@ -22,7 +23,7 @@ class UserProfile extends Component {
 					</div>
 					
 				</div>
-				<img src={cardGraphic[cardNum]} className="userCard"/>
+				<img src={cardGraphic[cardNum]} alt={cardAlt[cardNum]} className="userCard"/>
 			</div>
 			)
 	}

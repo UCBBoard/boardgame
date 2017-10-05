@@ -63,8 +63,8 @@ class App extends Component {
 		return this.state.loading === true ? <LoadingScreen /> : (
 			<BrowserRouter>
 				<div>
-					{this.state.authed? <Dashboard userName = {this.state.userName} 
-					uID = {this.state.UID} 
+					{this.state.authed? <Dashboard userName = {this.state.userName}
+					uID = {this.state.UID}
 					level = {this.state.level}
 					exp = {this.state.exp}
 					toNextLevel = {this.state.toNextLevel}

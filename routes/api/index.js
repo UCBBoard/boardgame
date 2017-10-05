@@ -26,7 +26,6 @@ router.get("/news/scrape", function(req, res){
 						article.save();
 					}
 				})
-				
 			}
 
 		})
@@ -84,8 +83,19 @@ router.post("/newgame/:gameid/:uid", (req, res) => {
 	axios.get("https://boardgamegeek.com/xmlapi/boardgame/" + gameID)
 			.then(function(response1){
 				parseString(response1.data, function (err, result1) {
+					let newGameNames = result1.boardgames.boardgame[0].name;
+					let gameTitle = "";
+					newGameNames.map((gameName, i) => {
+						if(!gameName.$.primary) {
+							console.log("not primary")
+							return
+						} else {
+							console.log("gameTitle is now set to: " + gameName._)
+							gameTitle = gameName._;
+						}
+					})
 					let game = {
-						title: result1.boardgames.boardgame[0].name[0]["_"],
+						title: gameTitle,
 						minPlayers: parseInt(result1.boardgames.boardgame[0].minplayers),
 						maxPlayers: parseInt(result1.boardgames.boardgame[0].maxplayers),
 						playtime: parseInt(result1.boardgames.boardgame[0].maxplaytime)
@@ -104,7 +114,6 @@ router.post("/newgame/:gameid/:uid", (req, res) => {
 										return res.json(result4)
 									})
 								})
-								
 							})
 
 							

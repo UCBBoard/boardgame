@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import "./Dashboard.css";
-import Axios from "axios";
+// import Axios from "axios";
 import Gamelist from "../Gamelist";
-import firebase from "firebase";
+// import firebase from "firebase";
 import Newsfeed from "../Newsfeed";
 import HoverButtons from "../HoverButtons";
 import Background from "../Background"
@@ -48,7 +48,7 @@ class Dashboard extends Component {
 		      <UserProfile level={this.props.level} userName={this.props.userName} cardNum={this.props.cardNum}/>
 		      <LevelBar exp={this.props.exp} toNextLevel={this.props.toNextLevel}/>
 		      <Discord />
-		      <ToastContainer 
+		      <ToastContainer
           position="top-right"
           type="default"
           autoClose={5000}
