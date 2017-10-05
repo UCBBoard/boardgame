@@ -38,7 +38,7 @@ class Dashboard extends Component {
 			 <Background backgroundName="dash-background">
 
 			  <div className="center">
-			  			 <div className="loggedIn">Logged in as {this.props.userName}
+			  			 <div className="loggedIn col s6 right">Logged in as {this.props.userName}
 			 </div>
 			  	<img src={logo} className="siteLogoDash" alt="logo" /><h1 className="logoH1Dash">GameVault</h1>
 			  </div>

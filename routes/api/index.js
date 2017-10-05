@@ -181,7 +181,9 @@ router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
 		console.log(error);
 		User.findOneAndUpdate({ _id: secondUserID}, {$push: {friends: userID} }).exec((error, result) => {
 			console.log(error);
-			res.json(result);
+			User.findOneAndUpdate({ _id: userID}, {$pull: {notifications: secondUserID}}).exec((error, result) => {
+				res.json(result.notifications)
+			})
 		})
 	})
 })
