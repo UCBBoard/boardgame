@@ -15,7 +15,7 @@ class UserProfile extends Component {
 		return(
 			<div className="col s12 center cardDiv">
 				<div className="cardTextDiv">
-					<h3 className="cardUsername">Username</h3>
+					<h3 className="cardUsername">{this.props.userName}</h3>
 					<h5 className="cardLvl">Lv.{this.props.level}</h5>
 					<div className="cardDescriptionDiv valign-wrapper">
 						<p className="cardDescription">{cardFlavourText[cardNum]}</p>
@@ -28,7 +28,7 @@ class UserProfile extends Component {
 	}
 
 	render(){
-		return this.determineCard(0)
+		return this.determineCard(this.props.cardNum)
 	};
 }
 

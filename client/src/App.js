@@ -11,7 +11,16 @@ class App extends Component {
 		authed: false,
 		loading: true,
 		userName: '',
-		UID: ''
+		UID: '',
+		level: 1,
+		exp: 1,
+		toNextLevel: 100,
+		cardNum: 0
+	}
+
+	increaseExp = expToAdd => {
+		let newExp = this.state.exp + expToAdd;
+		this.setState({exp: newExp});
 	}
 
 	componentDidMount () {
@@ -27,6 +36,9 @@ class App extends Component {
 							userName: userName,
 							authed: true,
 							loading: false,
+							exp: response.data.exp,
+							toNextLevel: response.data.toNextLevel,
+							cardNum: response.data.cardNum
 							});
 		    			console.log("searching database for user:" + response);
 		    		})
@@ -51,7 +63,14 @@ class App extends Component {
 		return this.state.loading === true ? <LoadingScreen /> : (
 			<BrowserRouter>
 				<div>
-					{this.state.authed? <Dashboard userName = {this.state.userName} uID = {this.state.UID}/> : <Splash/>}
+					{this.state.authed? <Dashboard userName = {this.state.userName} 
+					uID = {this.state.UID} 
+					level = {this.state.level}
+					exp = {this.state.exp}
+					toNextLevel = {this.state.toNextLevel}
+					cardNum = {this.state.cardNum}
+					increaseExp = {this.increaseExp}
+					/> : <Splash/>}
 				</div>
 			</BrowserRouter>
 		);
