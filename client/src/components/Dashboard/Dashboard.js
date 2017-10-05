@@ -33,10 +33,13 @@ class Dashboard extends Component {
 
 	notify = text => toast(text);
 
-	render () {
+	render (props) {
 		return (
 			 <Background backgroundName="dash-background">
+
 			  <div className="center">
+			  			 <div className="loggedIn">Logged in as {this.props.userName}
+			 </div>
 			  	<img src={logo} className="siteLogoDash" alt="logo" /><h1 className="logoH1Dash">GameVault</h1>
 			  </div>
 		      <div className="container dashContainer">

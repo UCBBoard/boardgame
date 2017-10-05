@@ -148,8 +148,12 @@ router.delete("/games/deletegame/:uid/:game", (req, res) => {
 	//Add the user to the games user thing. Depending on which we want to use.
 
 // Route for checking user status and getting mongoUID.
-router.post("/user/:uid", (req, res) => {
-			let user = new User({ _id : req.params.uid, cardNum: Math.floor(Math.random() * 5)})
+router.post("/user/:uid/:userName", (req, res) => {
+			let user = new User(
+				{ _id : req.params.uid,
+					name: req.params.userName,
+					cardNum: Math.floor(Math.random() * 5),
+				})
 			User.findOne({_id: req.params.uid}, function(error, resultUser){
 				if (!resultUser){
 					user.save((error, result) => {

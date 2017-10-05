@@ -12,7 +12,6 @@ class Notifications extends Component {
 		let activeUser = firebase.auth().currentUser.uid
 		Axios.get(`api/user/${activeUser}/notifications`)
 			.then(res => {
-				console.log(res)
 				this.setState({notifications: res.data})
 			}).catch(function(error) {
 				console.error(error)

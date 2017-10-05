@@ -60,7 +60,7 @@ class Friendslist extends Component {
 	  		<Button onClick={this.showMyFriends}>My Friends</Button>
 	  		<Button onClick={this.showAllFriends}>All users</Button>
 				{this.state.friends.map((element, i) =>
-					<div key={i}> {element._id}
+					<div key={i}> {element.name}
 						{this.state.friendsView === 'all' ?
 						<Button data-id={element._id} onClick={this.addFriend} className="add"> Add friend </Button> :
 						<Button data-id={element._id} onClick={this.removeFriend} className ="delete"> Delete friend </Button>

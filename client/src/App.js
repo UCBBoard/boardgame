@@ -10,17 +10,21 @@ class App extends Component {
 	state = {
 		authed: false,
 		loading: true,
-		uid: '' 
+		userName: '',
+		UID: ''
 	}
 
 	componentDidMount () {
 		this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
 			if (user) {
-				console.log(user)
-				Axios.post("/api/user/" + user.uid)
+				let userName = user.email.split("@")[0]
+				console.log(userName)
+				Axios.post(`/api/user/${user.uid}/${userName}`)
 						.then((response) => {
 							this.setState({
 							level: response.data.level,
+							UID: user.uid,
+							userName: userName,
 							authed: true,
 							loading: false,
 							});
@@ -47,7 +51,7 @@ class App extends Component {
 		return this.state.loading === true ? <LoadingScreen /> : (
 			<BrowserRouter>
 				<div>
-					{this.state.authed? <Dashboard/> : <Splash/>}
+					{this.state.authed? <Dashboard userName = {this.state.userName} uID = {this.state.UID}/> : <Splash/>}
 				</div>
 			</BrowserRouter>
 		);
