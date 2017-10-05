@@ -1,0 +1,58 @@
+.cardDescription {
+    z-index: 1;
+    color: black;
+    width: 335px;
+    font-style: italic;
+    line-height: 22px;
+    margin: auto;
+}
+
+.cardDescriptionDiv{
+	height: 187px;
+    width: 345px;
+    left: 5px;
+    bottom: -288px;
+    position: relative;
+    margin: auto;
+    z-index: 1;	
+}
+
+.cardDiv {
+	height: 700px;
+}
+
+.cardLvl {
+	font-family: "arial";
+	position: relative;
+	right: -185px;
+    top: -54px;
+    font-size: 20px;
+    z-index: 1;
+    color: black;
+}
+
+.cardTextDiv {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 657px;
+}
+
+.cardUsername {
+    position: relative;
+    left: 260px;
+    top: -15px;
+    font-size: 23px;
+    z-index: 1;
+    color: black;
+    text-align: left;
+}
+
+.userCard {
+	margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    box-shadow: 6px 7px 8px rgba(0, 0, 0, 0.42);
+}

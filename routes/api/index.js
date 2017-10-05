@@ -8,6 +8,7 @@ const Nightmare = require("nightmare");
 const mongoose = require("mongoose");
 const axios = require("axios");
 var parseString = require('xml2js').parseString;
+const levelHelper = require("../helper/levelHelper.js")
 
 // Newsfeed scraper - searches top links in r/boardgames for the users.
 router.get("/news/scrape", function(req, res){
@@ -97,8 +98,16 @@ router.post("/newgame/:gameid/:uid", (req, res) => {
 							User.findOneAndUpdate({ _id : userID }, {$push:  {games: result3._id}}).exec((error, result4) => {
 								console.log("updating gamelist in User Profile")
 								console.log(result4);
-								return res.json(result4)
+								User.findOne({ _id : userID }).exec((error, result5) => {
+									let newExp = result5.exp + 10;
+									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.helper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
+										return res.json(result4)
+									})
+								})
+								
 							})
+
+							
 						}
 
 						else {
@@ -107,7 +116,12 @@ router.post("/newgame/:gameid/:uid", (req, res) => {
 							User.findOneAndUpdate({ _id : userID }, {$push:  {games: result2._id}}).exec((error, result) => {
 								console.log("updating gamelist in User Profile")
 								console.log(result);
-								return res.json(result)
+								User.findOne({ _id : userID }).exec((error, result5) => {
+									let newExp = result5.exp + 10;
+									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.helper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
+										return res.json(result)
+									})
+								})
 							})
 						});
 						}
@@ -124,7 +138,14 @@ router.get("/cheese", (req, res) => {
 	})
 })
 
-// Route for deleting a game
+// // Route for deleting a game
+// router.post("/exp/:uid/:expToAdd", (req, res) => {
+// 	// if(res  null) {
+// 		User.findOne({ _id : req.params.uid}).update({exp: req.params.expToAdd}).exec((error, result) => {
+// 			res.json("");
+// 		})
+// 	// }
+// })
 
 router.delete("/games/deletegame/:uid/:game", (req, res) => {
 	let userID = req.params.uid;
@@ -148,8 +169,12 @@ router.delete("/games/deletegame/:uid/:game", (req, res) => {
 	//Add the user to the games user thing. Depending on which we want to use.
 
 // Route for checking user status and getting mongoUID.
-router.post("/user/:uid", (req, res) => {
-			let user = new User({ _id : req.params.uid})
+router.post("/user/:uid/:userName", (req, res) => {
+			let user = new User(
+				{ _id : req.params.uid,
+					name: req.params.userName,
+					cardNum: Math.floor(Math.random() * 5),
+				})
 			User.findOne({_id: req.params.uid}, function(error, resultUser){
 				if (!resultUser){
 					user.save((error, result) => {
@@ -162,7 +187,7 @@ router.post("/user/:uid", (req, res) => {
 				}
 
 				else {
-					res.json("");
+					res.json(resultUser);
 				}
 			})
 			
@@ -177,7 +202,9 @@ router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
 		console.log(error);
 		User.findOneAndUpdate({ _id: secondUserID}, {$push: {friends: userID} }).exec((error, result) => {
 			console.log(error);
-			res.json(result);
+			User.findOneAndUpdate({ _id: userID}, {$pull: {notifications: secondUserID}}).exec((error, result) => {
+				res.json(result.notifications)
+			})
 		})
 	})
 })
@@ -208,4 +235,23 @@ router.get("/user/all", (req, res) => {
 	})
 })
 
+//Route for adding a notification
+router.post("/user/:uid/addnotification/:seconduid", (req, res) => {
+	let userID = req.params.uid;
+	let secondUserID = req.params.seconduid
+	console.log(`We be addin notifications ${userID} ${secondUserID}`);
+	User.findOneAndUpdate({ _id: userID}, {$push: {notifications: secondUserID} }).exec((error, result) => {
+		console.log(error)
+		res.json(result);
+	})
+})
+
+//Route for seeing users notifications
+router.get("/user/:uid/notifications", (req, res) => {
+	let userID = req.params.uid;
+	console.log('These are users notifications')
+	User.findOne({ _id: req.params.uid}).populate("notifications").exec((error, result) => {
+		res.json(result.notifications)
+	})
+})
 module.exports = router;

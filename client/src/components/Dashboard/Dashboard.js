@@ -9,51 +9,44 @@ import Background from "../Background"
 import Discord from "../Discord"
 import logo from "../../assets/img/logo.png"
 import LevelBar from "../LevelBar";
+import UserProfile from "../UserProfile";
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer, toast } from 'react-toastify';
 
-
-
 class Dashboard extends Component {
 	state = {
-		// uid: "",
 		// state will be passed into hoverbuttons component as prop to render correct material-icon based on if user has notifications
-		notifications:[]
+		notifications:[],
+		cardNum: 0
 	}
 
 	componentDidMount() {
+		//if modal exists from splash page login screen, remove it
 		const elem = document.querySelector(".modal-overlay")
 		if(elem) elem.remove()
-		firebase.auth().onAuthStateChanged((user) => {
-			if (firebase.auth().currentUser.uid){
-				let uid = firebase.auth().currentUser.uid;
-					Axios.post("/api/user/" + uid)
-						.then((response) => {
-		    			console.log("searching database for user:" + response);
-		    	})
-		      .catch((error) => {
-		      	// console.log(error);
-		    })
-			}
-		})
+
 	};
 
 	notify = text => toast(text);
 
-	render () {
+	render (props) {
 		return (
 			 <Background backgroundName="dash-background">
+
 			  <div className="center">
+			  			 <div className="loggedIn col s6 right">Logged in as {this.props.userName}
+			 </div>
 			  	<img src={logo} className="siteLogoDash" alt="logo" /><h1 className="logoH1Dash">GameVault</h1>
 			  </div>
 		      <div className="container dashContainer">
 		        <div className="row dashRow">
-		          <Gamelist notification={this.notify}/>
+		          <Gamelist notification={this.notify} increaseExp={this.props.increaseExp}/>
 		          <Newsfeed />
 		        </div>
 		      </div>
 		      <HoverButtons />
-		      <LevelBar />
+		      <UserProfile level={this.props.level} userName={this.props.userName} cardNum={this.props.cardNum}/>
+		      <LevelBar exp={this.props.exp} toNextLevel={this.props.toNextLevel}/>
 		      <Discord />
 		      <ToastContainer 
           position="top-right"

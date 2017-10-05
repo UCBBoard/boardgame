@@ -10,18 +10,13 @@ var UserSchema = new Schema({
   _id: {
     type: String
   },
-  // name is a required string
-	// name: {
-	// 	type: String,
- //    sparse: true
-	// 	// required: true,
-	// 	// unique: true,
-	// },
-  // link is a required string
+
+  name: {
+    type: String
+  },
+
   email: {
     type: String,
-    sparse: true
-    // required: true
   },
 
   exp: {
@@ -36,8 +31,14 @@ var UserSchema = new Schema({
 
   toNextLevel: {
     type: Number,
-    default: 1
+    default: 100
   },
+
+  cardNum: {
+    type: Number,
+    default: 0
+  },
+  
   // List of Games - populated from GameList
   games: [{
     type: Schema.Types.ObjectId,
@@ -47,7 +48,13 @@ var UserSchema = new Schema({
   friends: [{
     type: String,
     ref: "User"
-  }]
+  }],
+
+  notifications: [{
+    type: String,
+    ref: "User"
+    },
+  ]
 
 });
 
