@@ -25,21 +25,10 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
+		//if modal exists from splash page login screen, remove it
 		const elem = document.querySelector(".modal-overlay")
 		if(elem) elem.remove()
-		firebase.auth().onAuthStateChanged((user) => {
-			if (firebase.auth().currentUser.uid){
-				let uid = firebase.auth().currentUser.uid;
-					Axios.post("/api/user/" + uid)
-						.then((response) => {
-							this.setState({level: response.data.level})
-		    			console.log("searching database for user:" + response);
-		    	})
-		      .catch((error) => {
-		      	// console.log(error);
-		    })
-			}
-		})
+
 	};
 
 	notify = text => toast(text);

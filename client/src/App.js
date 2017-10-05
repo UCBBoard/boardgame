@@ -4,11 +4,13 @@ import { firebaseAuth } from './config/constants';
 import Dashboard from "./components/Dashboard";
 import Splash from "./components/Splash";
 import LoadingScreen from "./components/LoadingScreen";
+import Axios from "axios";
 
 class App extends Component {
 	state = {
 		authed: false,
-		loading: true
+		loading: true,
+		uid: ''
 	}
 
 	componentDidMount () {
@@ -16,11 +18,20 @@ class App extends Component {
 			// let uid = firebase.auth().user.uid;
 			// console.log(user);
 			if (user) {
+				console.log(user)
 				this.setState({
 					authed: true,
-					loading: false
-					// uid: uid
-				})
+					loading: false,
+					uid: user.uid
+				});
+				Axios.post("/api/user/" + this.state.uid)
+						.then((response) => {
+							this.setState({level: response.data.level})
+		    			console.log("searching database for user:" + response);
+		    	})
+		      .catch((error) => {
+		      	// console.log(error);
+		    })
 			} else {
 				this.setState({
 					authed: false,
