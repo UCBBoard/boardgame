@@ -53,7 +53,13 @@ var UserSchema = new Schema({
   friends: [{
     type: String,
     ref: "User"
-  }]
+  }],
+
+  notifications: [{
+    type: String,
+    ref: "User"
+    },
+  ]
 
 });
 

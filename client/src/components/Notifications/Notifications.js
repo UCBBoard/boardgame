@@ -24,7 +24,7 @@ class Notifications extends Component {
 			<div>These are the notifications
 			{this.state.notifications.map((element, i) =>
 				<div key={i}>
-					{element}
+					{element._id}
 				</div>
 				)}
 			</div>

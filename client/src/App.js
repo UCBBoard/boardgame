@@ -10,28 +10,26 @@ class App extends Component {
 	state = {
 		authed: false,
 		loading: true,
-		uid: ''
+		uid: '' 
 	}
 
 	componentDidMount () {
 		this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
-			// let uid = firebase.auth().user.uid;
-			// console.log(user);
 			if (user) {
 				console.log(user)
-				this.setState({
-					authed: true,
-					loading: false,
-					uid: user.uid
-				});
-				Axios.post("/api/user/" + this.state.uid)
+				Axios.post("/api/user/" + user.uid)
 						.then((response) => {
-							this.setState({level: response.data.level})
+							this.setState({
+							level: response.data.level,
+							authed: true,
+							loading: false,
+							});
 		    			console.log("searching database for user:" + response);
-		    	})
-		      .catch((error) => {
+		    		})
+		      	.catch((error) => {
+		      	this.setState({authed:false})
 		      	// console.log(error);
-		    })
+		    		})
 			} else {
 				this.setState({
 					authed: false,

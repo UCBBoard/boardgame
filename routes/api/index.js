@@ -208,4 +208,23 @@ router.get("/user/all", (req, res) => {
 	})
 })
 
+//Route for adding a notification
+router.post("/user/:uid/addnotification/:seconduid", (req, res) => {
+	let userID = req.params.uid;
+	let secondUserID = req.params.seconduid
+	console.log(`We be addin notifications ${userID} ${secondUserID}`);
+	User.findOneAndUpdate({ _id: userID}, {$push: {notifications: secondUserID} }).exec((error, result) => {
+		console.log(error)
+		res.json(result);
+	})
+})
+
+//Route for seeing users notifications
+router.get("/user/:uid/notifications", (req, res) => {
+	let userID = req.params.uid;
+	console.log('These are users notifications')
+	User.findOne({ _id: req.params.uid}).populate("notifications").exec((error, result) => {
+		res.json(result.notifications)
+	})
+})
 module.exports = router;
