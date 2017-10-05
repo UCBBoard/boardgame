@@ -148,8 +148,12 @@ router.delete("/games/deletegame/:uid/:game", (req, res) => {
 	//Add the user to the games user thing. Depending on which we want to use.
 
 // Route for checking user status and getting mongoUID.
-router.post("/user/:uid", (req, res) => {
-			let user = new User({ _id : req.params.uid, cardNum: Math.floor(Math.random() * 5)})
+router.post("/user/:uid/:userName", (req, res) => {
+			let user = new User(
+				{ _id : req.params.uid,
+					name: req.params.userName,
+					cardNum: Math.floor(Math.random() * 5),
+				})
 			User.findOne({_id: req.params.uid}, function(error, resultUser){
 				if (!resultUser){
 					user.save((error, result) => {
@@ -177,7 +181,9 @@ router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
 		console.log(error);
 		User.findOneAndUpdate({ _id: secondUserID}, {$push: {friends: userID} }).exec((error, result) => {
 			console.log(error);
-			res.json(result);
+			User.findOneAndUpdate({ _id: userID}, {$pull: {notifications: secondUserID}}).exec((error, result) => {
+				res.json(result.notifications)
+			})
 		})
 	})
 })
@@ -208,4 +214,23 @@ router.get("/user/all", (req, res) => {
 	})
 })
 
+//Route for adding a notification
+router.post("/user/:uid/addnotification/:seconduid", (req, res) => {
+	let userID = req.params.uid;
+	let secondUserID = req.params.seconduid
+	console.log(`We be addin notifications ${userID} ${secondUserID}`);
+	User.findOneAndUpdate({ _id: userID}, {$push: {notifications: secondUserID} }).exec((error, result) => {
+		console.log(error)
+		res.json(result);
+	})
+})
+
+//Route for seeing users notifications
+router.get("/user/:uid/notifications", (req, res) => {
+	let userID = req.params.uid;
+	console.log('These are users notifications')
+	User.findOne({ _id: req.params.uid}).populate("notifications").exec((error, result) => {
+		res.json(result.notifications)
+	})
+})
 module.exports = router;

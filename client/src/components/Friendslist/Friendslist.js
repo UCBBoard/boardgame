@@ -13,11 +13,6 @@ class Friendslist extends Component {
 		friendsView: ''
 	}
 
-
-	componentDidMount() {
-		// this.showMyFriends();
-	}
-
 	showMyFriends = () => {
 		let activeUser = firebase.auth().currentUser.uid
 		Axios.get(`api/user/${activeUser}/friends`)
@@ -27,6 +22,11 @@ class Friendslist extends Component {
 				console.error(error)
 			})
 	}
+	componentDidMount() {
+		this.showMyFriends();
+	}
+
+
 	showAllFriends = () => {
 		Axios.get(`/api/user/all`)
 			.then(res => {
@@ -36,14 +36,14 @@ class Friendslist extends Component {
 		});
 	}
 
- 	addFriend = (event) => {
+
+
+	addNotification = (event) => {
 		let activeUser = firebase.auth().currentUser.uid
 		let secondUser = event.target.dataset.id
-		let route = `/api/user/addfriend/${activeUser}/${secondUser}`
-		Axios.post(route, {
-			activeUser: activeUser,
-			secondUser: secondUser
-		})
+		let route = `/api/user/${secondUser}/addNotification/${activeUser}`
+		Axios.post(route)
+		this.showAllFriends()
 	}
 
 	removeFriend = (event) => {
@@ -60,9 +60,9 @@ class Friendslist extends Component {
 	  		<Button onClick={this.showMyFriends}>My Friends</Button>
 	  		<Button onClick={this.showAllFriends}>All users</Button>
 				{this.state.friends.map((element, i) =>
-					<div key={i}> {element._id}
+					<div key={i}> {element.name}
 						{this.state.friendsView === 'all' ?
-						<Button data-id={element._id} onClick={this.addFriend} className="add"> Add friend </Button> :
+						<Button data-id={element._id} onClick={this.addNotification} className="add"> Add friend </Button> :
 						<Button data-id={element._id} onClick={this.removeFriend} className ="delete"> Delete friend </Button>
 						}
 					</div>

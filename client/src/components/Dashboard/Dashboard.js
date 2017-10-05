@@ -25,29 +25,21 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
+		//if modal exists from splash page login screen, remove it
 		const elem = document.querySelector(".modal-overlay")
 		if(elem) elem.remove()
-		firebase.auth().onAuthStateChanged((user) => {
-			if (firebase.auth().currentUser.uid){
-				let uid = firebase.auth().currentUser.uid;
-					Axios.post("/api/user/" + uid)
-						.then((response) => {
-							this.setState({level: response.data.level})
-		    			console.log("searching database for user:" + response);
-		    	})
-		      .catch((error) => {
-		      	// console.log(error);
-		    })
-			}
-		})
+
 	};
 
 	notify = text => toast(text);
 
-	render () {
+	render (props) {
 		return (
 			 <Background backgroundName="dash-background">
+
 			  <div className="center">
+			  			 <div className="loggedIn col s6 right">Logged in as {this.props.userName}
+			 </div>
 			  	<img src={logo} className="siteLogoDash" alt="logo" /><h1 className="logoH1Dash">GameVault</h1>
 			  </div>
 		      <div className="container dashContainer">
