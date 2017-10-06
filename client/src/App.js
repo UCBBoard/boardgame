@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Switch } from 'react-router-dom'
+import { BrowserRouter} from 'react-router-dom'
 import { firebaseAuth } from './config/constants';
 import Dashboard from "./components/Dashboard";
 import Splash from "./components/Splash";
@@ -12,15 +12,6 @@ class App extends Component {
 		loading: true,
 		userName: '',
 		UID: '',
-		level: 1,
-		exp: 1,
-		toNextLevel: 100,
-		cardNum: 0
-	}
-
-	increaseExp = expToAdd => {
-		let newExp = this.state.exp + expToAdd;
-		this.setState({exp: newExp});
 	}
 
 	componentDidMount () {
@@ -42,10 +33,17 @@ class App extends Component {
 							});
 		    			console.log("searching database for user:" + response);
 		    		})
-		      	.catch((error) => {
-		      	this.setState({authed:false})
-		      	// console.log(error);
-		    		})
+				Axios.post(`/api/user/${user.uid}/${userName}`)
+				.then((response, error) => {
+					this.setState({
+						level: response.data.level,
+						UID: user.uid,
+						userName: userName,
+						authed: true,
+						loading: false,
+					});
+					console.log("searching database for user:" + response);
+				})
 			} else {
 				this.setState({
 					authed: false,
@@ -62,18 +60,11 @@ class App extends Component {
 	render() {
 		return this.state.loading === true ? <LoadingScreen /> : (
 			<BrowserRouter>
-				<div>
-					{this.state.authed? <Dashboard userName = {this.state.userName}
-					uID = {this.state.UID}
-					level = {this.state.level}
-					exp = {this.state.exp}
-					toNextLevel = {this.state.toNextLevel}
-					cardNum = {this.state.cardNum}
-					increaseExp = {this.increaseExp}
-					/> : <Splash/>}
-				</div>
+			<div>
+			{this.state.authed? <Dashboard userName = {this.state.userName} uID = {this.state.UID}/> : <Splash/>}
+			</div>
 			</BrowserRouter>
-		);
+			);
 	}}
 
 	export default App;

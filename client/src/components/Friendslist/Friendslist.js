@@ -22,7 +22,7 @@ class Friendslist extends Component {
 				console.error(error)
 			})
 	}
-	componentDidMount() {
+	coymponentDidMount() {
 		this.showMyFriends();
 	}
 
@@ -63,8 +63,8 @@ class Friendslist extends Component {
 					<div key={i} className="center"> 
 						<FriendProfile level={element.level} userName={element.name} cardNum={element.cardNum}/>
 						{this.state.friendsView === 'all' ?
-						<Button data-id={element._id} onClick={this.addNotification} className="addFriendButton"> Add friend </Button> :
-						<Button data-id={element._id} onClick={this.removeFriend} className ="delete"> Delete friend </Button>
+						<Button data-id={element._id} onClick={this.addNotification} className="addFriendButton button"> Add friend </Button> :
+						<Button data-id={element._id} onClick={this.removeFriend} className ="delete button"> Delete friend </Button>
 						}
 					</div>
 				)}
