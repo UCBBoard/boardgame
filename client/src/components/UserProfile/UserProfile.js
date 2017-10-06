@@ -16,15 +16,19 @@ class UserProfile extends Component {
 		"See, there's nutin' quite in this world like tinkerin'. Tinkerin's the best thing a gnome can do, y'see."
 		]
 		return(
-			<div className="col s12 center cardDiv">
-				<div className="cardTextDiv">
-					<h3 className="cardUsername">{this.props.userName}</h3>
-					<h5 className="cardLvl">Lv.{this.props.level}</h5>
-					<div className="cardDescriptionDiv valign-wrapper">
-						<p className="cardDescription">{cardFlavourText[cardNum]}</p>
+			<div className="col s12 center">
+				<h1 className="userSpaceH1">Your Card</h1>
+				<h3 className="userSpaceH3">By adding games, adding friends, or more, you can level up your card!</h3>
+				<div className="cardDiv center">
+					<div className="cardTextDiv">
+						<h3 className="cardUsername">{this.props.userName}</h3>
+						<h5 className="cardLvl">Lv.{this.props.level}</h5>
+						<div className="cardDescriptionDiv valign-wrapper">
+							<p className="cardDescription">{cardFlavourText[cardNum]}</p>
+						</div>
 					</div>
+					<img src={cardGraphic[cardNum]} className="userCard"/>
 				</div>
-				<img src={cardGraphic[cardNum]} className="userCard"/>
 			</div>
 			)
 	}
