@@ -21,6 +21,7 @@ class Dashboard extends Component {
 	state = {
 		// state will be passed into hoverbuttons component as prop to render correct material-icon based on if user has notifications
 		notifications:[],
+		friends: [],
 		cardNum: 0
 	}
 
@@ -34,11 +35,22 @@ class Dashboard extends Component {
 			})
 	}
 
+	getFriends = () => {
+		let activeUser = firebase.auth().currentUser.uid
+		Axios.get(`api/user/${activeUser}/friends`)
+			.then(res => {
+				this.setState({friends: res.data})
+			}).catch(function(error) {
+				console.error(error)
+			})
+	}
+
 	componentDidMount() {
 		//if modal exists from splash page login screen, remove it
 		const elem = document.querySelector(".modal-overlay")
 		if(elem) elem.remove();
 		this.getNotifications();
+		this.getFriends();
 		socket.on(firebase.auth().currentUser.uid, thingToUpdate => {
 			if (thingToUpdate === "notifications"){
 				this.getNotifications();
@@ -47,6 +59,7 @@ class Dashboard extends Component {
 
 			if (thingToUpdate === "friends"){
 				this.getNotifications();
+				this.getFriends();
 				this.notify("New friend added! How nice! +50xp")
 				this.props.increaseExp(50);
 			}
@@ -79,7 +92,7 @@ class Dashboard extends Component {
 		        </div>
 
 		        <div className="row dashRow">
-		          	<Friendspace />
+		          	<Friendspace friends={this.state.friends}/>
 		        </div>
 		         
 	      			
