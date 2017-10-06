@@ -37,8 +37,7 @@ io.on("connection", socket => {
 	})
 
 	setTimeout(function(){
-		io.emit("WORKING"), 5000
-	})
+		io.emit("WORKING")}, 5000)
 	
 });
 
