@@ -268,11 +268,26 @@ router.get("/user/:uid/friends", (req, res) => {
 })
 
 //Route for getting all users
-router.get("/user/all", (req, res) => {
+router.get("/user/all/:id?", (req, res) => {
+	console.log(req.params.id)
 	console.log("These are all users signed up with Gamevault.");
-	User.find({}).exec((error, result) => {
-		res.json(result);
-	})
+	if (!req.params.id){
+		User.find({}).exec((error, result) => {
+			res.json(result);
+		})
+	}
+
+	else {
+		User.findOne({_id: req.params.id}).exec((error, result) => {
+			let friends = result.friends;
+			friends.push(req.params.id);
+				User.find({ _id: { $nin: friends } }).exec((errorFilter, resultFilter) => {
+					res.json(resultFilter);
+			})
+		})
+		
+	}
+	
 })
 
 //Route for adding a notification

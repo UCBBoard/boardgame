@@ -28,7 +28,7 @@ class Friendslist extends Component {
 
 
 	showAllFriends = () => {
-		Axios.get(`/api/user/all`)
+		Axios.get("/api/user/all/" + firebase.auth().currentUser.uid)
 			.then(res => {
 				this.setState({friends: res.data, friendsView: 'all'})
 		}).catch(function(error) {
