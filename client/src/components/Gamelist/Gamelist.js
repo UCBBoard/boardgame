@@ -17,15 +17,17 @@ class Gamelist extends Component {
     searchArray: [],
     nameArray: [],
     dateArray: [],
-    idArray: []
+    idArray: [],
+    listToggle: "owned",
+    oppositeList: "wishlist"
   }
 
 // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
 fetchGames = (listChoice) => {
   let myId = firebase.auth().currentUser.uid
   console.log(`this is my id ${myId}`)
-  console.log("Searching for user games");
-  Axios.get("/api/games/" + myId + "/mylist/owned")
+  console.log(`Searching for user ${listChoice}`);
+  Axios.get("/api/games/" + myId + "/mylist/" + this.state.listToggle)
       .then(response => {
         this.setState({myGames : response.data});
       })
@@ -35,29 +37,18 @@ fetchGames = (listChoice) => {
   }
 
   componentDidMount() {
-    this.setState({
-      myGames: []
-    })
     this.fetchGames();
   }
 
-  // handleNewGameSubmit = () => {
-  //   console.log("submitting");
-  //   const gameName = document.getElementById("newGame").value;
-  //   // document.getElementById("newGame").value = "";
-  //   let userId = firebase.auth().currentUser.uid;
-  //   const postRoute = "/api/newgame/" + gameName + "/" + userId;
-  //   Axios.post(postRoute, {
-  //     title: gameName,
-  //     users: userId,
-  //   })
-  //   .then((response) => {
-  //     this.setState({
-  //       myGames: [...this.state.myGames, gameName]
-  //     });
-  //   })
-  //   .catch((error) => { console.log(error) })
-  // }
+switchList = () => {
+  let opposite = this.state.oppositeList;
+  let thisList = this.state.listToggle;
+  this.fetchGames(opposite)
+  this.setState({
+    listToggle: opposite,
+    oppositeList: thisList
+  })
+}
 
 // Handles adding new games to the DB when the user clicks on a search result in Gamelist.
   handleNewGameSubmit1 = (gameId, owned) => {
@@ -171,6 +162,7 @@ fetchGames = (listChoice) => {
               </Collection>
 
           </Modal>
+        <Button onClick={this.switchList}>{this.state.oppositeList}</Button>
         </h2>
         <Collapsible className="gamelistGames">
           {this.state.myGames.map((gameName, i) => {

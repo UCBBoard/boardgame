@@ -38,10 +38,10 @@ io.on("connection", socket => {
 
 	setTimeout(function(){
 		io.emit("working")}, 5000)
-	
+
 });
 
 io.on("notification", object => {
-	
+
 }
 )

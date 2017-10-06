@@ -67,10 +67,16 @@ router.get("/games/search/:name", function(req, res){
 // This is the route that the Gamelist Module calls when it mounts - searches the database, finds the user (passed in through params), and returns a populated list of games.
 router.get("/games/:uid/mylist/:owned", (req, res) => {
 	// if(res  null) {
-		console.log("Getting user gamelist.");
-		User.findOne({ _id : req.params.uid}).populate("games").exec((error, result) => {
+		console.log("Getting user " + req.params.owned + ".");
+		User.findOne({ _id : req.params.uid}).populate("games").populate("wishlist").exec((error, result) => {
 			if(result.games != null) {
-				res.json(result.games);
+				if (req.params.owned === "wishlist") {
+					console.log(result.games);
+					res.json(result.wishlist);
+				} else {
+					console.log(result);
+					res.json(result.games);
+				}
 			}
 		})
 	// }

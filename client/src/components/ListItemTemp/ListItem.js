@@ -13,7 +13,7 @@ const ListItem = props =>
           <p className="collapseP">{props.minPlayers}</p>
       </Col>
 
-  		  <Col s={4} data-place="top" data-tip="Maximim Players" data-offset="{'top': -15}">
+  		  <Col s={4} data-place="top" data-tip="Maximum Players" data-offset="{'top': -15}">
           <Icon small>group</Icon>
           <p className="collapseP">{props.maxPlayers}</p>
       </Col>
