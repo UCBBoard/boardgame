@@ -35,6 +35,7 @@ io.on("connection", socket => {
 		console.log("notification received")
 		console.log(object);
 	})
+
 });
 
 let socketExport = module.exports
