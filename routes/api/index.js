@@ -150,8 +150,6 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 										socketHelper.updateUser(userID, "exp");
 										return res.json(result)
 									})
-
-
 								})
 							})
 						});
@@ -224,8 +222,23 @@ router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
 	console.log(`We be addin friends ${userID} ${secondUserID}`);
 	User.findOneAndUpdate({ _id: userID}, {$push: {friends: secondUserID} }).exec((error, result) => {
 		console.log(error);
+		//Updating user 1 xp
+		User.findOne({ _id : userID }).exec((error, result5) => {
+			let newExp = levelHelper.stripExp(result5.exp + 50, result5.toNextLevel);
+			User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.levelHelper(result5.exp, 50, result5.toNextLevel, result5.level)}, function(error, res0){
+				socketHelper.updateUser(userID, "exp");
+			})
+		})
+
 		socketHelper.updateUser(userID, "friends");
 		User.findOneAndUpdate({ _id: secondUserID}, {$push: {friends: userID} }).exec((error, result) => {
+			//Updating user 2 xp
+			User.findOne({ _id : secondUserID }).exec((error, result6) => {
+				let newExp = levelHelper.stripExp(result6.exp + 50, result6.toNextLevel);
+				User.findOneAndUpdate({ _id : secondUserID }, {exp: newExp, level: levelHelper.levelHelper(result6.exp, 50, result6.toNextLevel, result6.level)}, function(error, res0){
+					socketHelper.updateUser(secondUserID, "exp");
+				})
+			})
 			console.log(error);
 			socketHelper.updateUser(secondUserID, "friends");
 			User.findOneAndUpdate({ _id: userID}, {$pull: {notifications: secondUserID}}).exec((error, result) => {
