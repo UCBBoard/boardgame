@@ -19,6 +19,10 @@
 
 .gamelistHeader {
   font-family: 'Wendy One', sans-serif;
+  color: black;
+  height: 75px;
+  line-height: 75px;
+  margin: 0px;
 }
 
 .collection {
@@ -75,23 +79,17 @@ li:nth-of-type(even) .collapsible-header  {
 }
 
 #add-games-btn {
-  /*position: fixed;*/
+  position: relative;
   float: right;
-  width: 60px;
-  height: 60px;
-  margin-top: -3vh;
+  display: inline;
+  margin-top: -10vh;
   margin-right: 25px;
-  /*margin-left: 50vh;*/
 }
 
 #search-games-btn {
   float: right;
   margin-top: -60px;
   margin-right:   15px;
-}
-
-h2 {
-  color: black;
 }
 
 .new-game-select {
@@ -108,3 +106,11 @@ p {
   /*display: inline-block;*/
 }
 
+.switch {
+  float: left;
+  display: inline;
+  height: 75px;
+  padding-top: 28px;
+  padding-left: 30px;
+  margin-right: -165px;
+}
