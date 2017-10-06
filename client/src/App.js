@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Switch } from 'react-router-dom'
+import { BrowserRouter} from 'react-router-dom'
 import { firebaseAuth } from './config/constants';
 import Dashboard from "./components/Dashboard";
 import Splash from "./components/Splash";
@@ -42,10 +42,17 @@ class App extends Component {
 							});
 		    			console.log("searching database for user:" + response);
 		    		})
-		      	.catch((error) => {
-		      	this.setState({authed:false})
-		      	// console.log(error);
-		    		})
+				Axios.post(`/api/user/${user.uid}/${userName}`)
+				.then((response, error) => {
+					this.setState({
+						level: response.data.level,
+						UID: user.uid,
+						userName: userName,
+						authed: true,
+						loading: false,
+					});
+					console.log("searching database for user:" + response);
+				})
 			} else {
 				this.setState({
 					authed: false,

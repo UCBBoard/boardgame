@@ -264,7 +264,11 @@ router.get("/user/:uid/notifications", (req, res) => {
 	let userID = req.params.uid;
 	console.log('These are users notifications')
 	User.findOne({ _id: req.params.uid}).populate("notifications").exec((error, result) => {
-		res.json(result.notifications)
+		if (result){
+			res.json(result.notifications)
+		} else {
+			return console.log(error)
+		}
 	})
 })
 module.exports = router;
