@@ -68,6 +68,15 @@
 
 }
 
+.userSpaceH1, .userSpaceH3 {
+    font-family: 'Wendy One', sans-serif;
+}
+
+.userSpaceH3 {
+    font-size: 25px;
+    margin-bottom: 50px;
+}
+
 
 
 @keyframes float {
