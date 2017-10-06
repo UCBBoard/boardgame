@@ -28,6 +28,7 @@
 .collection {
   margin-top: 15px !important;
   margin-bottom: -65px !important;
+  background-color: #92aee8;
 }
 
 li:nth-of-type(odd) .collapsible-header {
@@ -113,4 +114,8 @@ p {
   padding-top: 28px;
   padding-left: 30px;
   margin-right: -165px;
+}
+
+.modal-row {
+  height: 0px;
 }
