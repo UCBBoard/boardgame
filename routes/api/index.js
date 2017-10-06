@@ -206,7 +206,7 @@ router.post("/user/:uid/:userName", (req, res) => {
 			let user = new User(
 				{ _id : req.params.uid,
 					name: req.params.userName,
-					cardNum: Math.floor(Math.random() * 10),
+					cardNum: Math.floor(Math.random() * 9),
 				})
 			User.findOne({_id: req.params.uid}, function(error, resultUser){
 				if (!resultUser){
