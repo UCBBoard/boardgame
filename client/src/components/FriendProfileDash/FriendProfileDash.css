@@ -79,3 +79,83 @@
     box-shadow: 6px 7px 8px rgba(0, 0, 0, 0.42);
     width: 300px;
 }
+
+@media screen and (max-width: 700px){
+    .carousel .carousel-item {
+        top: -170px;
+        left: -30px;
+    }
+
+    .friendDCardDescription {
+        z-index: 1;
+        color: black;
+        width: 300px;
+        font-style: italic;
+        line-height: 22px;
+        margin: auto;
+    }
+
+    .friendDCardDescriptionDiv{
+        height: 187px;
+        width: 200px;
+        left: 5px;
+        bottom: -72px;
+        position: relative;
+        line-height: 16px;
+        margin: auto;
+        z-index: 1; 
+        font-size: 9px;
+
+    }
+
+    .friendDCardDiv {
+        height: 413px;
+        margin: 25px;
+    }
+
+
+    .friendDCardLvl {
+        font-family: "arial";
+        position: relative;
+        right: -93px;
+        top: -56px;
+        font-size: 20px;
+        z-index: 1;
+        color: black;
+    }
+
+    .friendDCardTextDiv {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 400px;
+        width: 250px;
+        margin: auto;
+    }
+
+    .friendDCardUsername {
+        position: relative;
+        left: 18px;
+        top: -18px;
+        font-size: 18px;
+        z-index: 1;
+        color: black;
+        text-align: left;
+    }
+
+    .friendDProfileH1 {
+        font-family: 'Wendy One', sans-serif;
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+    .friendDCard {
+        margin: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: 0;
+        box-shadow: 6px 7px 8px rgba(0, 0, 0, 0.42);
+        width: 250px;
+    }
+}
