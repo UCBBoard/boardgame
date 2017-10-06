@@ -6,14 +6,14 @@ import {Modal} from "react-materialize";
 import ReactTooltip from 'react-tooltip';
 
 
-const HoverButtons = () =>
+const HoverButtons = (props) =>
 	<div className="fixed-action-btn">
 		<ReactTooltip type="light" effect="solid"/>
 		<Modal
       header="Notifications"
       trigger={<a className="btn-floating btn-large orange darken-3" data-place="top" data-tip="Notifications">
-							<i className="large material-icons" >notifications</i></a>}>
-      <Notifications/>
+			<i className="material-icons">{props.notifications.length > 0 ? "notifications active" : "notifications" }</i></a>}>
+      <Notifications notifications={props.notifications} getNotifications={props.getNotifications}/>
 		</Modal>
 		<ul>
 			<li><a className="btn-floating orange darken-3" onClick={logout}><i className="material-icons" data-tip="Log Out">exit_to_app</i></a></li>
