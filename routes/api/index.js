@@ -127,6 +127,7 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 								User.findOne({ _id : userID }).exec((error, result5) => {
 									let newExp = levelHelper.stripExp(result5.exp + 10, result5.toNextLevel);
 									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.levelHelper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
+										socketHelper.updateUser(userID, "exp");
 										return res.json(result4)
 									})
 								})
@@ -146,8 +147,11 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 								User.findOne({ _id : userID }).exec((error, result5) => {
 									let newExp = levelHelper.stripExp(result5.exp + 10, result5.toNextLevel);
 									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.levelHelper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
+										socketHelper.updateUser(userID, "exp");
 										return res.json(result)
 									})
+
+
 								})
 							})
 						});
@@ -277,6 +281,18 @@ router.get("/user/:uid/notifications", (req, res) => {
 	User.findOne({ _id: req.params.uid}).populate("notifications").exec((error, result) => {
 		if (result){
 			res.json(result.notifications)
+		} else {
+			return console.log(error)
+		}
+	})
+})
+
+//Route for getting users Lvl and XP
+router.get("/user/:uid/exp", (req, res) => {
+	let userID = req.params.uid;
+	User.findOne({ _id: req.params.uid}).exec((error, result) => {
+		if (result){
+			res.json(result)
 		} else {
 			return console.log(error)
 		}
