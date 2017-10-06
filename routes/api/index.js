@@ -107,26 +107,30 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 						}
 					})
 
+				// Assemble the game object we will be sending to the DB.
 					let game = {
 						title: gameTitle,
 						minPlayers: parseInt(result1.boardgames.boardgame[0].minplayers),
 						maxPlayers: parseInt(result1.boardgames.boardgame[0].maxplayers),
 						playtime: parseInt(result1.boardgames.boardgame[0].maxplaytime),
-						// owned: ownedList
 					}
 					let gameToAdd = new Game (game)
+				//Search the Game collection to see if the game exists
 					Game.findOne({title: game.title}, function(error, result3){
 						console.log("when adding new game, the result is " + result3);
+					// If the game already exists...
 						if (result3){
 							var key = ownedList;
 							var value = result3._id;
 							let thisList = {};
 							thisList[key] = value;
-							// console.log("<<<<<<push object>>>>>")
-							// console.log(thisList);
-							User.findOneAndUpdate({ _id : userID }, {$push:  thisList}).exec((error, result4) => {
-								// console.log("updating gamelist in User Profile")
-								// console.log(result4);
+							console.log("<<<<<<result3>>>>>")
+							console.log(result3);
+						//Add it to the users profile, unless it already exists.
+							User.findOneAndUpdate({ _id : userID }, {$addToSet:  thisList}).exec((error, result4) => {
+								console.log("updating gamelist in User Profile")
+								console.log(result4);
+							//Update EXP for user.
 								User.findOne({ _id : userID }).exec((error, result5) => {
 									let newExp = levelHelper.stripExp(result5.exp + 10, result5.toNextLevel);
 									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.levelHelper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
@@ -136,17 +140,20 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 								})
 							})
 						}
-
+					// If the game doesn't exist in the database..
 						else {
+						//Save it to the database...
 							gameToAdd.save(function(error, result2){
 							// console.log(result2);
 							var key = ownedList;
 							var value = result2._id;
 							let thisList = {};
 							thisList[key] = value;
+						//Save the reference to the users collection...
 							User.findOneAndUpdate({ _id : userID }, {$push:  thisList}).exec((error, result) => {
 								// console.log("updating gamelist in User Profile")
 								// console.log(result);
+							//Update EXP for the user.
 								User.findOne({ _id : userID }).exec((error, result5) => {
 									let newExp = levelHelper.stripExp(result5.exp + 10, result5.toNextLevel);
 									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.levelHelper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
