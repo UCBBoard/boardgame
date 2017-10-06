@@ -35,6 +35,9 @@ io.on("connection", socket => {
 		console.log("notification received")
 		console.log(object);
 	})
+
+	setTimeout(function(){
+		io.emit("WORKING")}, 5000)
 	
 });
 
