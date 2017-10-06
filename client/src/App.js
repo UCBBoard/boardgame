@@ -28,7 +28,7 @@ class App extends Component {
 			if (user) {
 				let userName = user.email.split("@")[0]
 				console.log(userName)
-				Axios.post(`/api/user/${user.uid}/${userName}`)
+				Axios.post("/api/user/" + user.uid + "/" + userName)
 						.then((response) => {
 							this.setState({
 							level: response.data.level,

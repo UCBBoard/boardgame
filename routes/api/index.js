@@ -190,6 +190,7 @@ router.delete("/games/deletegame/:uid/:game", (req, res) => {
 
 // Route for checking user status and getting mongoUID.
 router.post("/user/:uid/:userName", (req, res) => {
+	console.log("uid" + req.params.uid)
 			let user = new User(
 				{ _id : req.params.uid,
 					name: req.params.userName,

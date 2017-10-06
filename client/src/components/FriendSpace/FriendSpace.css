@@ -1,0 +1,18 @@
+.friendsImg {
+  width: 600px;
+  margin: 30px;
+}
+
+.friendsSpaceH1, .friendsSpaceH3 {
+    font-family: 'Wendy One', sans-serif;
+}
+
+.friendsSpaceH1 {
+  margin-top: 0;
+  padding: 0;
+}
+
+.friendsSpaceH3 {
+  font-size: 35px;
+  margin-bottom: 50px;
+}

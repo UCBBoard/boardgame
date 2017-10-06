@@ -13,6 +13,7 @@ app.use(express.static("client/build"));
 // Add routes, both API and view
 app.use(routes);
 
+
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
@@ -23,6 +24,24 @@ mongoose.connect(
   }
 );
 // Start the API server
-app.listen(PORT, function() {
+const server = app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
+
+const io = require('socket.io')(server);
+
+io.on("connection", socket => {
+	socket.on("notification", object => {
+		console.log("notification received")
+		console.log(object);
+	})
+
+	setTimeout(function(){
+		io.emit("working")}, 5000)
+	
+});
+
+io.on("notification", object => {
+	
+}
+)
