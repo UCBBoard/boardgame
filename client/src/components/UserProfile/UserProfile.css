@@ -93,3 +93,70 @@
     transform: translatey(0px);
   }
 }
+
+@media screen and (max-width: 600px){
+    .cardDescription {
+        width: 250px;
+        font-size: 13px;
+    }
+
+    .cardDescriptionDiv {
+        left: -0;
+        width: 300px;
+        bottom: -225px;
+    }
+
+    .cardTextDiv {
+        width: 400px;
+    }
+
+    .cardUsername {
+        width: 400px;
+        left: 22px;
+    }
+
+    .userCard {
+        width: 400px;
+    }
+
+    .cardLvl {
+        right: -140px;
+    }
+
+    .userSpaceH1, .userSpaceH3 {
+        padding: 0
+    }
+}
+
+@media screen and (max-width: 500px){
+    .cardDescription {
+        width:300px;
+        font-size: 18px;
+    }
+    .cardDescriptionDiv {
+        left: -18px;
+        width: 300px;
+        bottom: -225px;
+    }
+
+    .cardDiv {
+        height: 450px;
+    }
+
+    .cardUsername {
+        width: 300px;
+        left: 20px;
+        top: -18px;
+        font-size: 18px;
+    }
+
+    .userCard {
+        width: 300px;
+    }
+
+    .cardLvl {
+        right: -30px;
+        font-size: 18px;
+    }
+}
+
