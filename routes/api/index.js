@@ -252,7 +252,6 @@ router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
 			console.log(error);
 			socketHelper.updateUser(secondUserID, "friends");
 			User.findOneAndUpdate({ _id: userID}, {$pull: {notifications: secondUserID}}).exec((error, result) => {
-				socketHelper.updateUser(userID, "notifications");
 				res.json(result.notifications)
 			})
 		})
