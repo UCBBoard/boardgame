@@ -39,7 +39,7 @@ class Gamelist extends Component {
     }
 
   componentDidMount() {
-    this.fetchGames(this.state.currentList);
+    this.fetchGames("owned");
   }
 
   switchList = () => {
@@ -71,7 +71,7 @@ class Gamelist extends Component {
       });
       document.getElementById('new-game-modal').remove();
       document.querySelector(".modal-overlay").remove();
-      this.fetchGames();
+      this.fetchGames("owned");
     })
     .catch((error) => { console.log(error) })
   }
@@ -122,7 +122,7 @@ class Gamelist extends Component {
     let game = e.target.dataset.id;
     let route = `/api/games/deletegame/${userId}/${game}`;
     Axios.delete(route);
-    this.fetchGames();
+    this.fetchGames("owned");
   }
 
   render () {
