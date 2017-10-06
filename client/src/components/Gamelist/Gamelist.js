@@ -18,37 +18,39 @@ class Gamelist extends Component {
     nameArray: [],
     dateArray: [],
     idArray: [],
-    listToggle: "owned",
-    oppositeList: "wishlist"
+    //current list
+    otherList: "wishlist",
+    //list to switch to
+    currentList: "owned"
   }
 
 // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
-fetchGames = (listChoice) => {
-  let myId = firebase.auth().currentUser.uid
-  console.log(`this is my id ${myId}`)
-  console.log(`Searching for user ${listChoice}`);
-  Axios.get("/api/games/" + myId + "/mylist/" + this.state.listToggle)
-      .then(response => {
-        this.setState({myGames : response.data});
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
+  fetchGames = (listChoice) => {
+    let myId = firebase.auth().currentUser.uid
+    console.log(`this is my id ${myId}`)
+    console.log(`Searching for user ${listChoice}`);
+    Axios.get("/api/games/" + myId + "/mylist/" + [listChoice])
+        .then(response => {
+          this.setState({myGames : response.data});
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
 
   componentDidMount() {
-    this.fetchGames();
+    this.fetchGames(this.state.currentList);
   }
 
-switchList = () => {
-  let opposite = this.state.oppositeList;
-  let thisList = this.state.listToggle;
-  this.fetchGames(opposite)
-  this.setState({
-    listToggle: opposite,
-    oppositeList: thisList
-  })
-}
+  switchList = () => {
+    let oldList = this.state.currentList;
+    let newList = this.state.otherList;
+    this.fetchGames(newList);
+    this.setState({
+      otherList: oldList,
+      currentList: newList
+    })
+  }
 
 // Handles adding new games to the DB when the user clicks on a search result in Gamelist.
   handleNewGameSubmit1 = (gameId, owned) => {
@@ -126,44 +128,36 @@ switchList = () => {
   render () {
     return (
       <div className="col s12 center card-panel gamelistBox">
-        <h2 className="gamelistHeader">Gamelist
-          <Modal
-            header="Add a game to your collection:"
-            id="new-game-modal"
-            actions=" "
-            trigger={<Button floating large className='red' id="add-games-btn" waves='light' icon='add' />}>
-            <form>
-              <Input
-                s={10}
-                placeholder="Search for your game"
-                name="newgame"
-                id="newGame"
-                onChange={this.handleChange}
-              />
-              <Button
-                waves='light'
-                id="search-games-btn"
-                // modal='close'
-                disabled={this.state.buttonDisabled}
-                onClick={(event) => this.searchGames(event)}>
-                  Search
-              </Button>
-            </form>
-              <Collection className="gamelistGames" id="gamelist-games" defaultActiveKey={0}>
-
-                <SearchListItem
-                  // onSelect={null}
-                  expanded={true}
-                  // header={this.state.query}
-                  dataResults={this.state.searchArray}
-                  saveGame={this.handleNewGameSubmit1}
-                />
-
-              </Collection>
-
-          </Modal>
-        <Button onClick={this.switchList}>{this.state.oppositeList}</Button>
+        <Input name="Wishlist" id="list-switch" type="switch" value="wishlist" offLabel="Your Games" onLabel="Your Wishlist" onChange={this.switchList}/>
+        <h2 className="gamelistHeader">
+        Game Shelf
         </h2>
+        <Modal
+          header="Add a game to your collection:"
+          id="new-game-modal"
+          actions=" "
+          trigger={<Button floating large className='green' id="add-games-btn" waves='light' icon='add' />}>
+          <form>
+            <Input s={10} placeholder="Search for your game" name="newgame" id="newGame"
+              onChange={this.handleChange}
+            />
+            <Button waves='light' id="search-games-btn"
+              disabled={this.state.buttonDisabled}
+              onClick={(event) => this.searchGames(event)}>
+                Search
+            </Button>
+          </form>
+            <Collection className="gamelistGames" id="gamelist-games" header="Game Shelf"defaultActiveKey={0}>
+
+              <SearchListItem
+                expanded={true}
+                dataResults={this.state.searchArray}
+                saveGame={this.handleNewGameSubmit1}
+              />
+
+            </Collection>
+
+        </Modal>
         <Collapsible className="gamelistGames">
           {this.state.myGames.map((gameName, i) => {
               return <CollapsibleItem header={gameName.title} icon='filter_drama' key={i + "gList"}>
