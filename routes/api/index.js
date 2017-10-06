@@ -206,7 +206,7 @@ router.post("/user/:uid/:userName", (req, res) => {
 			let user = new User(
 				{ _id : req.params.uid,
 					name: req.params.userName,
-					cardNum: Math.floor(Math.random() * 5),
+					cardNum: Math.floor(Math.random() * 9),
 				})
 			User.findOne({_id: req.params.uid}, function(error, resultUser){
 				if (!resultUser){
@@ -252,7 +252,6 @@ router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
 			console.log(error);
 			socketHelper.updateUser(secondUserID, "friends");
 			User.findOneAndUpdate({ _id: userID}, {$pull: {notifications: secondUserID}}).exec((error, result) => {
-				socketHelper.updateUser(userID, "notifications");
 				res.json(result.notifications)
 			})
 		})
