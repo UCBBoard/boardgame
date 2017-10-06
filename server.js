@@ -35,13 +35,10 @@ io.on("connection", socket => {
 		console.log("notification received")
 		console.log(object);
 	})
-
-	setTimeout(function(){
-		io.emit("working")}, 5000)
-	
 });
 
-io.on("notification", object => {
-	
+let socketExport = module.exports
+
+socketExport.updateUser = function(uid, valToUpdate){
+	io.emit(uid, valToUpdate);
 }
-)
