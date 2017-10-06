@@ -19,7 +19,7 @@ const GameSchema = new Schema({
   maxPlayers: {
     type: Number
   },
-  
+
   genre: {
     type: String,
   },

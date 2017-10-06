@@ -44,6 +44,12 @@ var UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Game"
   }],
+
+  wishlist: [{
+    type: Schema.Types.ObjectId,
+    ref: "Game"
+  }],
+
   // List of friends IDS
   friends: [{
     type: String,

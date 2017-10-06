@@ -40,7 +40,7 @@ class Dashboard extends Component {
 			  </div>
 		      <div className="container dashContainer">
 		        <div className="row dashRow">
-		          	<Gamelist notification={this.notify} increaseExp={this.props.increaseExp}/>
+		          	<Gamelist notification={this.notify} increaseExp={this.props.increaseExp} />
 		        </div>
 		        <div className="row dashRow">
 		          	<Newsfeed />

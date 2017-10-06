@@ -21,11 +21,11 @@ class Gamelist extends Component {
   }
 
 // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
-fetchGames = () => {
+fetchGames = (listChoice) => {
   let myId = firebase.auth().currentUser.uid
   console.log(`this is my id ${myId}`)
   console.log("Searching for user games");
-  Axios.get("/api/games/" + myId + "/mylist")
+  Axios.get("/api/games/" + myId + "/mylist/owned")
       .then(response => {
         this.setState({myGames : response.data});
       })
@@ -60,13 +60,16 @@ fetchGames = () => {
   // }
 
 // Handles adding new games to the DB when the user clicks on a search result in Gamelist.
-  handleNewGameSubmit1 = (gameId) => {
+  handleNewGameSubmit1 = (gameId, owned) => {
     // const gameID = 213460;
+    console.log("<<<<getting second argument in handleNewGameSubmit1");
+    console.log(owned);
     {this.props.increaseExp(10)}
     console.log("subbing new game");
     this.props.notification("New game added! +10 EXP!");
     let userId = firebase.auth().currentUser.uid;
-    const postRoute = "/api/newgame/" + gameId + "/" + userId;
+    const postRoute = "/api/newgame/" + gameId + "/" + userId + "/" + owned;
+    console.log("postroute: " + postRoute);
     Axios.post(postRoute)
     .then((response) => {
       console.log(response);

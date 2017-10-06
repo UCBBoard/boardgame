@@ -24,7 +24,6 @@ class UserProfile extends Component {
 					<div className="cardDescriptionDiv valign-wrapper">
 						<p className="cardDescription">{cardFlavourText[cardNum]}</p>
 					</div>
-					
 				</div>
 				<img src={cardGraphic[cardNum]} alt={cardAlt[cardNum]} className="userCard"/>
 			</div>
