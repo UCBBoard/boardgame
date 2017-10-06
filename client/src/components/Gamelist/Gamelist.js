@@ -45,7 +45,7 @@ class Gamelist extends Component {
     }
 
   componentDidMount() {
-    this.fetchGames();
+    this.fetchGames("owned");
   }
 
   switchList = () => {
@@ -102,7 +102,8 @@ class Gamelist extends Component {
     event.preventDefault();
     this.setState({
       searchArray: [],
-      preloader: true
+      preloader: true,
+      collVis: false
     })
     let currentValue = document.getElementById("newGame").value;
     Axios.get("/api/games/search/" + currentValue)
@@ -149,7 +150,7 @@ class Gamelist extends Component {
         Game Shelf
         </h2>
         <Modal
-          header="Add a game to your collection:"
+          header="Add a game to your collection"
           id="new-game-modal"
           actions=" "
           trigger={<Button floating large className='green' id="add-games-btn" waves='light' icon='add' />}>
@@ -168,7 +169,7 @@ class Gamelist extends Component {
             <Preloader flashing/>
           </div>
 
-          <div className="modal-row" style={{visibility: this.state.collVis ? 'visible' : 'hidden'}}>
+          <div style={{visibility: this.state.collVis ? 'visible' : 'hidden'}}>
 
             <Collection className="gamelistGames" id="gamelist-games" defaultActiveKey={0} style={{visibility: this.state.collVis ? 'visible' : 'hidden'}}>
               <SearchListItem

@@ -1,3 +1,9 @@
 p {
   color: black;
+  font-family: 'Above', sans-serif;
+}
+
+.search-date {
+  font-family: 'Wendy One', sans-serif;
+  float: right;
 }
