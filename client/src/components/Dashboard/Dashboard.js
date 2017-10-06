@@ -25,8 +25,8 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
-		socket.on("test", function(){
-			console.log("beep")
+		socket.on("working", function(){
+			console.log("WORKING")
 		})
 		//if modal exists from splash page login screen, remove it
 		const elem = document.querySelector(".modal-overlay")
