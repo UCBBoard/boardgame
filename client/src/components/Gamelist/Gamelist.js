@@ -5,7 +5,7 @@ import SearchListItem from "../SearchListItem";
 import ListItem from "../ListItemTemp"
 import firebase from "firebase";
 // import ReactTooltip from 'react-tooltip';
-import {Modal, Button, Collapsible, CollapsibleItem, Input, Collection} from "react-materialize";
+import {Modal, Button, Collapsible, CollapsibleItem, Input, Collection, Preloader} from "react-materialize";
 
 
 class Gamelist extends Component {
@@ -21,7 +21,10 @@ class Gamelist extends Component {
     //current list
     otherList: "wishlist",
     //list to switch to
-    currentList: "owned"
+    currentList: "owned",
+    switchValue: true,
+    collVis: false,
+    preloader: false
   }
 
 // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
@@ -29,6 +32,9 @@ class Gamelist extends Component {
     let myId = firebase.auth().currentUser.uid
     console.log(`this is my id ${myId}`)
     console.log(`Searching for user ${listChoice}`);
+    this.setState({
+      switchValue: listChoice
+    })
     Axios.get("/api/games/" + myId + "/mylist/" + [listChoice])
         .then(response => {
           this.setState({myGames : response.data});
@@ -39,7 +45,7 @@ class Gamelist extends Component {
     }
 
   componentDidMount() {
-    this.fetchGames("owned");
+    this.fetchGames();
   }
 
   switchList = () => {
@@ -67,11 +73,17 @@ class Gamelist extends Component {
     .then((response) => {
       console.log(response);
       this.setState({
-        query: ""
+        query: "",
+        searchArray: [],
+        preloader: false,
+        collVis: false
       });
       document.getElementById('new-game-modal').remove();
       document.querySelector(".modal-overlay").remove();
       this.fetchGames("owned");
+      // this.setState({
+      //   collVis: true
+      // })
     })
     .catch((error) => { console.log(error) })
   }
@@ -89,7 +101,8 @@ class Gamelist extends Component {
   searchGames = (event) => {
     event.preventDefault();
     this.setState({
-      searchArray: []
+      searchArray: [],
+      preloader: true
     })
     let currentValue = document.getElementById("newGame").value;
     Axios.get("/api/games/search/" + currentValue)
@@ -106,7 +119,9 @@ class Gamelist extends Component {
             id: dataId
           };
           return this.setState({
-              searchArray: [...this.state.searchArray, resultObj]
+              searchArray: [...this.state.searchArray, resultObj],
+              preloader: false,
+              collVis: true
           })
         })
       })
@@ -125,10 +140,11 @@ class Gamelist extends Component {
     this.fetchGames("owned");
   }
 
+//Render it all!
   render () {
     return (
       <div className="col s12 center card-panel gamelistBox">
-        <Input name="Wishlist" id="list-switch" type="switch" value="wishlist" offLabel="Your Games" onLabel="Your Wishlist" onChange={this.switchList}/>
+        <Input name="Wishlist" id="list-switch" type="switch" offLabel="Your Games" onLabel="Your Wishlist" onChange={this.switchList}/>
         <h2 className="gamelistHeader">
         Game Shelf
         </h2>
@@ -147,16 +163,22 @@ class Gamelist extends Component {
                 Search
             </Button>
           </form>
-            <Collection className="gamelistGames" id="gamelist-games" header="Game Shelf"defaultActiveKey={0}>
 
+          <div className="modal-row" style={{visibility: this.state.preloader ? 'visible' : 'hidden'}}>
+            <Preloader flashing/>
+          </div>
+
+          <div className="modal-row" style={{visibility: this.state.collVis ? 'visible' : 'hidden'}}>
+
+            <Collection className="gamelistGames" id="gamelist-games" defaultActiveKey={0} style={{visibility: this.state.collVis ? 'visible' : 'hidden'}}>
               <SearchListItem
-                expanded={true}
+                // expanded={true}
                 dataResults={this.state.searchArray}
                 saveGame={this.handleNewGameSubmit1}
-              />
+                preloader={this.state.preloader}/>
 
             </Collection>
-
+          </div>
         </Modal>
         <Collapsible className="gamelistGames">
           {this.state.myGames.map((gameName, i) => {
