@@ -1,0 +1,72 @@
+.friendCardDescription {
+    z-index: 1;
+    color: black;
+    width: 335px;
+    font-style: italic;
+    line-height: 22px;
+    margin: auto;
+}
+
+.friendCardDescriptionDiv{
+	height: 187px;
+    width: 200px;
+    left: 5px;
+    bottom: -140px;
+    position: relative;
+        line-height: 16px;
+    margin: auto;
+    z-index: 1;	
+    font-size: 13px;
+
+}
+
+.friendCardDiv {
+	height: 413px;
+    margin: 25px;
+}
+
+
+.friendCardLvl {
+	font-family: "arial";
+	position: relative;
+    right: -118px;
+    top: -36px;
+    font-size: 20px;
+    z-index: 1;
+    color: black;
+}
+
+.friendCardTextDiv {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 657px;
+    width: 477px;
+    margin: auto;
+}
+
+.friendCardUsername {
+    position: relative;
+    left: 105px;
+    top: 0px;
+    font-size: 18px;
+    z-index: 1;
+    color: black;
+    text-align: left;
+}
+
+.friendProfileH1 {
+    font-family: 'Wendy One', sans-serif;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.friendCard {
+	margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    box-shadow: 6px 7px 8px rgba(0, 0, 0, 0.42);
+    width: 300px;
+}

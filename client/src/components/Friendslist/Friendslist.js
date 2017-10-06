@@ -3,7 +3,7 @@ import "./Friendslist.css";
 import firebase from "firebase";
 import Axios from "axios";
 import {Button} from "react-materialize";
-
+import FriendProfile from "../FriendProfile";
 
 
 class Friendslist extends Component {
@@ -60,9 +60,10 @@ class Friendslist extends Component {
 	  		<Button onClick={this.showMyFriends}>My Friends</Button>
 	  		<Button onClick={this.showAllFriends}>All users</Button>
 				{this.state.friends.map((element, i) =>
-					<div key={i}> {element.name}
+					<div key={i} className="center"> 
+						<FriendProfile level={element.level} userName={element.name} cardNum={element.cardNum}/>
 						{this.state.friendsView === 'all' ?
-						<Button data-id={element._id} onClick={this.addNotification} className="add"> Add friend </Button> :
+						<Button data-id={element._id} onClick={this.addNotification} className="addFriendButton"> Add friend </Button> :
 						<Button data-id={element._id} onClick={this.removeFriend} className ="delete"> Delete friend </Button>
 						}
 					</div>
