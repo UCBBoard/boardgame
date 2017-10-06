@@ -41,12 +41,12 @@ var UserSchema = new Schema({
   // List of Games - populated from GameList
   games: [{
     type: Schema.Types.ObjectId,
-    ref: "Game"
+    ref: "Game",
   }],
 
   wishlist: [{
     type: Schema.Types.ObjectId,
-    ref: "Game"
+    ref: "Game",
   }],
 
   // List of friends IDS

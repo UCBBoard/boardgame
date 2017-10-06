@@ -87,7 +87,10 @@ router.get("/games/:uid/mylist/:owned", (req, res) => {
 router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 	let gameID = req.params.gameid;
 	let userID = req.params.uid;
-	//Either "games" or "wishlist"
+	// User.findOne({ _id : userID}, (err, dupeCheck) => {
+	// 	console.log("NEW DUPE CHECK");
+	// 	console.log(dupeCheck);
+	// })
 	let ownedList = req.params.owned;
 	axios.get("https://boardgamegeek.com/xmlapi/boardgame/" + gameID)
 			.then(function(response1){
@@ -119,11 +122,11 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 							var value = result3._id;
 							let thisList = {};
 							thisList[key] = value;
-							console.log("<<<<<<push object>>>>>")
-							console.log(thisList);
+							// console.log("<<<<<<push object>>>>>")
+							// console.log(thisList);
 							User.findOneAndUpdate({ _id : userID }, {$push:  thisList}).exec((error, result4) => {
-								console.log("updating gamelist in User Profile")
-								console.log(result4);
+								// console.log("updating gamelist in User Profile")
+								// console.log(result4);
 								User.findOne({ _id : userID }).exec((error, result5) => {
 									let newExp = levelHelper.stripExp(result5.exp + 10, result5.toNextLevel);
 									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.levelHelper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
@@ -136,14 +139,14 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 
 						else {
 							gameToAdd.save(function(error, result2){
-							console.log(result2);
+							// console.log(result2);
 							var key = ownedList;
 							var value = result2._id;
 							let thisList = {};
 							thisList[key] = value;
 							User.findOneAndUpdate({ _id : userID }, {$push:  thisList}).exec((error, result) => {
-								console.log("updating gamelist in User Profile")
-								console.log(result);
+								// console.log("updating gamelist in User Profile")
+								// console.log(result);
 								User.findOne({ _id : userID }).exec((error, result5) => {
 									let newExp = levelHelper.stripExp(result5.exp + 10, result5.toNextLevel);
 									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.levelHelper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
