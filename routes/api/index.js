@@ -118,8 +118,8 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 								console.log("updating gamelist in User Profile")
 								console.log(result4);
 								User.findOne({ _id : userID }).exec((error, result5) => {
-									let newExp = result5.exp + 10;
-									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.helper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
+									let newExp = levelHelper.stripExp(result5.exp + 10, result5.toNextLevel);
+									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.levelHelper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
 										return res.json(result4)
 									})
 								})
@@ -137,8 +137,8 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 								console.log("updating gamelist in User Profile")
 								console.log(result);
 								User.findOne({ _id : userID }).exec((error, result5) => {
-									let newExp = result5.exp + 10;
-									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.helper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
+									let newExp = levelHelper.stripExp(result5.exp + 10, result5.toNextLevel);
+									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.levelHelper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
 										return res.json(result)
 									})
 								})
@@ -149,13 +149,6 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 					
 			})
 		})
-})
-
-router.get("/cheese", (req, res) => {
-	User.findOne({ _id : "lB1zqQNNuUhuVj9KnbMDm3PC0ew1"})
-	.exec((error, result) => {
-		res.json(result);
-	})
 })
 
 // // Route for deleting a game
