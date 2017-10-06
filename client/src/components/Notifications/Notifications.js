@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import Axios from "axios";
+import "./Notifications.css";
 import {Button} from "react-materialize";
-
+import FriendProfile from "../FriendProfile";
 
 class Notifications extends Component {
 
@@ -16,11 +17,12 @@ class Notifications extends Component {
 
 	render(props){
 		return(
-			<div>These are the notifications
+			<div className="center">
 			{this.props.notifications.map((element, i) =>
 				<div key={i}>
-					{element.name} sent you a friend request.
-						<Button data-id={element._id} onClick={this.addFriend}> Add friend </Button>
+					<FriendProfile level={element.level} userName={element.name} cardNum={element.cardNum}/>
+					<p className="notificationText">{element.name} sent you a friend request.</p>
+					<Button className="notificationAddFriend" data-id={element._id} onClick={this.addFriend}> Add friend </Button>
 				</div>
 				)}
 			</div>

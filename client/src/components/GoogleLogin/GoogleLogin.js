@@ -8,7 +8,7 @@ const GoogleLogin = () =>
 			<div>
 				<Button className="googleLoginBtn" modal="close" waves='light'
 				onClick={googleLogin}>
-					Login With Google
+					Google Login
 				</Button>
 			</div>
 

@@ -93,3 +93,190 @@
     transform: translatey(0px);
   }
 }
+
+@media screen and (max-width: 600px){
+    .cardDescription {
+        width: 250px;
+        font-size: 13px;
+    }
+
+    .cardDescriptionDiv {
+        left: -0;
+        width: 300px;
+        bottom: -225px;
+    }
+
+    .cardTextDiv {
+        width: 400px;
+    }
+
+    .cardUsername {
+        width: 400px;
+        left: 22px;
+    }
+
+    .userCard {
+        width: 400px;
+    }
+
+    .cardLvl {
+        right: -140px;
+    }
+
+    .userSpaceH1, .userSpaceH3 {
+        padding: 0
+    }
+}
+
+@media screen and (max-width: 500px){
+   .cardDescription {
+    z-index: 1;
+    color: black;
+    width: 335px;
+    font-style: italic;
+    line-height: 22px;
+    margin: auto;
+}
+
+.cardDescriptionDiv{
+    height: 187px;
+    width: 200px;
+    left: 5px;
+    bottom: -125px;
+    position: relative;
+    line-height: 16px;
+    margin: auto;
+    z-index: 1; 
+    font-size: 13px;
+
+}
+
+.cardDiv {
+    height: 413px;
+    margin: 25px;
+}
+
+
+.cardLvl {
+    font-family: "arial";
+    position: relative;
+    right: -115px;
+    top: -56px;
+    font-size: 20px;
+    z-index: 1;
+    color: black;
+}
+
+.cardTextDiv {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 400px;
+    width: 300px;
+    margin: auto;
+}
+
+.cardUsername {
+    position: relative;
+    left: 18px;
+    top: -18px;
+    font-size: 18px;
+    z-index: 1;
+    color: black;
+    text-align: left;
+}
+
+.userProfileH1 {
+    font-family: 'Wendy One', sans-serif;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.userCard {
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    box-shadow: 6px 7px 8px rgba(0, 0, 0, 0.42);
+    width: 300px;
+}
+
+}
+
+@media screen and (max-width: 400px){
+     .cardDescription {
+        z-index: 1;
+        color: black;
+        font-style: italic;
+        line-height: 22px;
+        margin: auto;
+        font-size: 10px;
+        width: 150px;
+        line-height: 14px;
+    }
+
+    .cardDescriptionDiv{
+        height: 187px;
+        width: 200px;
+        bottom: -34px;
+        left: 0;
+        position: relative;
+        line-height: 16px;
+        margin: auto;
+        z-index: 1; 
+        font-size: 9px;
+
+    }
+
+    .cardDiv {
+        height: 413px;
+        margin: 25px;
+    }
+
+
+    .cardLvl {
+        font-family: "arial";
+        position: relative;
+        right: -75px;
+        top: -53px;
+        font-size: 15px;
+        z-index: 1;
+        color: black;
+    }
+
+    .cardTextDiv {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 400px;
+        width: 200px;
+        margin: auto;
+    }
+
+    .cardUsername {
+        position: relative;
+        left: 10px;
+        top: -21px;
+        font-size: 15px;
+        z-index: 1;
+        color: black;
+        text-align: left;
+    }
+
+    .userProfileH1 {
+        font-family: 'Wendy One', sans-serif;
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+    .userCard {
+        margin: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: 0;
+        box-shadow: 6px 7px 8px rgba(0, 0, 0, 0.42);
+        width: 200px;
+    }
+}
