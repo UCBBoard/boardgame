@@ -45,6 +45,11 @@ class Dashboard extends Component {
 			})
 	}
 
+	getLvl = () => {
+		let activeUser = firebase.auth().currentUser.uid
+		this.props.updateLvl(activeUser);
+	}
+
 	componentDidMount() {
 		//if modal exists from splash page login screen, remove it
 		const elem = document.querySelector(".modal-overlay")
@@ -62,6 +67,10 @@ class Dashboard extends Component {
 				this.getFriends();
 				this.notify("New friend added! How nice! +50xp")
 				this.props.increaseExp(50);
+			}
+
+			if (thingToUpdate === "exp"){
+				this.getLvl();
 			}
 		})
 
