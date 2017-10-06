@@ -18,7 +18,7 @@ app.use(routes);
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
 mongoose.connect(
-  "mongodb://localhost/boardgame",
+  'mongodb://heroku_6ftxqjz7:begnvtgplfhq2bij765641mp6o@ds161164.mlab.com:61164/heroku_6ftxqjz7' || "mongodb://localhost/boardgame",
   {
     useMongoClient: true
   }
@@ -35,13 +35,10 @@ io.on("connection", socket => {
 		console.log("notification received")
 		console.log(object);
 	})
-
-	setTimeout(function(){
-		io.emit("working")}, 5000)
-	
 });
 
-io.on("notification", object => {
-	
+let socketExport = module.exports
+
+socketExport.updateUser = function(uid, valToUpdate){
+	io.emit(uid, valToUpdate);
 }
-)

@@ -35,22 +35,25 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
-		socket.on("working", function(){
-			console.log("WORKING")
-		})
 		//if modal exists from splash page login screen, remove it
 		const elem = document.querySelector(".modal-overlay")
-		this.emitTest();
 		if(elem) elem.remove();
 		this.getNotifications();
+		socket.on(firebase.auth().currentUser.uid, thingToUpdate => {
+			if (thingToUpdate === "notifications"){
+				this.getNotifications();
+				this.notify("New notification!")
+			}
 
+			if (thingToUpdate === "friends"){
+				this.getNotifications();
+				this.notify("New friend added! How nice! +50xp")
+				this.props.increaseExp(50);
+			}
+		})
 
 	};
 
-	emitTest = () => {
-		console.log("emiting")
-		socket.emit("notification", {hey: "sup"});
-	}
 
 	notify = text => toast(text);
 

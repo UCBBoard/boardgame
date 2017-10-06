@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 const axios = require("axios");
 var parseString = require('xml2js').parseString;
 const levelHelper = require("../helper/levelHelper.js")
+const socketHelper = require("../../server.js");
 
 // Newsfeed scraper - searches top links in r/boardgames for the users.
 router.get("/news/scrape", function(req, res){
@@ -213,9 +214,12 @@ router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
 	console.log(`We be addin friends ${userID} ${secondUserID}`);
 	User.findOneAndUpdate({ _id: userID}, {$push: {friends: secondUserID} }).exec((error, result) => {
 		console.log(error);
+		socketHelper.updateUser(userID, "friends");
 		User.findOneAndUpdate({ _id: secondUserID}, {$push: {friends: userID} }).exec((error, result) => {
 			console.log(error);
+			socketHelper.updateUser(secondUserID, "friends");
 			User.findOneAndUpdate({ _id: userID}, {$pull: {notifications: secondUserID}}).exec((error, result) => {
+				socketHelper.updateUser(userID, "notifications");
 				res.json(result.notifications)
 			})
 		})
@@ -255,6 +259,7 @@ router.post("/user/:uid/addnotification/:seconduid", (req, res) => {
 	console.log(`We be addin notifications ${userID} ${secondUserID}`);
 	User.findOneAndUpdate({ _id: userID}, {$push: {notifications: secondUserID} }).exec((error, result) => {
 		console.log(error)
+		socketHelper.updateUser(userID, "notifications");
 		res.json(result);
 	})
 })

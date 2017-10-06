@@ -12,7 +12,7 @@ const HoverButtons = (props) =>
 		<Modal
       header="Notifications"
       trigger={<a className="btn-floating btn-large orange darken-3" data-place="top" data-tip="Notifications">
-			<i className="material-icons">{props.notifications.length > 0 ? "notifications active" : "notifications" }</i></a>}>
+			<i className="material-icons">{props.notifications.length > 0 ? "notifications_active" : "notifications" }</i></a>}>
       <Notifications notifications={props.notifications} getNotifications={props.getNotifications}/>
 		</Modal>
 		<ul>
