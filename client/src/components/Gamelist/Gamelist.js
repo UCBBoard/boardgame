@@ -21,7 +21,8 @@ class Gamelist extends Component {
     //current list
     otherList: "wishlist",
     //list to switch to
-    currentList: "owned"
+    currentList: "owned",
+    switchValue: true
   }
 
 // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
@@ -29,6 +30,9 @@ class Gamelist extends Component {
     let myId = firebase.auth().currentUser.uid
     console.log(`this is my id ${myId}`)
     console.log(`Searching for user ${listChoice}`);
+    this.setState({
+      switchValue: listChoice
+    })
     Axios.get("/api/games/" + myId + "/mylist/" + [listChoice])
         .then(response => {
           this.setState({myGames : response.data});
@@ -39,7 +43,7 @@ class Gamelist extends Component {
     }
 
   componentDidMount() {
-    this.fetchGames("owned");
+    this.fetchGames();
   }
 
   switchList = () => {
@@ -128,7 +132,7 @@ class Gamelist extends Component {
   render () {
     return (
       <div className="col s12 center card-panel gamelistBox">
-        <Input name="Wishlist" id="list-switch" type="switch" value="wishlist" offLabel="Your Games" onLabel="Your Wishlist" onChange={this.switchList}/>
+        <Input name="Wishlist" id="list-switch" type="switch" offLabel="Your Games" onLabel="Your Wishlist" onChange={this.switchList}/>
         <h2 className="gamelistHeader">
         Game Shelf
         </h2>
