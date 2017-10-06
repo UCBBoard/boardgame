@@ -23,6 +23,12 @@ class App extends Component {
 		this.setState({exp: newExp});
 	}
 
+	updateLvl = id => {
+		Axios.get("api/user/" + id + "/exp").then(response => {
+			this.setState({exp: response.data.exp, level: response.data.level})
+		})
+	}
+
 	componentDidMount () {
 		this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
 			if (user) {
@@ -77,6 +83,7 @@ class App extends Component {
 					toNextLevel = {this.state.toNextLevel}
 					cardNum = {this.state.cardNum}
 					increaseExp = {this.increaseExp}
+					updateLvl = {this.updateLvl}
 					/> : <Splash/>}
 				</div>
 			</BrowserRouter>
