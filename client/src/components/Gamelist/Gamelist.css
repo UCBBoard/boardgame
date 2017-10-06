@@ -28,7 +28,11 @@
 .collection {
   margin-top: 15px !important;
   margin-bottom: -65px !important;
-  background-color: #92aee8;
+}
+
+.collection-item {
+  background-color: #89D47C !important;
+  /*opacity: 50%;*/
 }
 
 li:nth-of-type(odd) .collapsible-header {
@@ -118,4 +122,9 @@ p {
 
 .modal-row {
   height: 0px;
+  padding-left: 50%;
+}
+
+h4 {
+  font-family: 'Above', sans-serif;
 }
