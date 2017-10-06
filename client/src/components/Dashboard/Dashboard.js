@@ -24,22 +24,36 @@ class Dashboard extends Component {
 		cardNum: 0
 	}
 
+	getNotifications = () => {
+		let activeUser = firebase.auth().currentUser.uid
+		Axios.get(`api/user/${activeUser}/notifications`)
+			.then(res => {
+				this.setState({notifications: res.data})
+			}).catch(function(error) {
+				console.error(error)
+			})
+	}
+
 	componentDidMount() {
-		socket.on("working", function(){
-			console.log("WORKING")
-		})
 		//if modal exists from splash page login screen, remove it
 		const elem = document.querySelector(".modal-overlay")
-		this.emitTest();
-		if(elem) elem.remove()
+		if(elem) elem.remove();
+		this.getNotifications();
+		socket.on(firebase.auth().currentUser.uid, thingToUpdate => {
+			if (thingToUpdate === "notifications"){
+				this.getNotifications();
+				this.notify("New notification!")
+			}
 
+			if (thingToUpdate === "friends"){
+				this.getNotifications();
+				this.notify("New friend added! How nice! +50xp")
+				this.props.increaseExp(50);
+			}
+		})
 
 	};
 
-	emitTest = () => {
-		console.log("emiting")
-		socket.emit("notification", {hey: "sup"});
-	}
 
 	notify = text => toast(text);
 
@@ -73,7 +87,7 @@ class Dashboard extends Component {
 		     
 		      
 		      <LevelBar exp={this.props.exp} toNextLevel={this.props.toNextLevel}/>
-		      <HoverButtons />
+		      <HoverButtons notifications={this.state.notifications} getNotifications={this.getNotifications}/>
 		      <ToastContainer 
           position="top-right"
           type="default"

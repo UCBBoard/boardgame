@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 const axios = require("axios");
 var parseString = require('xml2js').parseString;
 const levelHelper = require("../helper/levelHelper.js")
+const socketHelper = require("../../server.js");
 
 // Newsfeed scraper - searches top links in r/boardgames for the users.
 router.get("/news/scrape", function(req, res){
@@ -124,8 +125,8 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 								console.log("updating gamelist in User Profile")
 								console.log(result4);
 								User.findOne({ _id : userID }).exec((error, result5) => {
-									let newExp = result5.exp + 10;
-									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.helper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
+									let newExp = levelHelper.stripExp(result5.exp + 10, result5.toNextLevel);
+									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.levelHelper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
 										return res.json(result4)
 									})
 								})
@@ -143,8 +144,8 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 								console.log("updating gamelist in User Profile")
 								console.log(result);
 								User.findOne({ _id : userID }).exec((error, result5) => {
-									let newExp = result5.exp + 10;
-									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.helper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
+									let newExp = levelHelper.stripExp(result5.exp + 10, result5.toNextLevel);
+									User.findOneAndUpdate({ _id : userID }, {exp: newExp, level: levelHelper.levelHelper(result5.exp, 10, result5.toNextLevel, result5.level)}, function(error, res0){
 										return res.json(result)
 									})
 								})
@@ -155,13 +156,6 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 					
 			})
 		})
-})
-
-router.get("/cheese", (req, res) => {
-	User.findOne({ _id : "lB1zqQNNuUhuVj9KnbMDm3PC0ew1"})
-	.exec((error, result) => {
-		res.json(result);
-	})
 })
 
 // // Route for deleting a game
@@ -226,9 +220,12 @@ router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
 	console.log(`We be addin friends ${userID} ${secondUserID}`);
 	User.findOneAndUpdate({ _id: userID}, {$push: {friends: secondUserID} }).exec((error, result) => {
 		console.log(error);
+		socketHelper.updateUser(userID, "friends");
 		User.findOneAndUpdate({ _id: secondUserID}, {$push: {friends: userID} }).exec((error, result) => {
 			console.log(error);
+			socketHelper.updateUser(secondUserID, "friends");
 			User.findOneAndUpdate({ _id: userID}, {$pull: {notifications: secondUserID}}).exec((error, result) => {
+				socketHelper.updateUser(userID, "notifications");
 				res.json(result.notifications)
 			})
 		})
@@ -268,6 +265,7 @@ router.post("/user/:uid/addnotification/:seconduid", (req, res) => {
 	console.log(`We be addin notifications ${userID} ${secondUserID}`);
 	User.findOneAndUpdate({ _id: userID}, {$push: {notifications: secondUserID} }).exec((error, result) => {
 		console.log(error)
+		socketHelper.updateUser(userID, "notifications");
 		res.json(result);
 	})
 })
@@ -277,7 +275,11 @@ router.get("/user/:uid/notifications", (req, res) => {
 	let userID = req.params.uid;
 	console.log('These are users notifications')
 	User.findOne({ _id: req.params.uid}).populate("notifications").exec((error, result) => {
-		res.json(result.notifications)
+		if (result){
+			res.json(result.notifications)
+		} else {
+			return console.log(error)
+		}
 	})
 })
 module.exports = router;
