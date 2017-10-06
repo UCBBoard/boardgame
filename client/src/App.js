@@ -12,6 +12,15 @@ class App extends Component {
 		loading: true,
 		userName: '',
 		UID: '',
+		level: 1,
+		exp: 1,
+		toNextLevel: 100,
+		cardNum: 0
+	}
+
+	increaseExp = expToAdd => {
+		let newExp = this.state.exp + expToAdd;
+		this.setState({exp: newExp});
 	}
 
 	componentDidMount () {
@@ -60,11 +69,18 @@ class App extends Component {
 	render() {
 		return this.state.loading === true ? <LoadingScreen /> : (
 			<BrowserRouter>
-			<div>
-			{this.state.authed? <Dashboard userName = {this.state.userName} uID = {this.state.UID}/> : <Splash/>}
-			</div>
+				<div>
+					{this.state.authed? <Dashboard userName = {this.state.userName}
+					uID = {this.state.UID}
+					level = {this.state.level}
+					exp = {this.state.exp}
+					toNextLevel = {this.state.toNextLevel}
+					cardNum = {this.state.cardNum}
+					increaseExp = {this.increaseExp}
+					/> : <Splash/>}
+				</div>
 			</BrowserRouter>
-			);
+		);
 	}}
 
 	export default App;
