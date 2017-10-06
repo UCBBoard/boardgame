@@ -65,7 +65,7 @@ router.get("/games/search/:name", function(req, res){
 })
 
 // This is the route that the Gamelist Module calls when it mounts - searches the database, finds the user (passed in through params), and returns a populated list of games.
-router.get("/games/:uid/mylist", (req, res) => {
+router.get("/games/:uid/mylist/:owned", (req, res) => {
 	// if(res  null) {
 		console.log("Getting user gamelist.");
 		User.findOne({ _id : req.params.uid}).populate("games").exec((error, result) => {
@@ -77,9 +77,11 @@ router.get("/games/:uid/mylist", (req, res) => {
 })
 
 // For posting a new game linked to a users account. Called from the submit button on the add game modal in Dashboard component.
-router.post("/newgame/:gameid/:uid", (req, res) => {
+router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 	let gameID = req.params.gameid;
 	let userID = req.params.uid;
+	//Either "games" or "wishlist"
+	let ownedList = req.params.owned;
 	axios.get("https://boardgamegeek.com/xmlapi/boardgame/" + gameID)
 			.then(function(response1){
 				parseString(response1.data, function (err, result1) {
@@ -87,25 +89,32 @@ router.post("/newgame/:gameid/:uid", (req, res) => {
 					let gameTitle = "";
 					newGameNames.map((gameName, i) => {
 						if(!gameName.$.primary) {
-							console.log("not primary")
+							// console.log("not primary")
 							return
 						} else {
-							console.log("gameTitle is now set to: " + gameName._)
+							// console.log("gameTitle is now set to: " + gameName._)
 							gameTitle = gameName._;
 						}
 					})
+
 					let game = {
 						title: gameTitle,
 						minPlayers: parseInt(result1.boardgames.boardgame[0].minplayers),
 						maxPlayers: parseInt(result1.boardgames.boardgame[0].maxplayers),
-						playtime: parseInt(result1.boardgames.boardgame[0].maxplaytime)
+						playtime: parseInt(result1.boardgames.boardgame[0].maxplaytime),
+						// owned: ownedList
 					}
-
 					let gameToAdd = new Game (game)
 					Game.findOne({title: game.title}, function(error, result3){
 						console.log("when adding new game, the result is " + result3);
 						if (result3){
-							User.findOneAndUpdate({ _id : userID }, {$push:  {games: result3._id}}).exec((error, result4) => {
+							var key = ownedList;
+							var value = result3._id;
+							let thisList = {};
+							thisList[key] = value;
+							console.log("<<<<<<push object>>>>>")
+							console.log(thisList);
+							User.findOneAndUpdate({ _id : userID }, {$push:  thisList}).exec((error, result4) => {
 								console.log("updating gamelist in User Profile")
 								console.log(result4);
 								User.findOne({ _id : userID }).exec((error, result5) => {
@@ -115,14 +124,16 @@ router.post("/newgame/:gameid/:uid", (req, res) => {
 									})
 								})
 							})
-
-							
 						}
 
 						else {
 							gameToAdd.save(function(error, result2){
 							console.log(result2);
-							User.findOneAndUpdate({ _id : userID }, {$push:  {games: result2._id}}).exec((error, result) => {
+							var key = ownedList;
+							var value = result2._id;
+							let thisList = {};
+							thisList[key] = value;
+							User.findOneAndUpdate({ _id : userID }, {$push:  thisList}).exec((error, result) => {
 								console.log("updating gamelist in User Profile")
 								console.log(result);
 								User.findOne({ _id : userID }).exec((error, result5) => {
@@ -199,7 +210,6 @@ router.post("/user/:uid/:userName", (req, res) => {
 					res.json(resultUser);
 				}
 			})
-			
 	});
 
 //Route for adding a user as a friend
