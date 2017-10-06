@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import "./Dashboard.css";
-// import Axios from "axios";
+import Axios from "axios";
 import Gamelist from "../Gamelist";
-// import firebase from "firebase";
+import firebase from "firebase";
 import Newsfeed from "../Newsfeed";
 import HoverButtons from "../HoverButtons";
 import Background from "../Background"
@@ -10,8 +10,12 @@ import Discord from "../Discord"
 import logo from "../../assets/img/logo.png"
 import LevelBar from "../LevelBar";
 import UserProfile from "../UserProfile";
+import Friendspace from "../FriendSpace";
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer, toast } from 'react-toastify';
+
+import openSocket from 'socket.io-client';
+const socket = openSocket();
 
 class Dashboard extends Component {
 	state = {
@@ -21,11 +25,21 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
+		socket.on("test", function(){
+			console.log("beep")
+		})
 		//if modal exists from splash page login screen, remove it
 		const elem = document.querySelector(".modal-overlay")
+		this.emitTest();
 		if(elem) elem.remove()
 
+
 	};
+
+	emitTest = () => {
+		console.log("emiting")
+		socket.emit("notification", {hey: "sup"});
+	}
 
 	notify = text => toast(text);
 
@@ -51,7 +65,7 @@ class Dashboard extends Component {
 		        </div>
 
 		        <div className="row dashRow">
-		          	<Discord />
+		          	<Friendspace />
 		        </div>
 		         
 	      			
