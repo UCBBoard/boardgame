@@ -24,7 +24,7 @@ class Newsfeed extends Component {
 					<div className="headlineBox">
 						{this.state.news.map((headline, i) =>
 							<div key={i}>
-								<p className="newsfeedHeadline"><a className="headlineA" href={headline.link} key>{headline.title}</a></p>
+								<p className="newsfeedHeadline"><a className="headlineA" target="_blank" href={headline.link} key>{headline.title}</a></p>
 								<hr />
 							</div>
 							)}
