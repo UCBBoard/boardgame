@@ -283,7 +283,7 @@ router.delete("/user/deletefriend/:uid/:userToDelete", (req, res) => {
 router.get("/user/:uid/friends", (req, res) => {
 	console.log("These are the users friends.");
 	User.findOne({ _id : req.params.uid}).populate("friends").exec((error, result) => {
-		res.json(result);
+		res.json(result.friends);
 	})
 })
 

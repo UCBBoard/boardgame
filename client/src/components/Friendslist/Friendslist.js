@@ -27,22 +27,23 @@ class Friendslist extends Component {
 		this.showMyFriends();
 	}
 
-	// findAFriend = (event, searchQuery) => {
-	// 	event.preventDefault();
-	// 	Axios.get("/api/user/search/" + searchQuery)
-	// 		.then(res => {
-	// 			this.setState({
-	// 				friends: res.data,
-	// 				friendsView: 'all'
-	// 			})
-	// 		}).catch(err => {
-	// 			console.log(err)
-	// 		})
-	// }
+	findAFriend = (event, searchQuery) => {
+		event.preventDefault();
+		Axios.get("/api/user/search/" + searchQuery)
+			.then(res => {
+				this.setState({
+					friends: res.data,
+					friendsView: 'all'
+				})
+			}).catch(err => {
+				console.log(err)
+			})
+	}
 
 	showAllFriends = () => {
 		Axios.get("/api/user/all/" + firebase.auth().currentUser.uid)
 			.then(res => {
+				// console.log()
 				this.setState({friends: res.data, friendsView: 'all'})
 		}).catch(function(error) {
 				console.error(error);
@@ -80,7 +81,7 @@ class Friendslist extends Component {
 	  		<Button onClick={this.showMyFriends}>My Friends</Button>
 	  		<Button onClick={this.showAllFriends}>All users</Button>
 
-				{this.state.friends ? this.state.friends.map((element, i) =>
+				{this.state.friends.map((element, i) =>
 					<div key={i} className="center"> 
 						<FriendProfile level={element.level} userName={element.name} cardNum={element.cardNum}/>
 						{this.state.friendsView === 'all' ?
@@ -88,7 +89,7 @@ class Friendslist extends Component {
 						<Button data-id={element._id} onClick={this.removeFriend} className ="delete"> Delete friend </Button>
 						}
 					</div>
-				: return)}
+				)}
 			</div>
 	  );
 	};
