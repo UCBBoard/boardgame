@@ -1,0 +1,41 @@
+
+
+.userThumbCard {
+    width:120px;
+    height:140px;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-top:20px;
+    box-shadow: 6px 7px 8px rgba(0, 0, 0, 0.42);
+}
+
+
+@media screen and (max-width: 800px){
+    
+    .mainContainer{
+        width:80%;
+    }
+
+    .userThumbCard {
+        width: 70px;
+        height:100px;
+    }
+
+
+
+}
+
+
+@media screen and (max-width: 500px){
+
+    .userThumbCard {
+        width: 70px;
+        height:100px;
+    }
+
+    .loggedIn{
+        margin:0;
+    }
+}
