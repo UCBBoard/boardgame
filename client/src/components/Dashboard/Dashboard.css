@@ -62,6 +62,7 @@
 }
 
 .loggedIn{
+  font-family: 'Wendy One', sans-serif;
   width:250px;
   height:80px;
   position:absolute;
