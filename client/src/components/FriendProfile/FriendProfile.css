@@ -8,27 +8,27 @@
 }
 
 .friendCardDescriptionDiv{
-	height: 187px;
+    height: 187px;
     width: 200px;
     left: 5px;
     bottom: -140px;
     position: relative;
     line-height: 16px;
     margin: auto;
-    z-index: 1;	
+    z-index: 1; 
     font-size: 13px;
 
 }
 
 .friendCardDiv {
-	height: 413px;
+    height: 413px;
     margin: 25px;
 }
 
 
 .friendCardLvl {
-	font-family: "arial";
-	position: relative;
+    font-family: "arial";
+    position: relative;
     right: -118px;
     top: -36px;
     font-size: 20px;
@@ -46,6 +46,7 @@
 }
 
 .friendCardUsername {
+    font-family: 'Wendy One', sans-serif;
     position: relative;
     left: 105px;
     top: 0px;
@@ -62,7 +63,7 @@
 }
 
 .friendCard {
-	margin: auto;
+    margin: auto;
     position: absolute;
     left: 0;
     right: 0;
