@@ -134,7 +134,6 @@ class Gamelist extends Component {
 
 //Method of removing games from a users gamelist.
   deleteGame = (e) => {
-    let game;
     this.props.notification("Game deleted!");
     let userId = firebase.auth().currentUser.uid;
     let game = e.target.dataset.id;
