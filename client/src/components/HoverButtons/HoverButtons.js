@@ -22,7 +22,7 @@ const HoverButtons = (props) =>
         header="Friends"
         trigger={<li className="hoverButtonLi"><a className="btn-floating orange darken-3"><i className="material-icons" data-tip="Contacts" data-place="left" >contacts</i></a></li>}
         >
-        	<Friendslist notify={props.notify}/>
+        	<Friendslist/>
 				</Modal>
 		</ul>
 	</div>
