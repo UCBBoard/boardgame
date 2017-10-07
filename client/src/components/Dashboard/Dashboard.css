@@ -75,6 +75,10 @@
   .logoH1Dash {
     font-size: 60px;
   }
+  
+  .mainContainer{
+    width:80%;
+  }
 }
 
 @media screen and (max-width: 500px){
