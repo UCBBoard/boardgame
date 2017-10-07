@@ -136,8 +136,10 @@ class Gamelist extends Component {
     this.props.notification("Game deleted!");
     let userId = firebase.auth().currentUser.uid;
     let game = e.target.dataset.id;
-    let route = `/api/games/deletegame/${userId}/${game}`;
-    Axios.delete(route);
+    console.log(e.target);
+    console.log(`/api/games/deletegame/${userId}/${game}/${this.state.currentList}`);
+    // let route = `/api/games/deletegame/${userId}/${game}/${this.state.currentList}`;
+    // Axios.delete(route);
     this.fetchGames("owned");
   }
 

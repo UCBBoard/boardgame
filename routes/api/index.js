@@ -179,11 +179,15 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 // 	// }
 // })
 
-router.delete("/games/deletegame/:uid/:game", (req, res) => {
+router.delete("/games/deletegame/:uid/:game/:owned", (req, res) => {
 	let userID = req.params.uid;
-	let game = req.params.game
-	console.log(`Deleting game ${game}`);
-	User.findOneAndUpdate({ _id: userID}, {$pull: {games: game}}).exec((error, result) => {
+	let game = req.params.game;
+	let key = req.params.owned;
+	let value = res._id;
+	let thisList = {};
+	thisList[key] = value;
+	console.log(`Deleting game ${game} from ${req.params.owned}`);
+	User.findOneAndUpdate({ _id: userID}, {$pull: thisList}).exec((error, result) => {
 		res.json(result)
 	})
 })
