@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Gamelist.css";
 import Axios from "axios";
+import mongoose from 'mongoose';
 import SearchListItem from "../SearchListItem";
 import ListItem from "../ListItemTemp"
 import firebase from "firebase";
@@ -133,18 +134,15 @@ class Gamelist extends Component {
 
 //Method of removing games from a users gamelist.
   deleteGame = (e) => {
-    let game;
     this.props.notification("Game deleted!");
     let userId = firebase.auth().currentUser.uid;
-    // console.log(e.target.parentNode.dataset.id)
-    if(e.target.parentNode.dataset.id){
-      game = e.target.parentNode.dataset.id;
-    } else{
-      game = e.target.dataset.id
-    }
-    let route = `/api/games/deletegame/${userId}/${game}`;
-    Axios.delete(route);
-    this.fetchGames("owned");
+    let game = e.target.dataset.id;
+    console.log(`/api/games/deletegame/${userId}/${game}/${this.state.currentList}`);
+    let route = `/api/games/deletegame/${userId}/${game}/${this.state.currentList}`;
+    Axios.delete(route)
+      .then((res) => {
+        this.fetchGames(this.state.currentList)
+      })
   }
 
 //Render it all!
@@ -191,7 +189,7 @@ class Gamelist extends Component {
           {this.state.myGames.map((gameName, i) => {
               return <CollapsibleItem header={gameName.title} icon='filter_drama' key={i + "gList"}>
                       <ListItem name={gameName.title} minPlayers={gameName.minPlayers} maxPlayers={gameName.maxPlayers} playtime={gameName.playtime} />
-                    <Button data-id={gameName._id} onClick={this.deleteGame} icon="delete"> </Button>
+                    <Button data-id={gameName._id} onClick={this.deleteGame}>Remove game</Button>
                     </CollapsibleItem>
             })
           }
