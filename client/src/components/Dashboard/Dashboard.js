@@ -10,6 +10,7 @@ import Discord from "../Discord"
 import logo from "../../assets/img/logo.png"
 import LevelBar from "../LevelBar";
 import UserProfile from "../UserProfile";
+import UserProfileThumb from "../UserProfileThumb";
 import Friendspace from "../FriendSpace";
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -85,6 +86,7 @@ class Dashboard extends Component {
 
 			  <div className="center">
 			  			 <div className="loggedIn col s6 right">Logged in as {this.props.userName}
+		          	<UserProfileThumb cardNum={this.props.cardNum}/>
 			 </div>
 			  	<img src={logo} className="siteLogoDash" alt="logo" /><h1 className="logoH1Dash">GameVault</h1>
 			  </div>

@@ -1,0 +1,42 @@
+
+
+.userCard {
+    width:120px;
+    height:120px;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-top:20px;
+    box-shadow: 6px 7px 8px rgba(0, 0, 0, 0.42);
+}
+
+
+@media screen and (max-width: 600px){
+ 
+    .userCardDiv {
+        height: 100px;
+        width:100px;
+    }
+    .userCard {
+        width: 50px;
+        height:50px;
+    }
+
+}
+
+
+@media screen and (max-width: 350px){
+
+    .userCard {
+        width:100px;
+        width:100px;
+        margin: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: 0;
+        box-shadow: 6px 7px 8px rgba(0, 0, 0, 0.42);
+        width: 200px;
+    }
+}
