@@ -154,6 +154,8 @@
 .cardDiv {
     height: 413px;
     margin: 25px;
+    left: -25px;
+    position: relative;
 }
 
 
@@ -232,6 +234,7 @@
     .cardDiv {
         height: 413px;
         margin: 25px;
+
     }
 
 
