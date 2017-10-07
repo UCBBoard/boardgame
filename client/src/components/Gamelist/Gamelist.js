@@ -143,9 +143,9 @@ class Gamelist extends Component {
       game = e.target.dataset.id
     }
     console.log(game)
-    // let route = `/api/games/deletegame/${userId}/${game}`;
-    // Axios.delete(route);
-    // this.fetchGames("owned");
+    let route = `/api/games/deletegame/${userId}/${game}`;
+    Axios.delete(route);
+    this.fetchGames("owned");
   }
 
 //Render it all!
