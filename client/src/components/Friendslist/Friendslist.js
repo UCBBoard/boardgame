@@ -39,6 +39,7 @@ class Friendslist extends Component {
 
 
 	addNotification = (event) => {
+		this.props.notify("Friend request sent!")
 		let activeUser = firebase.auth().currentUser.uid
 		let secondUser = event.target.dataset.id
 		let route = `/api/user/${secondUser}/addNotification/${activeUser}`
