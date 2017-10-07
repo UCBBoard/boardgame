@@ -1,6 +1,8 @@
 .collapsible-body {
-  color: black;
-  padding: 0;
+  color: #89D47C !important;
+  padding: 15px;
+  background-color: #77867F;
+  margin-bottom: -3px;
 }
 
 #newGame {
@@ -8,13 +10,12 @@
   width: 75%;
 }
 
-.gamelistBox {
+.card-panel.gamelistBox {
   border-radius: 10px;
-  min-height: 60px;
   padding: 0 !important;
-  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.23);
   background-color: gainsboro;
   display: inline-block;
+  padding: 15px !important;
 }
 
 .gamelistHeader {
@@ -22,7 +23,7 @@
   color: black;
   height: 75px;
   line-height: 75px;
-  margin: 0px;
+  margin: -6px;
 }
 
 .collection {
@@ -30,7 +31,7 @@
 }
 
 .collection-item {
-  background-color: #89D47C !important;
+  /*background-color: #89D47C !important;*/
   /*opacity: 50%;*/
 }
 
@@ -46,6 +47,7 @@ li:nth-of-type(even) .collapsible-header  {
 
 .collapsible-header {
   color: black;
+  margin-bottom: -2px;
 }
 
 .list-overflow-container {
@@ -125,6 +127,21 @@ p {
 
 h4 {
   font-family: 'Above', sans-serif;
+}
+
+.btn {
+  background-color: #1B998B !important;
+  color: #C5D86D !important;
+}
+
+i {
+  color: #C5D86D !important;
+}
+
+li {
+  border: 2px solid #1B998B;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 }
 
 @media screen and (max-width: 500px){

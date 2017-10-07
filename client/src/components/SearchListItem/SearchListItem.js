@@ -5,12 +5,13 @@ import {Button, CollectionItem, Preloader} from "react-materialize";
 
 const SearchListItem = (props) => {
 
-return <CollectionItem
+return (
+    <CollectionItem
     onSelect={props.onSelect}
     >
     {props.dataResults.map(
       (data, i) => {
-        return <div key={i}>
+        return <div className="search-wrapper"key={i}>
           <p className="searchP">{data.name} <span className="search-date">{data.date}</span></p>
           <Button
             // className="new-game-select"
@@ -32,7 +33,7 @@ return <CollectionItem
       })
     }
   </CollectionItem>
-
+)
 }
 
 
