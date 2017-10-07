@@ -146,43 +146,43 @@ class Gamelist extends Component {
   render () {
     return (
       <div className="col s12 center card-panel gamelistBox">
-        <h2 className="gamelistHeader">
-        <Input name="Wishlist" id="list-switch" type="switch" offLabel="Your Games" onLabel="Your Wishlist" onChange={this.switchList}/>
-        Game Shelf
-        </h2>
-        <Modal
-          header="Add a game to your collection"
-          id="new-game-modal"
-          actions=" "
-          trigger={<Button floating large className='green' id="add-games-btn" waves='light' icon='add' />}>
-          <form>
-            <Input s={10} placeholder="Search for your game" name="newgame" id="newGame"
-              onChange={this.handleChange}
-            />
-            <Button waves='light' id="search-games-btn"
-              disabled={this.state.buttonDisabled}
-              onClick={(event) => this.searchGames(event)}>
-                Search
-            </Button>
-          </form>
+        <div className="gamelistHeaderDiv">
+          <h2 className="gamelistHeader">Game Shelf</h2>
+          <Input name="Wishlist" id="list-switch" type="switch" offLabel="Your Games" onLabel="Your Wishlist" onChange={this.switchList}/>
+          <Modal
+            header="Add a game to your collection"
+            id="new-game-modal"
+            actions=" "
+            trigger={<Button floating large className='green' id="add-games-btn" waves='light' icon='add' />}>
+            <form>
+              <Input s={10} placeholder="Search for your game" name="newgame" id="newGame"
+                onChange={this.handleChange}
+              />
+              <Button waves='light' id="search-games-btn"
+                disabled={this.state.buttonDisabled}
+                onClick={(event) => this.searchGames(event)}>
+                  Search
+              </Button>
+            </form>
 
-          <div className="modal-row" style={{visibility: this.state.preloader ? 'visible' : 'hidden'}}>
-            <Preloader flashing/>
-          </div>
+            <div className="modal-row" style={{visibility: this.state.preloader ? 'visible' : 'hidden'}}>
+              <Preloader flashing/>
+            </div>
 
-          <div style={{visibility: this.state.collVis ? 'visible' : 'hidden'}}>
+            <div style={{visibility: this.state.collVis ? 'visible' : 'hidden'}}>
 
-            <Collection className="gamelistGames" id="gamelist-games" defaultActiveKey={0} style={{visibility: this.state.collVis ? 'visible' : 'hidden'}}>
-              <SearchListItem
-                // expanded={true}
-                dataResults={this.state.searchArray}
-                saveGame={this.handleNewGameSubmit1}
-                preloader={this.state.preloader}
-                visiblity={this.state.collVis}/>
+              <Collection className="gamelistGames" id="gamelist-games" defaultActiveKey={0} style={{visibility: this.state.collVis ? 'visible' : 'hidden'}}>
+                <SearchListItem
+                  // expanded={true}
+                  dataResults={this.state.searchArray}
+                  saveGame={this.handleNewGameSubmit1}
+                  preloader={this.state.preloader}
+                  visiblity={this.state.collVis}/>
 
-            </Collection>
-          </div>
-        </Modal>
+              </Collection>
+            </div>
+          </Modal>
+        </div>
         <Collapsible className="gamelistGames">
           {this.state.myGames.map((gameName, i) => {
               return <CollapsibleItem header={gameName.title} icon='filter_drama' key={i + "gList"}>

@@ -20,7 +20,7 @@ return (
             onClick={() => {
               props.saveGame(data.id, "games")
             }}
-          > Add to your collection! </Button>
+          > Collection+ </Button>
           <Button
             // className="new-game-select"
             key={i + "-wishlist"}
@@ -28,7 +28,7 @@ return (
             onClick={() => {
               props.saveGame(data.id, "wishlist")
             }}
-          > Add to your wishlist! </Button>
+          > Wishlist+ </Button>
         </div>
       })
     }
