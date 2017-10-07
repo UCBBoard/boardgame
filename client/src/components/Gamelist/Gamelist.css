@@ -26,7 +26,6 @@
 }
 
 .collection {
-  margin-top: 15px !important;
   margin-bottom: -65px !important;
 }
 
@@ -115,7 +114,6 @@ p {
   float: left;
   display: inline;
   height: 75px;
-  padding-top: 28px;
   padding-left: 30px;
   margin-right: -165px;
 }

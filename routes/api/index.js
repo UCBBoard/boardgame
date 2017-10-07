@@ -181,14 +181,20 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 
 router.delete("/games/deletegame/:uid/:game/:owned", (req, res) => {
 	let userID = req.params.uid;
-	let game = req.params.game;
-	let key = req.params.owned;
-	let value = res._id;
+	let game = mongoose.Types.ObjectId(req.params.game);
+	let owned = req.params.owned;
+	owned === "owned" ?  owned = "games" : owned = "wishlist";
 	let thisList = {};
-	thisList[key] = value;
+	thisList[owned] = game;
+	console.log(thisList);
 	console.log(`Deleting game ${game} from ${req.params.owned}`);
+					// should be({ _id : userID}, {$pull: { owned : game}})
 	User.findOneAndUpdate({ _id: userID}, {$pull: thisList}).exec((error, result) => {
-		res.json(result)
+		if(!error){
+			res.json(result)
+		} else {
+			console.log(error);
+		}
 	})
 })
 
