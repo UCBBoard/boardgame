@@ -147,8 +147,8 @@ class Gamelist extends Component {
   render () {
     return (
       <div className="col s12 center card-panel gamelistBox">
-        <Input name="Wishlist" id="list-switch" type="switch" offLabel="Your Games" onLabel="Your Wishlist" onChange={this.switchList}/>
         <h2 className="gamelistHeader">
+        <Input name="Wishlist" id="list-switch" type="switch" offLabel="Your Games" onLabel="Your Wishlist" onChange={this.switchList}/>
         Game Shelf
         </h2>
         <Modal

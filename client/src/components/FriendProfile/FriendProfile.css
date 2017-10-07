@@ -3,7 +3,7 @@
     color: black;
     width: 335px;
     font-style: italic;
-    line-height: 22px;
+    line-height: 14px;
     margin: auto;
 }
 
@@ -13,7 +13,7 @@
     left: 5px;
     bottom: -140px;
     position: relative;
-        line-height: 16px;
+    line-height: 16px;
     margin: auto;
     z-index: 1;	
     font-size: 13px;
@@ -69,4 +69,14 @@
     z-index: 0;
     box-shadow: 6px 7px 8px rgba(0, 0, 0, 0.42);
     width: 300px;
+}
+
+@media screen and (max-width: 650px){
+    .friendCardTextDiv {
+        width: 300px;
+    }
+    
+    .friendCardUsername {
+        left: 17px;
+    }
 }

@@ -11,7 +11,7 @@ return <CollectionItem
     {props.dataResults.map(
       (data, i) => {
         return <div key={i}>
-          <p>{data.name} <span className="search-date">{data.date}</span></p>
+          <p className="searchP">{data.name} <span className="search-date">{data.date}</span></p>
           <Button
             // className="new-game-select"
             key={i + "-collection"}

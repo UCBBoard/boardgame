@@ -31,6 +31,9 @@ class ModalForm extends Component {
     email = this.state.username;
     console.log(email)
     password = this.state.password
+    if (password !== this.state.passwordConfirm){
+      return false
+    }
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(error => {
       // Handle Errors here.
       if(error) this.setState({errors:error.message})
