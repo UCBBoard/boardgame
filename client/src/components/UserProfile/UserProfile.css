@@ -72,6 +72,11 @@
     font-family: 'Wendy One', sans-serif;
 }
 
+.userSpaceH1 {
+    padding: 0;
+    margin-top: 0;
+}
+
 .userSpaceH3 {
     font-size: 25px;
     margin-bottom: 50px;
