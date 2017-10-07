@@ -18,7 +18,7 @@ class UserProfileThumb extends Component {
 		return(
 			<div className="col s6 right">
 
-					<img src={cardGraphic[cardNum]} className="userCard"/>
+					<img src={cardGraphic[cardNum]} className="userThumbCard"/>
 				</div>
 			)
 	}

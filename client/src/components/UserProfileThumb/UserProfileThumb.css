@@ -1,8 +1,8 @@
 
 
-.userCard {
-    width:120px;
-    height:120px;
+.userThumbCard {
+    width:100px;
+    height:100px;
     margin: auto;
     position: absolute;
     left: 0;
@@ -12,15 +12,12 @@
 }
 
 
-@media screen and (max-width: 600px){
+@media screen and (max-width: 775px){
  
-    .userCardDiv {
-        height: 100px;
-        width:100px;
-    }
-    .userCard {
-        width: 50px;
-        height:50px;
+
+    .userThumbCard {
+        width: 30px;
+        height:30px;
     }
 
 }
@@ -28,9 +25,9 @@
 
 @media screen and (max-width: 350px){
 
-    .userCard {
-        width:100px;
-        width:100px;
+    .userThumbCard {
+        width:30px;
+        width:30px;
         margin: auto;
         position: absolute;
         left: 0;
