@@ -81,10 +81,7 @@ class Gamelist extends Component {
       });
       document.getElementById('new-game-modal').remove();
       document.querySelector(".modal-overlay").remove();
-      this.fetchGames("owned");
-      // this.setState({
-      //   collVis: true
-      // })
+      this.fetchGames(this.state.currentList);
     })
     .catch((error) => { console.log(error) })
   }
@@ -180,7 +177,8 @@ class Gamelist extends Component {
                 // expanded={true}
                 dataResults={this.state.searchArray}
                 saveGame={this.handleNewGameSubmit1}
-                preloader={this.state.preloader}/>
+                preloader={this.state.preloader}
+                visiblity={this.state.collVis}/>
 
             </Collection>
           </div>
