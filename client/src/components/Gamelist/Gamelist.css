@@ -1,3 +1,7 @@
+#add-games-btn {
+    top: 40px;
+}
+
 .collapsible-body {
   color: #89D47C !important;
   padding: 15px;
@@ -150,6 +154,9 @@ li {
 }
 
 @media screen and (max-width: 500px){
+  #add-games-btn {
+    top: 0;
+}
   .gamelistHeader {
     padding-right: 20px;
   }
