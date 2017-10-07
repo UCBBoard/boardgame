@@ -263,6 +263,7 @@
     }
 
     .cardUsername {
+        font-family: 'Wendy One', sans-serif;
         position: relative;
         left: 10px;
         top: -21px;
