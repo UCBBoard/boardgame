@@ -142,7 +142,6 @@ class Gamelist extends Component {
     } else{
       game = e.target.dataset.id
     }
-    console.log(game)
     let route = `/api/games/deletegame/${userId}/${game}`;
     Axios.delete(route);
     this.fetchGames("owned");
@@ -152,8 +151,8 @@ class Gamelist extends Component {
   render () {
     return (
       <div className="col s12 center card-panel gamelistBox">
-        <Input name="Wishlist" id="list-switch" type="switch" offLabel="Your Games" onLabel="Your Wishlist" onChange={this.switchList}/>
         <h2 className="gamelistHeader">
+        <Input name="Wishlist" id="list-switch" type="switch" offLabel="Your Games" onLabel="Your Wishlist" onChange={this.switchList}/>
         Game Shelf
         </h2>
         <Modal
@@ -192,7 +191,7 @@ class Gamelist extends Component {
           {this.state.myGames.map((gameName, i) => {
               return <CollapsibleItem header={gameName.title} icon='filter_drama' key={i + "gList"}>
                       <ListItem name={gameName.title} minPlayers={gameName.minPlayers} maxPlayers={gameName.maxPlayers} playtime={gameName.playtime} />
-                    <Button data-id={gameName._id} icon="delete" onClick={this.deleteGame}> </Button>
+                    <Button data-id={gameName._id} onClick={this.deleteGame} icon="delete"> </Button>
                     </CollapsibleItem>
             })
           }

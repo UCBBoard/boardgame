@@ -7,3 +7,9 @@ p {
   font-family: 'Wendy One', sans-serif;
   float: right;
 }
+
+.searchP {
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+	margin-top: 25px;
+	margin-bottom: 0;
+}

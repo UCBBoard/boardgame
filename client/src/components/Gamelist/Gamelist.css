@@ -128,3 +128,9 @@ p {
 h4 {
   font-family: 'Above', sans-serif;
 }
+
+@media screen and (max-width: 500px){
+  .gamelistHeader {
+    text-align: left;
+  }
+}
