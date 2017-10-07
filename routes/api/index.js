@@ -283,7 +283,7 @@ router.delete("/user/deletefriend/:uid/:userToDelete", (req, res) => {
 router.get("/user/:uid/friends", (req, res) => {
 	console.log("These are the users friends.");
 	User.findOne({ _id : req.params.uid}).populate("friends").exec((error, result) => {
-		res.json(result.friends);
+		res.json(result);
 	})
 })
 
@@ -305,9 +305,16 @@ router.get("/user/all/:id?", (req, res) => {
 					res.json(resultFilter);
 			})
 		})
-		
 	}
-	
+})
+
+router.get("/user/search/:searchQuery", (req, res) => {
+	console.log(req.params.searchQuery)
+	let searchQuery = req.params.searchQuery
+	User.find({ name : searchQuery }).exec((error, result) => {
+		// let foundUsers = result.data
+		res.json(result);
+	})
 })
 
 //Route for adding a notification

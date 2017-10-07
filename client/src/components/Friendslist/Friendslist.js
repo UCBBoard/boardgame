@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Friendslist.css";
 import firebase from "firebase";
 import Axios from "axios";
-import {Button} from "react-materialize";
+import {Button, Input} from "react-materialize";
 import FriendProfile from "../FriendProfile";
 
 
@@ -10,7 +10,8 @@ class Friendslist extends Component {
 
 	state ={
 		friends:[],
-		friendsView: ''
+		friendsView: '',
+		query: ''
 	}
 
 	showMyFriends = () => {
@@ -26,6 +27,18 @@ class Friendslist extends Component {
 		this.showMyFriends();
 	}
 
+	// findAFriend = (event, searchQuery) => {
+	// 	event.preventDefault();
+	// 	Axios.get("/api/user/search/" + searchQuery)
+	// 		.then(res => {
+	// 			this.setState({
+	// 				friends: res.data,
+	// 				friendsView: 'all'
+	// 			})
+	// 		}).catch(err => {
+	// 			console.log(err)
+	// 		})
+	// }
 
 	showAllFriends = () => {
 		Axios.get("/api/user/all/" + firebase.auth().currentUser.uid)
@@ -36,6 +49,13 @@ class Friendslist extends Component {
 		});
 	}
 
+  handleChange = (e) => {
+    let searchQuery = e.target.value;
+    console.log(searchQuery);
+    this.setState({
+      query: e.target.value
+    })
+  }
 
 
 	addNotification = (event) => {
@@ -59,7 +79,8 @@ class Friendslist extends Component {
 	  	<div>
 	  		<Button onClick={this.showMyFriends}>My Friends</Button>
 	  		<Button onClick={this.showAllFriends}>All users</Button>
-				{this.state.friends.map((element, i) =>
+
+				{this.state.friends ? this.state.friends.map((element, i) =>
 					<div key={i} className="center"> 
 						<FriendProfile level={element.level} userName={element.name} cardNum={element.cardNum}/>
 						{this.state.friendsView === 'all' ?
@@ -67,7 +88,7 @@ class Friendslist extends Component {
 						<Button data-id={element._id} onClick={this.removeFriend} className ="delete"> Delete friend </Button>
 						}
 					</div>
-				)}
+				: return)}
 			</div>
 	  );
 	};
