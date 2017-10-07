@@ -84,7 +84,7 @@ class Dashboard extends Component {
 		return (
 			 <Background backgroundName="dash-background">
 
-			  <div className="center">
+			  <div className="center mainContainer">
 			  			 <div className="loggedIn col s6 right">Logged in as {this.props.userName}
 		          	<UserProfileThumb cardNum={this.props.cardNum}/>
 			 </div>

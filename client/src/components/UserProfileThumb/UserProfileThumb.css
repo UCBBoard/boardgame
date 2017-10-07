@@ -1,8 +1,8 @@
 
 
 .userThumbCard {
-    width:100px;
-    height:100px;
+    width:120px;
+    height:140px;
     margin: auto;
     position: absolute;
     left: 0;
@@ -12,28 +12,32 @@
 }
 
 
-@media screen and (max-width: 775px){
- 
+@media screen and (max-width: 800px){
+    
+    .mainContainer{
+        width:80%;
+    }
 
     .userThumbCard {
-        width: 30px;
-        height:30px;
+        width: 70px;
+        height:100px;
     }
+
+/*    .loggedIn{
+        margin-top:50px;
+    }*/
 
 }
 
 
-@media screen and (max-width: 350px){
+@media screen and (max-width: 500px){
 
     .userThumbCard {
-        width:30px;
-        width:30px;
-        margin: auto;
-        position: absolute;
-        left: 0;
-        right: 0;
-        z-index: 0;
-        box-shadow: 6px 7px 8px rgba(0, 0, 0, 0.42);
-        width: 200px;
+        width: 70px;
+        height:100px;
+    }
+
+    .loggedIn{
+        margin:0;
     }
 }
