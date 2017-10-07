@@ -13,6 +13,8 @@ import UserProfile from "../UserProfile";
 import Friendspace from "../FriendSpace";
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer, toast } from 'react-toastify';
+import {Modal} from "react-materialize";
+import Friendslist from "../Friendslist";
 
 import openSocket from 'socket.io-client';
 const socket = openSocket();
@@ -100,8 +102,15 @@ class Dashboard extends Component {
 		          	<UserProfile level={this.props.level} userName={this.props.userName} cardNum={this.props.cardNum}/>
 		        </div>
 
+
 		        <div className="row dashRow">
-		          	<Friendspace friends={this.state.friends}/>
+		        				<Modal
+        header="Friends"
+        trigger={<Friendspace friends={this.state.friends}/>}
+        >
+        	<Friendslist/>
+				</Modal>
+		          	
 		        </div>
 		         
 	      			
