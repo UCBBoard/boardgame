@@ -32,6 +32,7 @@ class Friendslist extends Component {
 		Axios.get("/api/user/search/" + this.state.query)
 			.then(res => {
 				this.setState({
+					query: "",
 					friends: res.data,
 					friendsView: 'all'
 				})
@@ -81,17 +82,17 @@ class Friendslist extends Component {
 
 	  		<Row>
 	  			<Col s={3}>
-	  				<Button class="friend-button" onClick={this.showMyFriends}>My Friends</Button>
+	  				<Button className="friend-button" onClick={this.showMyFriends}>My Friends</Button>
 	  			</Col>
 	  			<Col s={3}>
-		  			<Button class="friend-button" onClick={this.showAllFriends}>All users</Button>
+		  			<Button className="friend-button" onClick={this.showAllFriends}>All users</Button>
 		  		</Col>
 		  		<form>
 			  		<Col s={3}>
-			  			<Input type="text" onChange={this.handleChange}/>
+			  			<Input type="text" onChange={this.handleChange} value={this.state.query}/>
 			  		</Col>
 			  		<Col s={3}>
-			  			<Button class="friend-button" type="submit" onClick={this.findAFriend}>Find Friends</Button>
+			  			<Button className="friend-button" type="submit" onClick={this.findAFriend}>Find</Button>
 			  		</Col>
 		  		</form>
 	  		</Row>
