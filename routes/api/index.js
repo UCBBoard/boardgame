@@ -305,9 +305,16 @@ router.get("/user/all/:id?", (req, res) => {
 					res.json(resultFilter);
 			})
 		})
-		
 	}
-	
+})
+
+router.get("/user/search/:searchQuery", (req, res) => {
+	console.log(req.params.searchQuery)
+	let searchQuery = req.params.searchQuery
+	User.find({ name : searchQuery }).exec((error, result) => {
+		// let foundUsers = result.data
+		res.json(result);
+	})
 })
 
 //Route for adding a notification
