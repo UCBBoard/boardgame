@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Friendslist.css";
 import firebase from "firebase";
 import Axios from "axios";
-import {Button, Input} from "react-materialize";
+import {Button, Input, Row, Col} from "react-materialize";
 import FriendProfile from "../FriendProfile";
 
 
@@ -27,9 +27,9 @@ class Friendslist extends Component {
 		this.showMyFriends();
 	}
 
-	findAFriend = (event, searchQuery) => {
+	findAFriend = (event) => {
 		event.preventDefault();
-		Axios.get("/api/user/search/" + searchQuery)
+		Axios.get("/api/user/search/" + this.state.query)
 			.then(res => {
 				this.setState({
 					friends: res.data,
@@ -78,11 +78,26 @@ class Friendslist extends Component {
 	render(){
 	  return (
 	  	<div>
-	  		<Button onClick={this.showMyFriends}>My Friends</Button>
-	  		<Button onClick={this.showAllFriends}>All users</Button>
+
+	  		<Row>
+	  			<Col s={3}>
+	  				<Button class="friend-button" onClick={this.showMyFriends}>My Friends</Button>
+	  			</Col>
+	  			<Col s={3}>
+		  			<Button class="friend-button" onClick={this.showAllFriends}>All users</Button>
+		  		</Col>
+		  		<form>
+			  		<Col s={3}>
+			  			<Input type="text" onChange={this.handleChange}/>
+			  		</Col>
+			  		<Col s={3}>
+			  			<Button class="friend-button" type="submit" onClick={this.findAFriend}>Find Friends</Button>
+			  		</Col>
+		  		</form>
+	  		</Row>
 
 				{this.state.friends.map((element, i) =>
-					<div key={i} className="center"> 
+					<div key={i} className="center">
 						<FriendProfile level={element.level} userName={element.name} cardNum={element.cardNum}/>
 						{this.state.friendsView === 'all' ?
 						<Button data-id={element._id} onClick={this.addNotification} className="addFriendButton"> Add friend </Button> :
