@@ -19,9 +19,7 @@ class Gamelist extends Component {
     nameArray: [],
     dateArray: [],
     idArray: [],
-    //current list
     otherList: "wishlist",
-    //list to switch to
     currentList: "owned",
     switchValue: true,
     collVis: false,
