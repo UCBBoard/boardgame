@@ -37,7 +37,7 @@ class UserProfile extends Component {
 							<p className="cardDescription">{cardFlavourText[cardNum]}</p>
 						</div>
 					</div>
-					<img src={cardGraphic[cardNum]} className="userCard"/>
+					<img src={cardGraphic[cardNum]} alt={cardFlavourText[cardNum]} className="userCard"/>
 				</div>
 			</div>
 			)
