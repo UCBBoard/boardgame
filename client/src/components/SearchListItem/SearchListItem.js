@@ -1,6 +1,6 @@
 import React from "react";
 import "./SearchListItem.css";
-import {Button, CollectionItem, Preloader} from "react-materialize";
+import {Button, CollectionItem} from "react-materialize";
 
 
 const SearchListItem = (props) => {

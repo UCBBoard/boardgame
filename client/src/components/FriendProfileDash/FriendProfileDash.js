@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./FriendProfileDash.css"
+import "./FriendProfileDash.css";
 import goblin from "../../assets/cards/goblinCard.png";
 import ctrice from "../../assets/cards/ctriceCard.png";
 import robo from "../../assets/cards/roboCard.png";
@@ -10,6 +10,8 @@ import undead from "../../assets/cards/undeadCard.png";
 import naga from "../../assets/cards/nagaCard.png";
 import medusa from "../../assets/cards/medusaCard.png";
 import bear from "../../assets/cards/bearCard.png";
+import ReactTooltip from 'react-tooltip';
+
 
 class FriendProfileDash extends Component {
 	determineCard = cardNum => {
@@ -26,7 +28,8 @@ class FriendProfileDash extends Component {
 		'"ROOOAAAR" - Bear Bearington'
 		]
 		return(
-			<div className="col s12 center friendDCardDiv">
+			<div className="col s12 center friendDCardDiv" data-tip="Game Comp Data Goes Here">
+				<ReactTooltip />
 				<div className="friendDCardTextDiv">
 					<h3 className="friendDCardUsername">{this.props.userName}</h3>
 					<h5 className="friendDCardLvl">Lv.{this.props.level}</h5>

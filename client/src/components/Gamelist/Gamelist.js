@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Gamelist.css";
 import Axios from "axios";
-import mongoose from 'mongoose';
 import SearchListItem from "../SearchListItem";
 import ListItem from "../ListItemTemp"
 import firebase from "firebase";
@@ -62,7 +61,7 @@ class Gamelist extends Component {
     // const gameID = 213460;
     console.log("<<<<getting second argument in handleNewGameSubmit1");
     console.log(owned);
-    {this.props.increaseExp(10)}
+    this.props.increaseExp(10)
     console.log("subbing new game");
     this.props.notification("New game added! +10 EXP!");
     let userId = firebase.auth().currentUser.uid;
