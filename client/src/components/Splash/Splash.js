@@ -5,7 +5,9 @@ import ModalForm from "../ModalForm";
 import Modals from "../Modals"
 import Background from "../Background"
 import ModalLogin from "../ModalLogin";
+import DemoLogin from "../DemoLogin";
 import logo from "../../assets/img/logo.png"
+import {Button} from "react-materialize";
 
 // First page visitors encounter. Splash gives users the option to
 // log in or sign up, available via the Modalform and ModalLogin components.
@@ -28,6 +30,8 @@ class Splash extends Component {
             <Modals buttonText="Sign In" header="Sign In to GameVault">
               <ModalLogin />
             </Modals>
+
+            <DemoLogin />
           </div>
           <h2 className="center-align splashHs splashLowerH">Share | Store | Record</h2>
         </div>   
