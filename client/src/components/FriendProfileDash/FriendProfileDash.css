@@ -134,6 +134,7 @@
     }
 
     .friendDCardUsername {
+        font-family: 'Wendy One', sans-serif;
         position: relative;
         left: 18px;
         top: -18px;
