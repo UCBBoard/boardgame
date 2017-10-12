@@ -1,4 +1,4 @@
-.cardDescription {
+ca.cardDescription {
     z-index: 1;
     color: black;
     width: 335px;
@@ -43,6 +43,7 @@
 }
 
 .cardUsername {
+    font-family: 'Wendy One', sans-serif;
     position: relative;
     left: 25px;
     top: -15px;
