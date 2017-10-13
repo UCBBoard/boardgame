@@ -12,12 +12,21 @@ var UserSchema = new Schema({
   },
 
   name: {
-    type: String
+    type: String,
+    required: true
   },
 
   email: {
     type: String,
+    required: true
   },
+
+  location: [{
+    address: String,
+    city: String,
+    area: String,
+    state: String
+  }],
 
   exp: {
     type: Number,
@@ -41,12 +50,12 @@ var UserSchema = new Schema({
   // List of Games - populated from GameList
   games: [{
     type: Schema.Types.ObjectId,
-    ref: "Game",
+    ref: "Game"
   }],
 
   wishlist: [{
     type: Schema.Types.ObjectId,
-    ref: "Game",
+    ref: "Game"
   }],
 
   // List of friends IDS
@@ -54,6 +63,11 @@ var UserSchema = new Schema({
     type: String,
     ref: "User"
   }],
+
+  groups: [{
+    type: Schema.Types.ObjectId,
+    ref: "Group"
+  }]
 
   notifications: [{
     type: String,
