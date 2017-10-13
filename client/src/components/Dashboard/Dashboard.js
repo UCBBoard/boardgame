@@ -14,7 +14,7 @@ import UserProfileThumb from "../UserProfileThumb";
 import Friendspace from "../FriendSpace";
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer, toast } from 'react-toastify';
-
+import scrollToComponent from 'react-scroll-to-component';
 import openSocket from 'socket.io-client';
 const socket = openSocket();
 
@@ -83,9 +83,12 @@ class Dashboard extends Component {
 	render (props) {
 		return (
 			 <Background backgroundName="dash-background">
-
+<div>
 			  <div className="center mainContainer">
 			  			 <div className="loggedIn col s6 right">Logged in as {this.props.userName}
+			  			    <div className='button_group'>
+         							<button onClick={() => scrollToComponent(this.Violet, { offset: 0, align: 'top', duration: 1500})}>Go To Violet</button>
+        					</div>
 		          	<UserProfileThumb cardNum={this.props.cardNum}/>
 			 </div>
 			  	<img src={logo} className="siteLogoDash" alt="logo" /><h1 className="logoH1Dash">GameVault</h1>
@@ -99,7 +102,9 @@ class Dashboard extends Component {
 		        </div>
 
 		        <div className="row dashRow">
-		          	<UserProfile level={this.props.level} userName={this.props.userName} cardNum={this.props.cardNum}/>
+		            <section className='violet' ref={(section) => { this.Violet = section; }}>
+		          		<UserProfile level={this.props.level} userName={this.props.userName} cardNum={this.props.cardNum}/>
+		          	</section>
 		        </div>
 
 		        <div className="row dashRow">
@@ -121,7 +126,10 @@ class Dashboard extends Component {
           closeOnClick
           pauseOnHover
         />
+
+        </div>
 		    </Background>
+        
 		)
 	}
 }
