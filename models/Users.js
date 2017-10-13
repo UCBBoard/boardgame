@@ -67,13 +67,12 @@ var UserSchema = new Schema({
   groups: [{
     type: Schema.Types.ObjectId,
     ref: "Group"
-  }]
+  }],
 
   notifications: [{
     type: String,
     ref: "User"
-    },
-  ]
+  }]
 
 });
 
