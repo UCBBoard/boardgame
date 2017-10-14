@@ -18,7 +18,6 @@ var UserSchema = new Schema({
 
   email: {
     type: String,
-    required: true
   },
 
   location: [{
