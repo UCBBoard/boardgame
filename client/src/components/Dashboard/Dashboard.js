@@ -14,7 +14,7 @@ import UserProfileThumb from "../UserProfileThumb";
 import Friendspace from "../FriendSpace";
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer, toast } from 'react-toastify';
-
+import scrollToComponent from 'react-scroll-to-component';
 import openSocket from 'socket.io-client';
 const socket = openSocket();
 
@@ -51,6 +51,9 @@ class Dashboard extends Component {
 		this.props.updateLvl(activeUser);
 	}
 
+	scrollToUserProfile = () => {
+		scrollToComponent(this.UserProfile, { offset: 0, align: 'top', duration: 1500})}
+
 	componentDidMount() {
 		//if modal exists from splash page login screen, remove it
 		const elem = document.querySelector(".modal-overlay")
@@ -83,10 +86,9 @@ class Dashboard extends Component {
 	render (props) {
 		return (
 			 <Background backgroundName="dash-background">
-
 			  <div className="center mainContainer">
 			  			 <div className="loggedIn col s6 right">Logged in as {this.props.userName}
-		          	<UserProfileThumb cardNum={this.props.cardNum}/>
+		          	<UserProfileThumb cardNum={this.props.cardNum} scroll={this.scrollToUserProfile}/>
 			 </div>
 			  	<img src={logo} className="siteLogoDash" alt="logo" /><h1 className="logoH1Dash">GameVault</h1>
 			  </div>
@@ -99,7 +101,9 @@ class Dashboard extends Component {
 		        </div>
 
 		        <div className="row dashRow">
-		          	<UserProfile level={this.props.level} userName={this.props.userName} cardNum={this.props.cardNum}/>
+		            <section className='UserProfile' ref={(section) => { this.UserProfile = section; }}>
+		          		<UserProfile level={this.props.level} userName={this.props.userName} cardNum={this.props.cardNum}/>
+		          	</section>
 		        </div>
 
 		        <div className="row dashRow">
@@ -107,7 +111,6 @@ class Dashboard extends Component {
 		        </div>
 		         
 	      			
-		      </div>
 		     
 		      
 		      <LevelBar exp={this.props.exp} toNextLevel={this.props.toNextLevel}/>
@@ -121,7 +124,10 @@ class Dashboard extends Component {
           closeOnClick
           pauseOnHover
         />
+
+        </div>
 		    </Background>
+
 		)
 	}
 }

@@ -11,12 +11,14 @@ import naga from "../../assets/cards/nagaCard.png";
 import medusa from "../../assets/cards/medusaCard.png";
 import bear from "../../assets/cards/bearCard.png";
 
+
+
 class UserProfileThumb extends Component {
 	determineCard = cardNum => {
 		let cardGraphic = [goblin, ctrice, robo, rat, gnome, archer, undead, naga, medusa, bear];
 
 		return(
-			<div className="col s6 right">
+			<div className="col s6 right UserProfileScroll" onClick={this.props.scroll}>
 
 					<img src={cardGraphic[cardNum]} alt={cardGraphic[cardNum]} className="userThumbCard"/>
 				</div>
