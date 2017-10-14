@@ -40,7 +40,7 @@ class ModalForm extends Component {
       .then((user) => {
         let uid = firebase.auth().currentUser;
         let route = `/user/${uid}/${userName}/${email}`;
-        Axios.post(route).catch((err) => console.log(err);
+        Axios.post(route).catch((err) => console.log(err))
       })
       .catch(error => {
       // Handle Errors here.
