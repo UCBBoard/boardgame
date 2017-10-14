@@ -51,6 +51,9 @@ class Dashboard extends Component {
 		this.props.updateLvl(activeUser);
 	}
 
+	scrollToUserProfile = () => {
+		scrollToComponent(this.UserProfile, { offset: 0, align: 'top', duration: 1500})}
+
 	componentDidMount() {
 		//if modal exists from splash page login screen, remove it
 		const elem = document.querySelector(".modal-overlay")
@@ -83,13 +86,9 @@ class Dashboard extends Component {
 	render (props) {
 		return (
 			 <Background backgroundName="dash-background">
-<div>
 			  <div className="center mainContainer">
 			  			 <div className="loggedIn col s6 right">Logged in as {this.props.userName}
-			  			    <div className='button_group'>
-         							<button onClick={() => scrollToComponent(this.Violet, { offset: 0, align: 'top', duration: 1500})}>Go To Violet</button>
-        					</div>
-		          	<UserProfileThumb cardNum={this.props.cardNum}/>
+		          	<UserProfileThumb cardNum={this.props.cardNum} scroll={this.scrollToUserProfile}/>
 			 </div>
 			  	<img src={logo} className="siteLogoDash" alt="logo" /><h1 className="logoH1Dash">GameVault</h1>
 			  </div>
@@ -102,7 +101,7 @@ class Dashboard extends Component {
 		        </div>
 
 		        <div className="row dashRow">
-		            <section className='violet' ref={(section) => { this.Violet = section; }}>
+		            <section className='UserProfile' ref={(section) => { this.UserProfile = section; }}>
 		          		<UserProfile level={this.props.level} userName={this.props.userName} cardNum={this.props.cardNum}/>
 		          	</section>
 		        </div>
@@ -112,7 +111,6 @@ class Dashboard extends Component {
 		        </div>
 		         
 	      			
-		      </div>
 		     
 		      
 		      <LevelBar exp={this.props.exp} toNextLevel={this.props.toNextLevel}/>
@@ -129,7 +127,7 @@ class Dashboard extends Component {
 
         </div>
 		    </Background>
-        
+
 		)
 	}
 }

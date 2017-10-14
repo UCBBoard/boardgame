@@ -11,6 +11,9 @@
     box-shadow: 6px 7px 8px rgba(0, 0, 0, 0.42);
 }
 
+.userThumbCard:hover {
+    cursor: pointer;
+}
 
 @media screen and (max-width: 800px){
     
