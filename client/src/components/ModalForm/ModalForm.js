@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import "./ModalForm.css";
 import {Button} from "react-materialize";
 import firebase from 'firebase';
+import Axios from 'axios';
 // Modal form called by Splash.
 // Responsible for new user creation.
 
@@ -29,12 +30,19 @@ class ModalForm extends Component {
   handleSubmit(e, email, password) {
     e.preventDefault();
     email = this.state.username;
+    let userName = email.split("@")[0]
     console.log(email)
     password = this.state.password
     if (password !== this.state.passwordConfirm){
       return false
     }
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(error => {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        let uid = firebase.auth().currentUser;
+        let route = `/user/${uid}/${userName}/${email}`;
+        Axios.post(route).catch((err) => console.log(err))
+      })
+      .catch(error => {
       // Handle Errors here.
       if(error) this.setState({errors:error.message})
     });

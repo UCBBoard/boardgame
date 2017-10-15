@@ -14,31 +14,32 @@ class Friendslist extends Component {
 		query: ''
 	}
 
-	showMyFriends = () => {
-		let activeUser = firebase.auth().currentUser.uid
-		Axios.get(`api/user/${activeUser}/friends`)
-			.then(res => {
-				this.setState({friends: res.data, friendsView: 'mine'})
-			}).catch(function(error) {
-				console.error(error)
-			})
-	}
-	componentDidMount() {
-		this.showMyFriends();
-	}
+	// showMyFriends = () => {
+	// 	let activeUser = firebase.auth().currentUser.uid
+	// 	Axios.get(`api/user/${activeUser}/friends`)
+	// 		.then(res => {
+	// 			this.setState({friends: res.data, friendsView: 'mine'})
+	// 		}).catch(function(error) {
+	// 			console.error(error)
+	// 		})
+	// }
+
+	// componentDidMount() {
+	// 	this.showMyFriends();
+	// }
 
 	findAFriend = (event) => {
 		event.preventDefault();
-		Axios.get("/api/user/search/" + this.state.query)
-			.then(res => {
-				this.setState({
-					query: "",
-					friends: res.data,
-					friendsView: 'all'
+			Axios.get("/api/user/search/" + this.state.query)
+				.then(res => {
+					this.setState({
+						query: "",
+						friends: res.data,
+						friendsView: 'all'
+					})
+				}).catch(err => {
+					console.log(err)
 				})
-			}).catch(err => {
-				console.log(err)
-			})
 	}
 
 	showAllFriends = () => {

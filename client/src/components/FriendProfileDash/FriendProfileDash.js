@@ -10,7 +10,7 @@ import undead from "../../assets/cards/undeadCard.png";
 import naga from "../../assets/cards/nagaCard.png";
 import medusa from "../../assets/cards/medusaCard.png";
 import bear from "../../assets/cards/bearCard.png";
-import ReactTooltip from 'react-tooltip';
+// import ReactTooltip from 'react-tooltip';
 
 
 class FriendProfileDash extends Component {
@@ -29,7 +29,6 @@ class FriendProfileDash extends Component {
 		]
 		return(
 			<div className="col s12 center friendDCardDiv" data-tip="Game Comp Data Goes Here">
-				<ReactTooltip />
 				<div className="friendDCardTextDiv">
 					<h3 className="friendDCardUsername">{this.props.userName}</h3>
 					<h5 className="friendDCardLvl">Lv.{this.props.level}</h5>

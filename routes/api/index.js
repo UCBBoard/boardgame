@@ -212,11 +212,12 @@ router.delete("/games/deletegame/:uid/:game/:owned", (req, res) => {
 	//Add the user to the games user thing. Depending on which we want to use.
 
 // Route for checking user status and getting mongoUID.
-router.post("/user/:uid/:userName", (req, res) => {
+router.post("/user/:uid/:userName/:userMail", (req, res) => {
 	console.log("uid" + req.params.uid)
 			let user = new User(
 				{ _id : req.params.uid,
 					name: req.params.userName,
+					email: req.params.userMail,
 					cardNum: Math.floor(Math.random() * 9),
 				})
 			User.findOne({_id: req.params.uid}, function(error, resultUser){
@@ -283,6 +284,16 @@ router.delete("/user/deletefriend/:uid/:userToDelete", (req, res) => {
 router.get("/user/:uid/friends", (req, res) => {
 	console.log("These are the users friends.");
 	User.findOne({ _id : req.params.uid}).populate("friends").exec((error, result) => {
+		// let result.friends.
+		console.log(result);
+		result.friends.map((friend, i) => {
+			console.log(friend.games + " iteration: " + i);
+			friend.games.map((game, i) => {
+				if(result.wishlist.includes(game)){
+					// this user has a game I want
+				}
+			})
+		})
 		res.json(result.friends);
 	})
 })
@@ -308,13 +319,12 @@ router.get("/user/all/:id?", (req, res) => {
 	}
 })
 
-router.get("/user/search/:searchQuery", (req, res) => {
+router.get("/user/search/:searchQuery/", (req, res) => {
 	console.log(req.params.searchQuery);
-	let searchQuery = req.params.searchQuery
-	User.find({ name : searchQuery }).exec((error, result) => {
-		// let foundUsers = result.data
-		res.json(result);
-	})
+	let searchQuery = req.params.searchQuery;
+		User.find({ name : searchQuery }).exec((error, result) => {
+			res.json(result);
+		})
 })
 
 //Route for adding a notification
