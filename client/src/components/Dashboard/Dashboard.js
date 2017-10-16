@@ -23,12 +23,12 @@ class Dashboard extends Component {
 		// state will be passed into hoverbuttons component as prop to render correct material-icon based on if user has notifications
 		notifications:[],
 		friends: [],
+		groups: [],
 		cardNum: 0
 	}
 
 	getNotifications = () => {
-		let activeUser = firebase.auth().currentUser.uid
-		Axios.get(`api/user/${activeUser}/notifications`)
+		Axios.get(`api/user/${this.props.uID}/notifications`)
 			.then(res => {
 				this.setState({notifications: res.data})
 			}).catch(function(error) {
@@ -37,8 +37,7 @@ class Dashboard extends Component {
 	}
 
 	getFriends = () => {
-		let activeUser = firebase.auth().currentUser.uid
-		Axios.get(`api/user/${activeUser}/friends`)
+		Axios.get(`api/user/${this.props.uID}/friends`)
 			.then(res => {
 				this.setState({friends: res.data})
 			}).catch(function(error) {
@@ -47,8 +46,7 @@ class Dashboard extends Component {
 	}
 
 	getLvl = () => {
-		let activeUser = firebase.auth().currentUser.uid
-		this.props.updateLvl(activeUser);
+		this.props.updateLvl(this.props.uID);
 	}
 
 	scrollToUserProfile = () => {
@@ -60,7 +58,7 @@ class Dashboard extends Component {
 		if(elem) elem.remove();
 		this.getNotifications();
 		this.getFriends();
-		socket.on(firebase.auth().currentUser.uid, thingToUpdate => {
+		socket.on(this.props.uID, thingToUpdate => {
 			if (thingToUpdate === "notifications"){
 				this.getNotifications();
 				this.notify("New notification!")
@@ -87,18 +85,18 @@ class Dashboard extends Component {
 		return (
 			 <Background backgroundName="dash-background">
 			  <div className="center mainContainer">
-			  			 <div className="loggedIn col s6 right">Logged in as {this.props.userName}
-		          	<UserProfileThumb cardNum={this.props.cardNum} scroll={this.scrollToUserProfile}/>
-			 </div>
+					<div className="loggedIn col s6 right">Logged in as {this.props.userName}
+						<UserProfileThumb cardNum={this.props.cardNum} scroll={this.scrollToUserProfile}/>
+					</div>
 			  	<img src={logo} className="siteLogoDash" alt="logo" /><h1 className="logoH1Dash">GameVault</h1>
 			  </div>
 		      <div className="container dashContainer">
 							<div className="row dashRow">
-								<Gamelist notification={this.notify} increaseExp={this.props.increaseExp} />
+								<Gamelist uID={this.props.uID} notification={this.notify} increaseExp={this.props.increaseExp} />
 							</div>
 
 							<div className="row dashRow">
-								<GroupSpace />
+								<GroupSpace uID={this.props.uID}/>
 							</div>
 
 							<div className="row dashRow">
@@ -117,7 +115,7 @@ class Dashboard extends Component {
 
 		      <LevelBar exp={this.props.exp} toNextLevel={this.props.toNextLevel}/>
 		      <HoverButtons notifications={this.state.notifications} getNotifications={this.getNotifications}/>
-		      <ToastContainer 
+		      <ToastContainer
           position="top-right"
           type="default"
           autoClose={5000}

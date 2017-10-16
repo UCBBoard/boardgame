@@ -7,7 +7,7 @@ class GroupSpace extends Component {
 
   render (props) {
     return (
-      <div className="col s12 center gamelistBox">
+      <div className="col s12 center card-panel gamelistBox">
         <div className="groupspaceHeader">
           <h2>Groups</h2>
 
@@ -25,6 +25,7 @@ class GroupSpace extends Component {
           </Modal>
 
         </div>
+
       </div>
     )
   }
