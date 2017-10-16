@@ -283,18 +283,17 @@ router.delete("/user/deletefriend/:uid/:userToDelete", (req, res) => {
 //Route for gettting active user's friends
 router.get("/user/:uid/friends", (req, res) => {
 	console.log("These are the users friends.");
-	User.findOne({ _id : req.params.uid}).populate("friends").exec((error, result) => {
-		// let result.friends.
+	User.findOne({ _id : req.params.uid}).populate("friends", "groups").exec((error, result) => {
 		console.log(result);
-		result.friends.map((friend, i) => {
-			console.log(friend.games + " iteration: " + i);
-			friend.games.map((game, i) => {
-				if(result.wishlist.includes(game)){
-					// this user has a game I want
-				}
-			})
-		})
-		res.json(result.friends);
+		// result.friends.map((friend, i) => {
+		// 	console.log(friend.games + " iteration: " + i);
+		// 	friend.games.map((game, i) => {
+		// 		if(result.wishlist.includes(game)){
+		// 			// this user has a game I want
+		// 		}
+		// 	})
+		// })
+		res.json(result);
 	})
 })
 

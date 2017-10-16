@@ -3,7 +3,6 @@ import "./Gamelist.css";
 import Axios from "axios";
 import SearchListItem from "../SearchListItem";
 import ListItem from "../ListItemTemp"
-import firebase from "firebase";
 // import ReactTooltip from 'react-tooltip';
 import {Modal, Button, Collapsible, CollapsibleItem, Input, Collection, Preloader} from "react-materialize";
 
@@ -27,7 +26,7 @@ class Gamelist extends Component {
 
 // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
   fetchGames = (listChoice) => {
-    let myId = this.props.uID
+    let myId = this.props.uID;
     console.log(`this is my id ${myId}`)
     console.log(`Searching for user ${listChoice}`);
     this.setState({

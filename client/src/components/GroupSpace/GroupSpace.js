@@ -4,7 +4,6 @@ import {Button, Modal, Input} from "react-materialize";
 
 class GroupSpace extends Component {
 
-
   render (props) {
     return (
       <div className="col s12 center card-panel gamelistBox">

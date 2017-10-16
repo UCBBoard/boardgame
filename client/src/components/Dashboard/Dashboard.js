@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import "./Dashboard.css";
 import Axios from "axios";
 import Gamelist from "../Gamelist";
-import firebase from "firebase";
 import Newsfeed from "../Newsfeed";
 import HoverButtons from "../HoverButtons";
 import Background from "../Background"
@@ -31,7 +30,7 @@ class Dashboard extends Component {
 		Axios.get(`api/user/${this.props.uID}/notifications`)
 			.then(res => {
 				this.setState({notifications: res.data})
-			}).catch(function(error) {
+			}).catch(error => {
 				console.error(error)
 			})
 	}
@@ -39,8 +38,11 @@ class Dashboard extends Component {
 	getFriends = () => {
 		Axios.get(`api/user/${this.props.uID}/friends`)
 			.then(res => {
-				this.setState({friends: res.data})
-			}).catch(function(error) {
+				this.setState({
+					friends: res.data.friends,
+					groups: res.data.groups
+				})
+			}).catch(error => {
 				console.error(error)
 			})
 	}
@@ -50,7 +52,8 @@ class Dashboard extends Component {
 	}
 
 	scrollToUserProfile = () => {
-		scrollToComponent(this.UserProfile, { offset: 0, align: 'top', duration: 1500})}
+		scrollToComponent(this.UserProfile, { offset: 0, align: 'top', duration: 1500})
+	}
 
 	componentDidMount() {
 		//if modal exists from splash page login screen, remove it
@@ -61,13 +64,13 @@ class Dashboard extends Component {
 		socket.on(this.props.uID, thingToUpdate => {
 			if (thingToUpdate === "notifications"){
 				this.getNotifications();
-				this.notify("New notification!")
+				this.notify("New notification!");
 			}
 
 			if (thingToUpdate === "friends"){
 				this.getNotifications();
 				this.getFriends();
-				this.notify("New friend added! How nice! +50xp")
+				this.notify("New friend added! How nice! +50xp");
 				this.props.increaseExp(50);
 			}
 
@@ -75,7 +78,6 @@ class Dashboard extends Component {
 				this.getLvl();
 			}
 		})
-
 	};
 
 

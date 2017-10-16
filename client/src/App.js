@@ -46,7 +46,8 @@ class App extends Component {
 							toNextLevel: response.data.toNextLevel,
 							cardNum: response.data.cardNum
 							});
-		    			console.log("searching database for user:" + response);
+		    			console.log("searching database for user:");
+		    			console.log(response);
 		    		})
 				// Axios.post(`/api/user/${user.uid}/${userName}`)
 				// .then((response, error) => {
