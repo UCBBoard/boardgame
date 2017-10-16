@@ -17,7 +17,10 @@ class GroupSpace extends Component {
             actions=" "
             trigger={<Button className='blue' id="new-group-btn" waves='light'>Create a new group</Button>}>
             <form>
-              <Input s={10} placeholder="Group Name" name="newgroup"/>
+              <Input s={10} placeholder="Group Name" name="ng-name"/>
+              <Input s={10} placeholder="Description" name="ng-descrip"/>
+              <Input s={10} placeholder="Location" name="ng-loc"/>
+              <Input type="submit"/>
             </form>
           </Modal>
 
