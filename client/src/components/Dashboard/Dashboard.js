@@ -6,12 +6,12 @@ import firebase from "firebase";
 import Newsfeed from "../Newsfeed";
 import HoverButtons from "../HoverButtons";
 import Background from "../Background"
-// import Discord from "../Discord"
 import logo from "../../assets/img/logo.png"
 import LevelBar from "../LevelBar";
 import UserProfile from "../UserProfile";
 import UserProfileThumb from "../UserProfileThumb";
 import Friendspace from "../FriendSpace";
+import GroupSpace from "../GroupSpace";
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer, toast } from 'react-toastify';
 import scrollToComponent from 'react-scroll-to-component';
@@ -93,22 +93,27 @@ class Dashboard extends Component {
 			  	<img src={logo} className="siteLogoDash" alt="logo" /><h1 className="logoH1Dash">GameVault</h1>
 			  </div>
 		      <div className="container dashContainer">
-		        <div className="row dashRow">
-		          	<Gamelist notification={this.notify} increaseExp={this.props.increaseExp} />
-		        </div>
-		        <div className="row dashRow">
-		          	<Newsfeed />
-		        </div>
+							<div className="row dashRow">
+								<Gamelist notification={this.notify} increaseExp={this.props.increaseExp} />
+							</div>
 
-		        <div className="row dashRow">
-		            <section className='UserProfile' ref={(section) => { this.UserProfile = section; }}>
-		          		<UserProfile level={this.props.level} userName={this.props.userName} cardNum={this.props.cardNum}/>
-		          	</section>
-		        </div>
+							<div className="row dashRow">
+								<GroupSpace />
+							</div>
 
-		        <div className="row dashRow">
-		          	<Friendspace friends={this.state.friends}/>
-		        </div>
+							<div className="row dashRow">
+								<section className='UserProfile' ref={(section) => { this.UserProfile = section; }}>
+									<UserProfile level={this.props.level} userName={this.props.userName} cardNum={this.props.cardNum}/>
+								</section>
+							</div>
+
+							<div className="row dashRow">
+								<Friendspace friends={this.state.friends}/>
+							</div>
+
+							<div className="row dashRow">
+								<Newsfeed />
+							</div>
 
 		      <LevelBar exp={this.props.exp} toNextLevel={this.props.toNextLevel}/>
 		      <HoverButtons notifications={this.state.notifications} getNotifications={this.getNotifications}/>
@@ -120,7 +125,7 @@ class Dashboard extends Component {
           newestOnTop={false}
           closeOnClick
           pauseOnHover
-        />
+        	/>
 
         </div>
 		    </Background>
