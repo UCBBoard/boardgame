@@ -109,10 +109,7 @@ class Dashboard extends Component {
 		        <div className="row dashRow">
 		          	<Friendspace friends={this.state.friends}/>
 		        </div>
-		         
-	      			
-		     
-		      
+
 		      <LevelBar exp={this.props.exp} toNextLevel={this.props.toNextLevel}/>
 		      <HoverButtons notifications={this.state.notifications} getNotifications={this.getNotifications}/>
 		      <ToastContainer 
