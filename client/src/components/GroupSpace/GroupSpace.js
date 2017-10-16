@@ -4,11 +4,29 @@ import {Button, Modal, Input} from "react-materialize";
 
 class GroupSpace extends Component {
 
+  state = {
+    groupName : "",
+    groupDesc: "",
+    groupLoc: ""
+  }
+
+  addAndJoinGroup = () => {
+    let uID = this.props.uID;
+  }
+
+  onInputChange = (e) => {
+    let key = e.target.id;
+    let val = e.target.value;
+    let obj = {};
+    obj[key] = val;
+    this.setState(obj);
+  }
+
   render (props) {
     return (
-      <div className="col s12 center card-panel gamelistBox">
+      <div className="col s12 center grouplistBox">
         <div className="groupspaceHeader">
-          <h2>Groups</h2>
+          <h2 className="grouplistHeader">Groups</h2>
 
           <Modal
             header="Create a group"
@@ -16,9 +34,9 @@ class GroupSpace extends Component {
             actions=" "
             trigger={<Button className='blue' id="new-group-btn" waves='light'>Create a new group</Button>}>
             <form>
-              <Input s={10} placeholder="Group Name" name="ng-name"/>
-              <Input s={10} placeholder="Description" name="ng-descrip"/>
-              <Input s={10} placeholder="Location" name="ng-loc"/>
+              <Input s={10} placeholder="Group Name" id="groupName" name="ng-name" onChange={this.onInputChange}/>
+              <Input s={10} placeholder="Description" id="groupDesc" name="ng-descrip" onChange={this.onInputChange}/>
+              <Input s={10} placeholder="Location" id="groupLoc" name="ng-loc" onChange={this.onInputChange}/>
               <Input type="submit"/>
             </form>
           </Modal>

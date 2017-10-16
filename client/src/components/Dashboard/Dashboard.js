@@ -31,7 +31,7 @@ class Dashboard extends Component {
 			.then(res => {
 				this.setState({notifications: res.data})
 			}).catch(error => {
-				console.error(error)
+				console.error(error);
 			})
 	}
 
@@ -43,7 +43,7 @@ class Dashboard extends Component {
 					groups: res.data.groups
 				})
 			}).catch(error => {
-				console.error(error)
+				console.error(error);
 			})
 	}
 

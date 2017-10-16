@@ -144,7 +144,7 @@ class Gamelist extends Component {
       <div className="col s12 center card-panel gamelistBox">
         <div className="gamelistHeaderDiv">
           <h2 className="gamelistHeader">Game Shelf</h2>
-          <Input name="Wishlist" id="list-switch" type="switch" offLabel="Your Games" onLabel="Your Wishlist" onChange={this.switchList}/>
+          <Input name="Wishlist" id="list-switch" type="switch" offLabel="Games" onLabel="Wishlist" onChange={this.switchList}/>
           <Modal
             header="Add a game to your collection"
             id="new-game-modal"
