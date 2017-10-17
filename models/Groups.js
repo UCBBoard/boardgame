@@ -22,7 +22,7 @@ var GroupSchema = new Schema({
   },
 
   mods: [{
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: "User"
   }],
 
@@ -41,7 +41,7 @@ var GroupSchema = new Schema({
   }],
 
   members: [{
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: "User"
   }]
 

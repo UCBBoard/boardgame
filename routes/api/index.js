@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const Article = require("../../models/Articles.js");
 const Game = require("../../models/Games.js");
-const User = require("../../models/Users.js")
+const User = require("../../models/Users.js");
+const Group = require("../../models/Groups.js");
 const request = require("request");
 const cheerio = require("cheerio");
 const Nightmare = require("nightmare");
@@ -362,4 +363,22 @@ router.get("/user/:uid/exp", (req, res) => {
 		}
 	})
 })
+
+//Route for creating and joining a new group
+router.post("/groups/newgroup", (req, res) => {
+	console.log(req.body);
+	Group.findOneAndUpdate({ name: req.body.groupName },
+		{
+			name: req.body.groupName,
+			description: req.body.groupDesc,
+			location: req.body.groupLoc,
+			creator: req.body.creatorID,
+			$push: {members: req.body.creatorID}
+		}).exec(result => {
+			res.json(result);
+		}).catch(error => console.log(error));
+	// User.findOneAndUpdate({ _id: req.body.creatorID },
+	// 	{$push: {groups: req.body.groupName}}).catch(error => console.log(error))
+})
+
 module.exports = router;
