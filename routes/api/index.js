@@ -367,18 +367,35 @@ router.get("/user/:uid/exp", (req, res) => {
 //Route for creating and joining a new group
 router.post("/groups/newgroup", (req, res) => {
 	console.log(req.body);
-	Group.findOneAndUpdate({ name: req.body.groupName },
-		{
-			name: req.body.groupName,
-			description: req.body.groupDesc,
-			location: req.body.groupLoc,
-			creator: req.body.creatorID,
-			$push: {members: req.body.creatorID}
-		}).exec(result => {
-			res.json(result);
-		}).catch(error => console.log(error));
-	// User.findOneAndUpdate({ _id: req.body.creatorID },
-	// 	{$push: {groups: req.body.groupName}}).catch(error => console.log(error))
+	//Query the DB to see if group exists.
+	Group.findOne({name: req.body.groupName}).exec((error, groupCheck) => {
+		if(!error) {
+			//If no error check to see if group exists
+			if(!groupCheck){
+				//if group doesn't exist, create it
+					Group.findOneAndUpdate({ name: req.body.groupName },
+						{
+							name: req.body.groupName,
+							description: req.body.groupDesc,
+							location: req.body.groupLoc,
+							creator: req.body.creatorID,
+							$push: {members: req.body.creatorID}
+						}, {new: true, upsert: true}).exec(result => {
+								console.log(result);
+								// User.findOneAndUpdate({ _id: req.body.creatorID }, {$push: {groups: req.body.groupName}})
+								// 	.exec(result2 => res.json(result2))
+								// 	.catch(error => console.log(error))
+						}).catch(error => console.log(error));
+
+			} else {
+				//if group does exist, return warning:
+				return console.log("group name is already in use!");
+			}
+		} else {
+			// If there is an error:
+			return console.log(error);
+		}
+	})
 })
 
 module.exports = router;
