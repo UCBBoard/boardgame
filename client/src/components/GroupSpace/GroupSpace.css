@@ -1,0 +1,15 @@
+.grouplistHeader {
+  font-family: 'Wendy One', sans-serif;
+  color: black;
+  height: 75px;
+  line-height: 75px;
+  margin: -6px;
+}
+
+.grouplistBox {
+  border-radius: 10px;
+  padding: 0 !important;
+  background-color: gainsboro;
+  display: inline-block;
+  padding: 15px !important;
+}

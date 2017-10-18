@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const Article = require("../../models/Articles.js");
 const Game = require("../../models/Games.js");
-const User = require("../../models/Users.js")
+const User = require("../../models/Users.js");
+const Group = require("../../models/Groups.js");
 const request = require("request");
 const cheerio = require("cheerio");
 const Nightmare = require("nightmare");
@@ -283,18 +284,17 @@ router.delete("/user/deletefriend/:uid/:userToDelete", (req, res) => {
 //Route for gettting active user's friends
 router.get("/user/:uid/friends", (req, res) => {
 	console.log("These are the users friends.");
-	User.findOne({ _id : req.params.uid}).populate("friends").exec((error, result) => {
-		// let result.friends.
+	User.findOne({ _id : req.params.uid}).populate("friends", "groups").exec((error, result) => {
 		console.log(result);
-		result.friends.map((friend, i) => {
-			console.log(friend.games + " iteration: " + i);
-			friend.games.map((game, i) => {
-				if(result.wishlist.includes(game)){
-					// this user has a game I want
-				}
-			})
-		})
-		res.json(result.friends);
+		// result.friends.map((friend, i) => {
+		// 	console.log(friend.games + " iteration: " + i);
+		// 	friend.games.map((game, i) => {
+		// 		if(result.wishlist.includes(game)){
+		// 			// this user has a game I want
+		// 		}
+		// 	})
+		// })
+		res.json(result);
 	})
 })
 
@@ -363,4 +363,39 @@ router.get("/user/:uid/exp", (req, res) => {
 		}
 	})
 })
+
+//Route for creating and joining a new group
+router.post("/groups/newgroup", (req, res) => {
+	console.log(req.body);
+	//Query the DB to see if group exists.
+	Group.findOne({name: req.body.groupName}).exec((error, groupCheck) => {
+		if(!error) {
+			//If no error check to see if group exists
+			if(!groupCheck){
+				//if group doesn't exist, create it
+					Group.findOneAndUpdate({ name: req.body.groupName },
+						{
+							name: req.body.groupName,
+							description: req.body.groupDesc,
+							location: req.body.groupLoc,
+							creator: req.body.creatorID,
+							$push: {members: req.body.creatorID}
+						}, {new: true, upsert: true}).exec(result => {
+								console.log(result);
+								// User.findOneAndUpdate({ _id: req.body.creatorID }, {$push: {groups: req.body.groupName}})
+								// 	.exec(result2 => res.json(result2))
+								// 	.catch(error => console.log(error))
+						}).catch(error => console.log(error));
+
+			} else {
+				//if group does exist, return warning:
+				return console.log("group name is already in use!");
+			}
+		} else {
+			// If there is an error:
+			return console.log(error);
+		}
+	})
+})
+
 module.exports = router;

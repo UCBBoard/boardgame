@@ -22,7 +22,7 @@ var GroupSchema = new Schema({
   },
 
   mods: [{
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: "User"
   }],
 
@@ -41,8 +41,16 @@ var GroupSchema = new Schema({
   }],
 
   members: [{
-    type: Schema.Types.ObjectId,
-    ref: "User"
+    type: String,
+    ref: "User",
+    validate: {
+      validator: function(v, cb) {
+        User.find({name: v}, function(err,docs){
+           cb(docs.length == 0);
+        });
+      },
+      message: 'User already exists!'
+    }
   }]
 
 })
