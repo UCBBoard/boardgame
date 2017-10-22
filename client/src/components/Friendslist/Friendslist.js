@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Friendslist.css";
-import firebase from "firebase";
+// import firebase from "firebase";
 import Axios from "axios";
 import {Button, Input, Row, Col} from "react-materialize";
 import FriendProfile from "../FriendProfile";
@@ -14,19 +14,19 @@ class Friendslist extends Component {
 		query: ''
 	}
 
-	// showMyFriends = () => {
-	// 	let activeUser = firebase.auth().currentUser.uid
-	// 	Axios.get(`api/user/${activeUser}/friends`)
-	// 		.then(res => {
-	// 			this.setState({friends: res.data, friendsView: 'mine'})
-	// 		}).catch(function(error) {
-	// 			console.error(error)
-	// 		})
-	// }
+	showMyFriends = () => {
+		let activeUser = this.props.uID;
+		Axios.get(`api/user/${activeUser}/friends`)
+			.then(res => {
+				this.setState({friends: res.data, friendsView: 'mine'})
+			}).catch(function(error) {
+				console.error(error)
+			})
+	}
 
-	// componentDidMount() {
-	// 	this.showMyFriends();
-	// }
+	componentDidMount() {
+		this.showMyFriends();
+	}
 
 	findAFriend = (event) => {
 		event.preventDefault();
@@ -43,7 +43,7 @@ class Friendslist extends Component {
 	}
 
 	showAllFriends = () => {
-		Axios.get("/api/user/all/" + firebase.auth().currentUser.uid)
+		Axios.get("/api/user/all/" + this.props.uID)
 			.then(res => {
 				// console.log()
 				this.setState({friends: res.data, friendsView: 'all'})
@@ -62,15 +62,15 @@ class Friendslist extends Component {
 
 
 	addNotification = (event) => {
-		let activeUser = firebase.auth().currentUser.uid
-		let secondUser = event.target.dataset.id
+		let activeUser = this.props.uID;
+		let secondUser = event.target.dataset.id;
 		let route = `/api/user/${secondUser}/addNotification/${activeUser}`
 		Axios.post(route)
 		this.showAllFriends()
 	}
 
 	removeFriend = (event) => {
-		let activeUser = firebase.auth().currentUser.uid
+		let activeUser = this.props.uID;
 		let secondUser = event.target.dataset.id
 		let route = `/api/user/deletefriend/${activeUser}/${secondUser}`
 		Axios.delete(route)
