@@ -116,7 +116,7 @@ class Dashboard extends Component {
 							</div>
 
 		      <LevelBar exp={this.props.exp} toNextLevel={this.props.toNextLevel}/>
-		      <HoverButtons notifications={this.state.notifications} getNotifications={this.getNotifications}/>
+		      <HoverButtons uID={this.props.uID} notifications={this.state.notifications} getNotifications={this.getNotifications}/>
 		      <ToastContainer
           position="top-right"
           type="default"

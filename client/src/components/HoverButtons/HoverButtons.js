@@ -17,12 +17,12 @@ const HoverButtons = (props) =>
       <Notifications notifications={props.notifications} getNotifications={props.getNotifications}/>
 		</Modal>
 		<ul>
-			<li className="hoverButtonLi"><a className="btn-floating orange darken-3" onClick={logout}><i className="material-icons" data-tip="Log Out" >exit_to_app</i></a></li>
+			<li className="hoverButtonLi"><a className="btn-floating orange darken-3" data-place="left" onClick={logout}><i className="material-icons" data-tip="Log Out" >exit_to_app</i></a></li>
 				<Modal
         header="Friends"
         trigger={<li className="hoverButtonLi"><a className="btn-floating orange darken-3"><i className="material-icons" data-tip="Contacts" data-place="left" >contacts</i></a></li>}
         >
-        	<Friendslist/>
+        	<Friendslist {...props}/>
 				</Modal>
 		</ul>
 	</div>
