@@ -373,20 +373,21 @@ router.post("/groups/newgroup", (req, res) => {
 			//If no error check to see if group exists
 			if(!groupCheck){
 				//if group doesn't exist, create it
-					Group.findOneAndUpdate({ name: req.body.groupName },
-						{
+					let conditions = {name: req.body.groupName};
+					let update = {$set:	{
 							name: req.body.groupName,
 							description: req.body.groupDesc,
 							location: req.body.groupLoc,
 							creator: req.body.creatorID,
 							$push: {members: req.body.creatorID}
-						}, {new: true, upsert: true}).exec(result => {
-								console.log(result);
-								// User.findOneAndUpdate({ _id: req.body.creatorID }, {$push: {groups: req.body.groupName}})
-								// 	.exec(result2 => res.json(result2))
-								// 	.catch(error => console.log(error))
-						}).catch(error => console.log(error));
-
+						}};
+					let options = {upsert: true, new: true};
+					Group.findOneAndUpdate(conditions, update, options, (err, response) => {
+						console.log(response._id);
+						User.findOneAndUpdate({ _id: req.body.creatorID }, {$push: {groups: response._id}})
+							.exec(response => res.json(response))
+							.catch(error => console.log(error))
+					})
 			} else {
 				//if group does exist, return warning:
 				return console.log("group name is already in use!");
