@@ -98,7 +98,10 @@ class Dashboard extends Component {
 							</div>
 
 							<div className="row dashRow">
-								<GroupSpace uID={this.props.uID}/>
+								<GroupSpace
+									uID={this.props.uID}
+									groups={this.props.groups}
+								/>
 							</div>
 
 							<div className="row dashRow">
