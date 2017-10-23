@@ -21,7 +21,7 @@ class Friendslist extends Component {
 		Axios.get(`api/user/${activeUser}/friends`)
 			.then(res => {
 				console.log(res.data);
-				this.setState({friends: res.data, friendsView: 'mine'})
+				this.setState({friends: res.data.friends, friendsView: 'mine'})
 			}).catch(function(error) {
 				console.log("error in showMyFriends");
 				console.error(error)
@@ -102,7 +102,7 @@ class Friendslist extends Component {
 		  		</form>
 	  		</Row>
 
-				{this.state.friends === [] ? this.state.friends.map((element, i) =>
+				{this.state.friends.map((element, i) =>
 					<div key={i} className="center">
 						<FriendProfile level={element.level} userName={element.name} cardNum={element.cardNum}/>
 						{this.state.friendsView === 'all' ?
@@ -110,8 +110,7 @@ class Friendslist extends Component {
 						<Button data-id={element._id} onClick={this.removeFriend} className ="delete"> Delete friend </Button>
 						}
 					</div>
-					) : <p> no friends found </p>
-				}
+				)}
 			</div>
 	  );
 	};
