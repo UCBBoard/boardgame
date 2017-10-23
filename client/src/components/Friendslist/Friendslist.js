@@ -16,10 +16,14 @@ class Friendslist extends Component {
 
 	showMyFriends = () => {
 		let activeUser = this.props.uID;
+		console.log("finding my friends");
+		console.log("finding friends of " + this.props.uID);
 		Axios.get(`api/user/${activeUser}/friends`)
 			.then(res => {
+				console.log(res.data);
 				this.setState({friends: res.data, friendsView: 'mine'})
 			}).catch(function(error) {
+				console.log("error in showMyFriends");
 				console.error(error)
 			})
 	}
@@ -45,7 +49,7 @@ class Friendslist extends Component {
 	showAllFriends = () => {
 		Axios.get("/api/user/all/" + this.props.uID)
 			.then(res => {
-				// console.log()
+				console.log("is this running? showAllFriends friendlist.js")
 				this.setState({friends: res.data, friendsView: 'all'})
 		}).catch(function(error) {
 				console.error(error);
@@ -98,7 +102,7 @@ class Friendslist extends Component {
 		  		</form>
 	  		</Row>
 
-				{this.state.friends.map((element, i) =>
+				{this.state.friends === [] ? this.state.friends.map((element, i) =>
 					<div key={i} className="center">
 						<FriendProfile level={element.level} userName={element.name} cardNum={element.cardNum}/>
 						{this.state.friendsView === 'all' ?
@@ -106,7 +110,8 @@ class Friendslist extends Component {
 						<Button data-id={element._id} onClick={this.removeFriend} className ="delete"> Delete friend </Button>
 						}
 					</div>
-				)}
+					) : <p> no friends found </p>
+				}
 			</div>
 	  );
 	};
