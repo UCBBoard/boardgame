@@ -59,6 +59,11 @@ var UserSchema = new Schema({
     type: String,
     ref: "User"
     },
+  ],
+
+  newsfeed: [{
+    type: String,
+    }
   ]
 
 });
