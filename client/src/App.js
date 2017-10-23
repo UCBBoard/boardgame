@@ -34,7 +34,7 @@ class App extends Component {
 			if (user) {
 				let userName = user.email.split("@")[0]
 				console.log(userName)
-				Axios.post("/api/user/" + user.uid + "/" + userName)
+				Axios.post("/api/user/" + user.uid + "/" + userName + "/" + user.email)
 						.then((response) => {
 							this.setState({
 							level: response.data.level,
@@ -46,19 +46,20 @@ class App extends Component {
 							toNextLevel: response.data.toNextLevel,
 							cardNum: response.data.cardNum
 							});
-		    			console.log("searching database for user:" + response);
+		    			console.log("searching database for user:");
+		    			console.log(response);
 		    		})
-				Axios.post(`/api/user/${user.uid}/${userName}`)
-				.then((response, error) => {
-					this.setState({
-						level: response.data.level,
-						UID: user.uid,
-						userName: userName,
-						authed: true,
-						loading: false,
-					});
-					console.log("searching database for user:" + response);
-				})
+				// Axios.post(`/api/user/${user.uid}/${userName}`)
+				// .then((response, error) => {
+				// 	this.setState({
+				// 		level: response.data.level,
+				// 		UID: user.uid,
+				// 		userName: userName,
+				// 		authed: true,
+				// 		loading: false,
+				// 	});
+				// 	console.log("searching database for user:" + response);
+				// })
 			} else {
 				this.setState({
 					authed: false,

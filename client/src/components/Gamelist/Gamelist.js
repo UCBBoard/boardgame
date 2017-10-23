@@ -3,7 +3,6 @@ import "./Gamelist.css";
 import Axios from "axios";
 import SearchListItem from "../SearchListItem";
 import ListItem from "../ListItemTemp"
-import firebase from "firebase";
 // import ReactTooltip from 'react-tooltip';
 import {Modal, Button, Collapsible, CollapsibleItem, Input, Collection, Preloader} from "react-materialize";
 
@@ -27,7 +26,7 @@ class Gamelist extends Component {
 
 // For loading a users list of games when the Dashboard >>> Gamelist is rendered.
   fetchGames = (listChoice) => {
-    let myId = firebase.auth().currentUser.uid
+    let myId = this.props.uID;
     console.log(`this is my id ${myId}`)
     console.log(`Searching for user ${listChoice}`);
     this.setState({
@@ -64,7 +63,7 @@ class Gamelist extends Component {
     this.props.increaseExp(10)
     console.log("subbing new game");
     this.props.notification("New game added! +10 EXP!");
-    let userId = firebase.auth().currentUser.uid;
+    let userId = this.props.uID;
     const postRoute = "/api/newgame/" + gameId + "/" + userId + "/" + owned;
     console.log("postroute: " + postRoute);
     Axios.post(postRoute)
@@ -129,7 +128,7 @@ class Gamelist extends Component {
 //Method of removing games from a users gamelist.
   deleteGame = (e) => {
     this.props.notification("Game deleted!");
-    let userId = firebase.auth().currentUser.uid;
+    let userId = this.props.uID;
     let game = e.target.dataset.id;
     console.log(`/api/games/deletegame/${userId}/${game}/${this.state.currentList}`);
     let route = `/api/games/deletegame/${userId}/${game}/${this.state.currentList}`;
@@ -145,7 +144,7 @@ class Gamelist extends Component {
       <div className="col s12 center card-panel gamelistBox">
         <div className="gamelistHeaderDiv">
           <h2 className="gamelistHeader">Game Shelf</h2>
-          <Input name="Wishlist" id="list-switch" type="switch" offLabel="Your Games" onLabel="Your Wishlist" onChange={this.switchList}/>
+          <Input name="Wishlist" id="list-switch" type="switch" offLabel="Games" onLabel="Wishlist" onChange={this.switchList}/>
           <Modal
             header="Add a game to your collection"
             id="new-game-modal"

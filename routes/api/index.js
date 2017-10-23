@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const Article = require("../../models/Articles.js");
 const Game = require("../../models/Games.js");
-const User = require("../../models/Users.js")
+const User = require("../../models/Users.js");
+const Group = require("../../models/Groups.js");
 const request = require("request");
 const cheerio = require("cheerio");
 const Nightmare = require("nightmare");
@@ -212,11 +213,12 @@ router.delete("/games/deletegame/:uid/:game/:owned", (req, res) => {
 	//Add the user to the games user thing. Depending on which we want to use.
 
 // Route for checking user status and getting mongoUID.
-router.post("/user/:uid/:userName", (req, res) => {
+router.post("/user/:uid/:userName/:userMail", (req, res) => {
 	console.log("uid" + req.params.uid)
 			let user = new User(
 				{ _id : req.params.uid,
 					name: req.params.userName,
+					email: req.params.userMail,
 					cardNum: Math.floor(Math.random() * 9),
 				})
 			User.findOne({_id: req.params.uid}, function(error, resultUser){
@@ -282,8 +284,17 @@ router.delete("/user/deletefriend/:uid/:userToDelete", (req, res) => {
 //Route for gettting active user's friends
 router.get("/user/:uid/friends", (req, res) => {
 	console.log("These are the users friends.");
-	User.findOne({ _id : req.params.uid}).populate("friends").exec((error, result) => {
-		res.json(result.friends);
+	User.findOne({ _id : req.params.uid}).populate("friends", "groups").exec((error, result) => {
+		console.log(result);
+		// result.friends.map((friend, i) => {
+		// 	console.log(friend.games + " iteration: " + i);
+		// 	friend.games.map((game, i) => {
+		// 		if(result.wishlist.includes(game)){
+		// 			// this user has a game I want
+		// 		}
+		// 	})
+		// })
+		res.json(result);
 	})
 })
 
@@ -308,13 +319,12 @@ router.get("/user/all/:id?", (req, res) => {
 	}
 })
 
-router.get("/user/search/:searchQuery", (req, res) => {
-	console.log(req.params.searchQuery)
-	let searchQuery = req.params.searchQuery
-	User.find({ name : searchQuery }).exec((error, result) => {
-		// let foundUsers = result.data
-		res.json(result);
-	})
+router.get("/user/search/:searchQuery/", (req, res) => {
+	console.log(req.params.searchQuery);
+	let searchQuery = req.params.searchQuery;
+		User.find({ name : searchQuery }).exec((error, result) => {
+			res.json(result);
+		})
 })
 
 //Route for adding a notification
@@ -353,4 +363,39 @@ router.get("/user/:uid/exp", (req, res) => {
 		}
 	})
 })
+
+//Route for creating and joining a new group
+router.post("/groups/newgroup", (req, res) => {
+	console.log(req.body);
+	//Query the DB to see if group exists.
+	Group.findOne({name: req.body.groupName}).exec((error, groupCheck) => {
+		if(!error) {
+			//If no error check to see if group exists
+			if(!groupCheck){
+				//if group doesn't exist, create it
+					Group.findOneAndUpdate({ name: req.body.groupName },
+						{
+							name: req.body.groupName,
+							description: req.body.groupDesc,
+							location: req.body.groupLoc,
+							creator: req.body.creatorID,
+							$push: {members: req.body.creatorID}
+						}, {new: true, upsert: true}).exec(result => {
+								console.log(result);
+								// User.findOneAndUpdate({ _id: req.body.creatorID }, {$push: {groups: req.body.groupName}})
+								// 	.exec(result2 => res.json(result2))
+								// 	.catch(error => console.log(error))
+						}).catch(error => console.log(error));
+
+			} else {
+				//if group does exist, return warning:
+				return console.log("group name is already in use!");
+			}
+		} else {
+			// If there is an error:
+			return console.log(error);
+		}
+	})
+})
+
 module.exports = router;
