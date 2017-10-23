@@ -38,9 +38,10 @@ class FriendSpace extends Component {
 	        header="Friends"
 	        trigger={<Button className="addFriendButtonDash">Add Friend</Button>}
 	        >
-	        	<Friendslist/>
+	        	<Friendslist uID={this.props.uID}/>
 					</Modal>
 	      </div>
   </div>
 }
+
 export default FriendSpace;
