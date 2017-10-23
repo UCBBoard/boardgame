@@ -388,11 +388,6 @@ router.post("/groups/newgroup", (req, res) => {
 							.exec(response => res.json(response))
 							.catch(error => console.log(error))
 					})
-							// .exec(result => {
-								// console.log(result);
-
-						// }).catch(error => console.log(error));
-
 			} else {
 				//if group does exist, return warning:
 				return console.log("group name is already in use!");

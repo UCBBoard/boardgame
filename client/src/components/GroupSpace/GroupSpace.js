@@ -24,8 +24,9 @@ class GroupSpace extends Component {
     }).catch(error => {
       console.log(error);
     })
-    // document.getElementById('new-group-modal').remove();
-    // document.querySelector(".modal-overlay").remove();
+    document.getElementById("new-group-modal").remove();
+    document.querySelector(".modal-overlay").remove();
+    document.getElementsByTagName('body')[0].style.overflow = 'scroll';
   }
 
   onInputChange = (e) => {
