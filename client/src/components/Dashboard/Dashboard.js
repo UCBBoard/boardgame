@@ -27,6 +27,7 @@ class Dashboard extends Component {
 	}
 
 	getNotifications = () => {
+		console.log(this.props.uID);
 		Axios.get(`api/user/${this.props.uID}/notifications`)
 			.then(res => {
 				this.setState({notifications: res.data})
@@ -98,7 +99,10 @@ class Dashboard extends Component {
 							</div>
 
 							<div className="row dashRow">
-								<GroupSpace uID={this.props.uID}/>
+								<GroupSpace
+									uID={this.props.uID}
+									groups={this.props.groups}
+								/>
 							</div>
 
 							<div className="row dashRow">
@@ -108,7 +112,7 @@ class Dashboard extends Component {
 							</div>
 
 							<div className="row dashRow">
-								<Friendspace friends={this.state.friends}/>
+								<Friendspace uID={this.props.uID} friends={this.state.friends}/>
 							</div>
 
 							<div className="row dashRow">

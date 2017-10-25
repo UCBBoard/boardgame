@@ -42,15 +42,7 @@ var GroupSchema = new Schema({
 
   members: [{
     type: String,
-    ref: "User",
-    validate: {
-      validator: function(v, cb) {
-        User.find({name: v}, function(err,docs){
-           cb(docs.length == 0);
-        });
-      },
-      message: 'User already exists!'
-    }
+    ref: "User"
   }]
 
 })

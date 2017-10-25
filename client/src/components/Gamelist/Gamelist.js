@@ -77,6 +77,7 @@ class Gamelist extends Component {
       });
       document.getElementById('new-game-modal').remove();
       document.querySelector(".modal-overlay").remove();
+      document.getElementsByTagName('body')[0].style.overflow = 'scroll';
       this.fetchGames(this.state.currentList);
     })
     .catch((error) => { console.log(error) })
@@ -85,9 +86,8 @@ class Gamelist extends Component {
 //For handling input Change - may no longer be needed.
   handleChange = (e) => {
     let searchQuery = e.target.value;
-    console.log(searchQuery);
     this.setState({
-      query: e.target.value
+      query: searchQuery
     })
   }
 
@@ -104,7 +104,7 @@ class Gamelist extends Component {
       .then((response) => {
         // console.log(response.data);
         response.data.map((data) => {
-          console.log(data);
+          // console.log(data);
           let dataName = data.name[0]._;
           let dataDate = data.yearpublished[0];
           let dataId = data.$.objectid;
