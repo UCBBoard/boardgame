@@ -11,8 +11,11 @@ import {Carousel} from "react-materialize";
 class FriendSpace extends Component {
   conditional = props => {
     let friends = this.props.friends.map((element, i) => {
-            return <div key={"fc" + element.uid + i}><FriendProfileDash level={element.level} userName={element.name} cardNum={element.cardNum} /></div>
-          })
+            console.log(element);
+            return <div key={"fc" + element._id + i}><FriendProfileDash level={element.level} userName={element.name} cardNum={element.cardNum} /></div>
+          }
+          )
+
     if (this.props.friends.length > 0){
       return (
         <Carousel options={{ fullWidth: false }}>

@@ -71,7 +71,13 @@ var UserSchema = new Schema({
   notifications: [{
     type: String,
     ref: "User"
-  }]
+    },
+  ],
+
+  newsfeed: [{
+    type: String
+    }
+  ]
 
 });
 

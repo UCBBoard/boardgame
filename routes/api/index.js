@@ -57,7 +57,7 @@ router.get("/games/:name", function(req, res){
 
 //Route to get 6 results back from a given word search to the BGG API. Used in the autofill input suggestions.
 router.get("/games/search/:name", function(req, res){
-	console.log("Searching: " + req.params.name);
+	// console.log("Searching: " + req.params.name);
 	axios.get("https://www.boardgamegeek.com/xmlapi/search?search=" + req.params.name)
 	.then(function(response){
 		parseString(response.data, function (err, result) {
@@ -69,14 +69,14 @@ router.get("/games/search/:name", function(req, res){
 // This is the route that the Gamelist Module calls when it mounts - searches the database, finds the user (passed in through params), and returns a populated list of games.
 router.get("/games/:uid/mylist/:owned", (req, res) => {
 	// if(res  null) {
-		console.log("Getting user " + req.params.owned + ".");
+		// console.log("Getting user " + req.params.owned + ".");
 		User.findOne({ _id : req.params.uid}).populate("games").populate("wishlist").exec((error, result) => {
 			if(result.games != null) {
 				if (req.params.owned === "wishlist") {
-					console.log(result.games);
+					// console.log(result.games);
 					res.json(result.wishlist);
 				} else {
-					console.log(result);
+					// console.log(result);
 					res.json(result.games);
 				}
 			}
@@ -118,19 +118,19 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 					let gameToAdd = new Game (game)
 				//Search the Game collection to see if the game exists
 					Game.findOne({title: game.title}, function(error, result3){
-						console.log("when adding new game, the result is " + result3);
+						// console.log("when adding new game, the result is " + result3);
 					// If the game already exists...
 						if (result3){
 							var key = ownedList;
 							var value = result3._id;
 							let thisList = {};
 							thisList[key] = value;
-							console.log("<<<<<<result3>>>>>")
-							console.log(result3);
+							// console.log("<<<<<<result3>>>>>")
+							// console.log(result3);
 						//Add it to the users profile, unless it already exists.
 							User.findOneAndUpdate({ _id : userID }, {$addToSet:  thisList}).exec((error, result4) => {
-								console.log("updating gamelist in User Profile")
-								console.log(result4);
+								// console.log("updating gamelist in User Profile")
+								// console.log(result4);
 							//Update EXP for user.
 								User.findOne({ _id : userID }).exec((error, result5) => {
 									let newExp = levelHelper.stripExp(result5.exp + 10, result5.toNextLevel);
@@ -171,7 +171,6 @@ router.post("/newgame/:gameid/:uid/:owned", (req, res) => {
 		})
 })
 
-
 // // Route for deleting a game
 // router.post("/exp/:uid/:expToAdd", (req, res) => {
 // 	// if(res  null) {
@@ -188,8 +187,8 @@ router.delete("/games/deletegame/:uid/:game/:owned", (req, res) => {
 	owned === "owned" ?  owned = "games" : owned = "wishlist";
 	let thisList = {};
 	thisList[owned] = game;
-	console.log(thisList);
-	console.log(`Deleting game ${game} from ${req.params.owned}`);
+	// console.log(thisList);
+	// console.log(`Deleting game ${game} from ${req.params.owned}`);
 					// should be({ _id : userID}, {$pull: { owned : game}})
 	User.findOneAndUpdate({ _id: userID}, {$pull: thisList}).exec((error, result) => {
 		if(!error){
@@ -212,37 +211,12 @@ router.delete("/games/deletegame/:uid/:game/:owned", (req, res) => {
 
 	//Add the user to the games user thing. Depending on which we want to use.
 
-// Route for checking user status and getting mongoUID.
-router.post("/user/:uid/:userName/:userMail", (req, res) => {
-	console.log("uid" + req.params.uid)
-			let user = new User(
-				{ _id : req.params.uid,
-					name: req.params.userName,
-					email: req.params.userMail,
-					cardNum: Math.floor(Math.random() * 9),
-				})
-			User.findOne({_id: req.params.uid}, function(error, resultUser){
-				if (!resultUser){
-					user.save((error, result) => {
-						if(!error) {
-							return res.json(result);
-						} else {
-							return console.log(error);
-						};
-					});
-				}
-
-				else {
-					res.json(resultUser);
-				}
-			})
-	});
 
 //Route for adding a user as a friend
 router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
 	let userID = req.params.uid;
 	let secondUserID = req.params.seconduid
-	console.log(`We be addin friends ${userID} ${secondUserID}`);
+	// console.log(`We be addin friends ${userID} ${secondUserID}`);
 	User.findOneAndUpdate({ _id: userID}, {$push: {friends: secondUserID} }).exec((error, result) => {
 		console.log(error);
 		//Updating user 1 xp
@@ -275,7 +249,7 @@ router.post("/user/addfriend/:uid/:seconduid", (req, res) => {
 router.delete("/user/deletefriend/:uid/:userToDelete", (req, res) => {
 	let userID = req.params.uid;
 	let secondUserID = req.params.userToDelete
-	console.log(`Deleting user ${secondUserID}`);
+	// console.log(`Deleting user ${secondUserID}`);
 	User.findOneAndUpdate({ _id: userID}, {$pull: {friends: secondUserID}}).exec((error, result) => {
 		res.json(result)
 	})
@@ -283,9 +257,9 @@ router.delete("/user/deletefriend/:uid/:userToDelete", (req, res) => {
 
 //Route for gettting active user's friends
 router.get("/user/:uid/friends", (req, res) => {
-	console.log("These are the users friends.");
-	User.findOne({ _id : req.params.uid}).populate("friends", "groups").exec((error, result) => {
-		console.log(result);
+	// console.log("These are the users friends.");
+	User.findOne({ _id : req.params.uid}).populate("friends").exec((error, result) => {
+		// console.log(result);
 		// result.friends.map((friend, i) => {
 		// 	console.log(friend.games + " iteration: " + i);
 		// 	friend.games.map((game, i) => {
@@ -294,14 +268,15 @@ router.get("/user/:uid/friends", (req, res) => {
 		// 		}
 		// 	})
 		// })
+		console.log(result);
 		res.json(result);
 	})
 })
 
 //Route for getting all users
 router.get("/user/all/:id?", (req, res) => {
-	console.log(req.params.id)
-	console.log("These are all users signed up with Gamevault.");
+	// console.log(req.params.id)
+	// console.log("These are all users signed up with Gamevault.");
 	if (!req.params.id){
 		User.find({}).exec((error, result) => {
 			res.json(result);
@@ -328,7 +303,7 @@ router.get("/user/search/:searchQuery/", (req, res) => {
 })
 
 //Route for adding a notification
-router.post("/user/:uid/addnotification/:seconduid", (req, res) => {
+router.post("/user/addnotification/:uid/:seconduid", (req, res) => {
 	let userID = req.params.uid;
 	let secondUserID = req.params.seconduid
 	console.log(`We be addin notifications ${userID} ${secondUserID}`);
@@ -398,5 +373,31 @@ router.post("/groups/newgroup", (req, res) => {
 		}
 	})
 })
+
+// Route for checking user status and getting mongoUID.
+router.post("/user/:uid/:userName/:userMail", (req, res) => {
+	// console.log("uid" + req.params.uid)
+			let user = new User(
+				{ _id : req.params.uid,
+					name: req.params.userName,
+					email: req.params.userMail,
+					cardNum: Math.floor(Math.random() * 9),
+				})
+			User.findOne({_id: req.params.uid}, function(error, resultUser){
+				if (!resultUser){
+					user.save((error, result) => {
+						if(!error) {
+							return res.json(result);
+						} else {
+							return console.log(error);
+						};
+					});
+				}
+
+				else {
+					res.json(resultUser);
+				}
+			})
+	});
 
 module.exports = router;
